@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import { SettingsService } from './settings.service';
 
 describe('Service: Settings', () => {
@@ -10,7 +10,11 @@ describe('Service: Settings', () => {
     });
   });
 
-  it('should ...', inject([SettingsService], (service: SettingsService) => {
-    expect(service).toBeTruthy();
+  it('should specify layout configuration', inject([SettingsService], (service: SettingsService) => {
+    expect(service.layout).toBeDefined();
+  }));
+
+  it('should be fixed layout', inject([SettingsService], (service: SettingsService) => {
+    expect(service.layout.isFixed).toBeTruthy();
   }));
 });
