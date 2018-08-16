@@ -128,11 +128,11 @@
   "defaultProject": "mu-angular-seed",
   "schematics": {
     "@schematics/angular:component": {
-      "prefix": "app",
+      "prefix": "mu",
       "styleext": "scss"
     },
     "@schematics/angular:directive": {
-      "prefix": "app"
+      "prefix": "mu"
     }
   }
 }
