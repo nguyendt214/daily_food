@@ -1,11 +1,21 @@
 {
   "name": "mu-angular-seed",
   "version": "0.0.0",
-  "author": {
-    "name": "Amine ALOULOU",
-    "email": "amine.aloulou@nordnet.fr"
-  },
   "description": "MultiUniverse Angular Seed",
+  "author": {
+    "name": "DSI Nordnet",
+    "email": "dsi@nordnet.com"
+  },
+  "contributors": [
+    {
+      "name": "Amine ALOULOU",
+      "email": "amine.aloulou@nordnet.fr"
+    }
+  ],
+  "repository": {
+    "type": "GIT",
+    "url": "ssh://git@stash.dvpt.nordnet.fr:7999/mu/mu-angular-seed.git"
+  },
   "scripts": {
     "ng": "ng",
     "install": "npm run napa",
