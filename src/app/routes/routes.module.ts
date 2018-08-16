@@ -6,7 +6,7 @@ import { HomeModule } from './home/home.module';
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(routes, { enableTracing: true }),
+        RouterModule.forRoot(routes),
         HomeModule
     ],
     declarations: [],
