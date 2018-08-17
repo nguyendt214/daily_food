@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'mu-sso-auth';
 import { KeycloakProfile } from 'keycloak-js';
 import { ActivatedRoute } from '@angular/router';
 
