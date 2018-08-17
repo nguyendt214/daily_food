@@ -8,6 +8,7 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { RoutesModule } from './routes/routes.module';
 import { SSOAuthModule } from 'mu-sso-auth';
+import { LogModule } from 'mu-ui-log';
 import { environment } from '../environments/environment';
 
 const packageInfo: any = require('../../package.json');
@@ -28,6 +29,14 @@ const packageInfo: any = require('../../package.json');
       client_id: packageInfo.name,
       load_mode: environment.standalone ? 'login-required' : 'check-sso'
     }),
+    LogModule.forRoot({
+      appName: packageInfo.name,
+      webSocket: environment.ws_log_url,
+      appVersion: packageInfo.version,
+      reportHttp: true,
+      reportRouting: true,
+      writeToConsole: !environment.production
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
