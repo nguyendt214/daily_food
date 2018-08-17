@@ -26,7 +26,7 @@ const packageInfo: any = require('../../package.json');
       sso_url: environment.sso_url,
       sso_realm: environment.sso_realm,
       client_id: packageInfo.name,
-      load_mode: 'login-required'
+      load_mode: environment.standalone ? 'login-required' : 'check-sso'
     }),
   ],
   providers: [],

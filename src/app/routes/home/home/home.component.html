@@ -5,6 +5,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">Content title here</div>
   <div class="panel-body">
-    Content here :)
+    <div [hidden]="user">Chargement ...</div>
+    <span [hidden]="!user">Bonjour {{user?.username}} :)</span>
   </div>
 </div>

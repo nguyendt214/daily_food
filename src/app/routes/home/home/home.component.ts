@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'mu-sso-auth';
+import { KeycloakProfile } from 'keycloak-js';
 
 
 @Component({
@@ -8,11 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() {
+  user: KeycloakProfile;
 
-  }
+  constructor(public authService: AuthenticationService) { }
+
   ngOnInit() {
-
+    this.authService.loadUserProfile().subscribe(profile => {
+      this.user = profile;
+    });
   }
 
 }
