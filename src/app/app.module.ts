@@ -11,8 +11,6 @@ import { SSOAuthModule } from 'mu-sso-auth';
 import { LogModule } from 'mu-ui-log';
 import { environment } from '../environments/environment';
 
-const packageInfo: any = require('../../package.json');
-
 @NgModule({
   declarations: [
     AppComponent
@@ -26,13 +24,13 @@ const packageInfo: any = require('../../package.json');
     SSOAuthModule.forRoot({
       sso_url: environment.sso_url,
       sso_realm: environment.sso_realm,
-      client_id: packageInfo.name,
+      client_id: environment.app_name,
       load_mode: environment.standalone ? 'login-required' : 'check-sso'
     }),
     LogModule.forRoot({
-      appName: packageInfo.name,
+      appName: environment.app_name,
       webSocket: environment.ws_log_url,
-      appVersion: packageInfo.version,
+      appVersion: environment.version,
       reportHttp: true,
       reportRouting: true,
       writeToConsole: !environment.production

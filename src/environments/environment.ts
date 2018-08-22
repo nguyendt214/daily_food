@@ -6,7 +6,14 @@
 export const environment = {
   production: false,
   standalone: true,
+  version: require('../../package.json').version,
+  app_name: require('../../package.json').name,
   sso_url: 'https://sso.dev.nordnet.fr/auth',
   sso_realm: 'nordnet-mu',
   ws_log_url: 'http://appnodejs1-c1.dev.nordnet.fr:34110',
 };
+
+/*
+ * We require package.json in dev server only.
+ * In other environments files we replace pattern pattern for version and app_name in CI pipeline.
+*/
