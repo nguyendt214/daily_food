@@ -5,5 +5,6 @@ export const environment = {
   app_name: '%%package_name%%',
   sso_url: 'https://sso.dev.nordnet.fr/auth',
   sso_realm: 'nordnet-mu',
-  ws_log_url:  'http://appnodejs1-c1.dev.nordnet.fr:34110',
+  mu_api: 'https://apim.kong.dev.nordnet.fr:8443/mu-server-api/api',
+  mu_api_key: '74c138e5-a3aa-466d-a17e-c5bfc5fd945e',
 };

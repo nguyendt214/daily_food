@@ -80,7 +80,7 @@
     "moment": "2.22.1",
     "morgan": "~1.9.0",
     "mu-sso-auth": "^2.0.1",
-    "mu-ui-log": "^1.4.0",
+    "mu-ui-log": "^2.0.0",
     "ng2-charts": "1.6.0",
     "ng2-dnd": "5.0.2",
     "ng2-file-upload": "1.3.0",

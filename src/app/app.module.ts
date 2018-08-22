@@ -29,7 +29,8 @@ import { environment } from '../environments/environment';
     }),
     LogModule.forRoot({
       appName: environment.app_name,
-      webSocket: environment.ws_log_url,
+      apiURL: environment.mu_api,
+      apiKey: environment.mu_api_key,
       appVersion: environment.version,
       reportHttp: true,
       reportRouting: true,
