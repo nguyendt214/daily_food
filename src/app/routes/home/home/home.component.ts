@@ -15,7 +15,6 @@ export class HomeComponent implements OnInit {
   constructor(public route: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log(this.route.data);
     this.route.data.subscribe(data => {
       this.user = data.user;
     });
