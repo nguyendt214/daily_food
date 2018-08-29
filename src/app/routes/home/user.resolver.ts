@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
 import { KeycloakProfile } from 'keycloak-js';
-import { AuthenticationService } from 'mu-sso-auth';
+import { AuthenticationService } from '@mu/authentication';
 
 @Injectable({
   providedIn: 'root'

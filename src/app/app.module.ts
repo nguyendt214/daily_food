@@ -1,14 +1,12 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppComponent } from './app.component';
-
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { RoutesModule } from './routes/routes.module';
-import { SSOAuthModule } from 'mu-sso-auth';
-import { LogModule } from 'mu-ui-log';
+import { AuthenticationModule } from '@mu/authentication';
+import { LoggerModule } from '@mu/logger';
 import { environment } from '../environments/environment';
 
 @NgModule({
@@ -21,13 +19,13 @@ import { environment } from '../environments/environment';
     CoreModule,
     SharedModule.forRoot(),
     RoutesModule,
-    SSOAuthModule.forRoot({
+    AuthenticationModule.forRoot({
       sso_url: environment.sso_url,
       sso_realm: environment.sso_realm,
       client_id: environment.app_name,
       load_mode: environment.standalone ? 'login-required' : 'check-sso'
     }),
-    LogModule.forRoot({
+    LoggerModule.forRoot({
       appName: environment.app_name,
       apiURL: environment.mu_api,
       apiKey: environment.mu_api_key,

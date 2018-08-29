@@ -1,7 +1,7 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 
 import { UserResolver } from './user.resolver';
-import { AuthenticationService } from 'mu-sso-auth';
+import { AuthenticationService } from '@mu/authentication';
 import { of } from 'rxjs';
 
 const authSpy = jasmine.createSpyObj('AuthenticationService', ['loadUserProfile']);

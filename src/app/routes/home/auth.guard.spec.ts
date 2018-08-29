@@ -1,7 +1,7 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 
 import { AuthGuard } from './auth.guard';
-import { AuthenticationService } from 'mu-sso-auth';
+import { AuthenticationService } from '@mu/authentication';
 
 const authSpy = jasmine.createSpyObj('AuthenticationService', ['login', 'isAuthenticated']);
 authSpy.login.and.returnValue(Promise.resolve(true));

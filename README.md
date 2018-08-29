@@ -2,9 +2,9 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.1. It is based on [Angle](http://themicon.co/theme/angle/v3.8.9.1/material/home) theme and bootstrap 4 and [Material Design Components](https://material.angular.io/components/categories).
 
-This example come with built in SSO authentication via [mu-sso-auth](http://stash.dvpt.nordnet.fr:7990/projects/MU/repos/mu-sso-auth/browse).
+This example come with built in SSO authentication via [@mu/authentication](http://stash.dvpt.nordnet.fr:7990/projects/MU/repos/mu-workspace/browse/libs/authentication/README.md).
 
-This example come with built in web app server side logging via [mu-ui-log](http://stash.dvpt.nordnet.fr:7990/projects/MU/repos/mu-ui-log/browse)
+This example come with built in web app server side logging via [@mu/logger](http://stash.dvpt.nordnet.fr:7990/projects/MU/repos/mu-workspace/browse/libs/logger/README.md)
 
 ## Development server
 
