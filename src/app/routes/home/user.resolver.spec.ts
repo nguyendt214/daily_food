@@ -29,7 +29,7 @@ describe('UserResolver', () => {
     const userResolver = TestBed.get(UserResolver);
     userResolver.resolve().subscribe(user => {
       expect(authSpy.getUser.calls.count()).toBe(1, 'getUser was called once');
-      expect(user.username).toBe('test@nordnet.com');
+      expect(user.email).toBe('test@nordnet.com');
     });
   }));
 });
