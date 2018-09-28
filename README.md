@@ -8,7 +8,9 @@ This example come with built in web app server side logging via [@mu/logger](htt
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Add a host entry mu.local.nordnet.fr -> 127.0.0.1 for SSO authentication.
+
+Run `npm start` for a dev server. Navigate to `http://mu.local.nordnet.fr:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 

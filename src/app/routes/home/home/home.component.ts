@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { KeycloakProfile } from 'keycloak-js';
+import { UserClaims } from '@okta/okta-angular';
 import { ActivatedRoute } from '@angular/router';
 
 
@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  user: KeycloakProfile;
+  user: UserClaims;
 
   constructor(public route: ActivatedRoute) { }
 

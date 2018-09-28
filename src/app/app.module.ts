@@ -5,9 +5,9 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { RoutesModule } from './routes/routes.module';
-import { AuthenticationModule } from '@mu/authentication';
 import { LoggerModule } from '@mu/logger';
 import { environment } from '../environments/environment';
+import { OktaAuthModule } from '@okta/okta-angular';
 
 @NgModule({
   declarations: [
@@ -19,11 +19,10 @@ import { environment } from '../environments/environment';
     CoreModule,
     SharedModule.forRoot(),
     RoutesModule,
-    AuthenticationModule.forRoot({
-      sso_url: environment.sso_url,
-      sso_realm: environment.sso_realm,
-      client_id: environment.app_name,
-      load_mode: environment.standalone ? 'login-required' : 'check-sso'
+    OktaAuthModule.initAuth({
+      issuer: environment.sso_url,
+      clientId: environment.sso_client_id,
+      redirectUri: environment.sso_redirect_uri
     }),
     LoggerModule.forRoot({
       appName: environment.app_name,

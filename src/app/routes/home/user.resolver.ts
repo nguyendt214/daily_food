@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
-import { KeycloakProfile } from 'keycloak-js';
-import { AuthenticationService } from '@mu/authentication';
+import { OktaAuthService, UserClaims } from '@okta/okta-angular';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserResolver implements Resolve<KeycloakProfile> {
-  constructor(private authService: AuthenticationService) { }
+export class UserResolver implements Resolve<UserClaims> {
+  constructor(private authService: OktaAuthService) { }
   resolve(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<KeycloakProfile> {
-    return this.authService.loadUserProfile();
+    state: RouterStateSnapshot): Promise<UserClaims> {
+    return this.authService.getUser();
   }
 }

@@ -1,17 +1,20 @@
 import { HomeComponent } from './home/home/home.component';
 import { Routes } from '@angular/router';
-import { AuthGuard } from './home/auth.guard';
 import { UserResolver } from './home/user.resolver';
+import { OktaAuthGuard, OktaCallbackComponent } from '@okta/okta-angular';
 
 export const routes: Routes = [
 
   {
     path: '',
     component: HomeComponent,
-    canActivate: [AuthGuard],
+    canActivate: [OktaAuthGuard],
     resolve: { user: UserResolver }
   },
-
+  {
+    path: 'implicit/callback',
+    component: OktaCallbackComponent
+  },
   // Not found
   { path: '**', redirectTo: 'home' }
 

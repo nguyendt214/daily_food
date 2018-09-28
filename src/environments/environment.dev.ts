@@ -3,8 +3,9 @@ export const environment = {
   standalone: false,
   version: '%%package_version%%',
   app_name: '%%package_name%%',
-  sso_url: 'https://sso.dev.nordnet.fr/auth',
-  sso_realm: 'nordnet-mu',
+  sso_url: 'https://dev-503543.oktapreview.com/oauth2/default',
+  sso_client_id: '0oagcyajkscCJM1sr0h7',
+  sso_redirect_uri: 'http://appnodejs1-c1.dev.nordnet.fr:34120/%%package_name%%/implicit/callback',
   mu_api: 'https://apim.kong.dev.nordnet.fr:8443/mu-server-api/api',
   mu_api_key: '74c138e5-a3aa-466d-a17e-c5bfc5fd945e',
 };
