@@ -31,6 +31,10 @@ $navbar-hg:                               $navbar-height;
 $boxed-max-width:                         1140px;
 $z-index-main-section:                    111;
 
+$default-color:                           #424242;
+$inner-content-color:                     $default-color;
+$inner-theme-color:                       $default-color;
+
 html {
   /* $replace rtl */ direction: ltr;
   height: 100%;
@@ -133,7 +137,7 @@ app-root, .wrapper {
 // Page main content
 // -----------------------------
 .content-wrapper {
-  padding: 15px;
+  padding: 0;
   width: 100%;
   // styling to visually wrap the component
   border-top: 1px solid rgba(0,0,0,.15);
@@ -561,3 +565,83 @@ _:-ms-lang(x), .layout-fixed .wrapper > .aside > .aside-inner {
   }
 
 } // boxed
+
+/* UNIVERSE */
+
+.universe-page h1,
+.universe-page .title-page {
+  color:$inner-content-color;
+  font-family: "Roboto", sans-serif;
+  font-size:1.429em;
+  font-weight:400;
+  line-height: 1.05;
+  margin:2vh 0 3vh;
+  padding:0;
+  text-transform: uppercase;
+  > small {
+    display: inline-block;
+    padding: 1vh 0 0;
+    text-transform: none;
+    width:100%;
+  }
+}
+.universe-page article {
+  background:#fff;
+  border-top:3px solid $inner-theme-color;
+  border-radius:3px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  color:$inner-content-color;
+  font-family: "Roboto", sans-serif;
+  font-size:1em;
+  font-weight:300;
+  line-height: 1.15;
+  margin:0;
+  padding:15px;
+}
+
+.universe-page article h1,
+.universe-page article h2,
+.universe-page article h3,
+.universe-page article h4,
+.universe-page article h5,
+.universe-page article h6 {
+  color:$inner-content-color;
+  font-family: "Roboto", sans-serif;
+  font-weight:400;
+  margin:0 0 0.65625em;
+  padding:0;
+}
+.universe-page article h1 {
+  font-size: 2.571em;
+}
+.universe-page article h2 {
+  font-size: 2.143em;
+}
+.universe-page article h3 {
+  font-size: 1.714em;
+}
+.universe-page article h4 {
+  font-size: 1.286em;
+}
+.universe-page article h5 {
+  font-size: 1.15em;
+}
+.universe-page article blockquote {
+  border-left:3px solid $inner-theme-color;
+  margin: 0 0 1.143em 1.5em;
+  padding:0 1.5em;
+}
+.universe-page article a {
+  &,
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color:$inner-theme-color;
+    text-decoration-color: $inner-theme-color;
+    text-decoration:underline;
+  }
+}
+.universe-page article li {
+  padding-bottom:5px;
+}
