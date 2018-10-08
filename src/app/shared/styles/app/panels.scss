@@ -1,7 +1,7 @@
 /* ========================================================================
      Component: panels
  ========================================================================== */
- 
+
 
 //
 // Adds support to use more components inside panels
@@ -75,7 +75,7 @@
       color: #c1c2c3;
     }
   }
-  
+
   // right floated labels adjust position
   > .label.pull-right {
     margin-top: 3px;
@@ -100,7 +100,7 @@
   }
 }
 
-// Active class for collapse elements 
+// Active class for collapse elements
 .panel-heading-active {
   background-color: $brand-success !important;
   font-weight: bold;
