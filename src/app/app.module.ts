@@ -8,11 +8,10 @@ import { RoutesModule } from './routes/routes.module';
 import { LoggerModule } from '@mu/logger';
 import { environment } from '../environments/environment';
 import { OktaAuthModule } from '@okta/okta-angular';
+import { MuHttpExtraModule } from '@mu/common';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     HttpClientModule,
     BrowserAnimationsModule, // required for ng2-tag-input
@@ -22,7 +21,7 @@ import { OktaAuthModule } from '@okta/okta-angular';
     OktaAuthModule.initAuth({
       issuer: environment.sso_url,
       clientId: environment.sso_client_id,
-      redirectUri: environment.sso_redirect_uri
+      redirectUri: environment.sso_redirect_uri,
     }),
     LoggerModule.forRoot({
       appName: environment.app_name,
@@ -31,10 +30,11 @@ import { OktaAuthModule } from '@okta/okta-angular';
       appVersion: environment.version,
       reportHttp: true,
       reportRouting: true,
-      writeToConsole: !environment.production
-    })
+      writeToConsole: !environment.production,
+    }),
+    MuHttpExtraModule.forRoot(environment.mu_api_key)
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
