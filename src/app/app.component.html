@@ -1,5 +1,8 @@
 <div class="wrapper universe-page content-wrapper">
-
+  <div [hidden]="loading">
     <router-outlet></router-outlet>
-
+  </div>
+  <div [hidden]="!loading">
+    <mat-spinner class="abs-center wd-1x"></mat-spinner>
+  </div>
 </div>

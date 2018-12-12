@@ -31,6 +31,7 @@ import { VectormapDirective } from './directives/vectormap/vectormap.directive';
 import { NowDirective } from './directives/now/now.directive';
 import { ScrollableDirective } from './directives/scrollable/scrollable.directive';
 import { JqcloudDirective } from './directives/jqcloud/jqcloud.directive';
+import { MatProgressSpinnerModule } from '@angular/material';
 
 // https://angular.io/styleguide#!#04-10
 @NgModule({
@@ -55,7 +56,8 @@ import { JqcloudDirective } from './directives/jqcloud/jqcloud.directive';
         TooltipModule.forRoot(),
         PopoverModule.forRoot(),
         TypeaheadModule.forRoot(),
-        ToasterModule
+        ToasterModule,
+        MatProgressSpinnerModule
     ],
     providers: [
         ColorsService
@@ -100,8 +102,9 @@ import { JqcloudDirective } from './directives/jqcloud/jqcloud.directive';
         VectormapDirective,
         NowDirective,
         ScrollableDirective,
-        JqcloudDirective
-    ]
+        JqcloudDirective,
+        MatProgressSpinnerModule,
+      ]
 })
 
 // https://github.com/ocombe/ng2-translate/issues/209
