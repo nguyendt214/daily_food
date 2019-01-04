@@ -50,7 +50,7 @@
     "@angular/router": "^6.1.10",
     "@mu/common": "^1.3.0",
     "@mu/components": "^1.3.0",
-    "@mu/logger": "^1.1.0",
+    "@mu/logger": "^1.2.0",
     "@ngx-translate/core": "10.0.1",
     "@ngx-translate/http-loader": "3.0.1",
     "@okta/okta-angular": "^1.0.4",
