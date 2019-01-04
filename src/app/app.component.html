@@ -2,7 +2,7 @@
   <div [hidden]="loading">
     <router-outlet></router-outlet>
   </div>
-  <div [hidden]="!loading">
+  <div [hidden]="!loading" class="mu-spinner">
     <mat-spinner class="abs-center wd-1x"></mat-spinner>
   </div>
 </div>
