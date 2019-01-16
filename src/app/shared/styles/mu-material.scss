@@ -1,0 +1,15 @@
+// mu-material.scss
+// Custom default color palette for MU with Angular Material,
+// use other primary, accent and warn variables to change material colors
+@import '~@angular/material/theming';
+$mu-theme-primary: mat-palette($mat-grey);
+$mu-theme-accent : mat-palette($mat-blue);
+$mu-theme-warn   : mat-palette($mat-red);
+$mu-theme: mat-light-theme(
+                $mu-theme-primary,
+                $mu-theme-accent,
+                $mu-theme-warn
+);
+
+@include mat-core();
+@include angular-material-theme($mu-theme);
