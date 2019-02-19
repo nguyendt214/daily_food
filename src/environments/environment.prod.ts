@@ -1,11 +1,11 @@
 export const environment = {
-  production: true,
-  standalone: false,
-  version: '%%package_version%%',
-  app_name: '%%package_name%%',
+  production: false,
+  standalone: true,
+  version: require('../../package.json').version,
+  app_name: require('../../package.json').name,
   sso_url: 'https://dev-503543.oktapreview.com/oauth2/default',
-  sso_client_id: '0oagd06t2kthO8H6P0h7',
-  sso_redirect_uri: 'https://mu.nordnet.fr/%%package_name%%/implicit/callback',
-  mu_api: 'https://apim-priv.nordnet.fr/mu-server-api/api',
-  mu_api_key: 'ca3dd62a-40b6-4c2d-b69c-06ef172e0aa3',
+  sso_client_id: '0oagd6vz6u9mvfogi0h7',
+  sso_redirect_uri: 'http://mu.local.nordnet.fr:4200/implicit/callback',
+  mu_api: 'https://apim-kong-staging.dev.nordnet.fr:8443/mu-server-api/api',
+  mu_api_key: '1989dccd-b1f1-4cee-aea2-a1eb1a50a36d'
 };
