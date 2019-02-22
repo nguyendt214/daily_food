@@ -10,9 +10,9 @@ import { IMission } from '../model/mission';
 export class ScoutService {
   constructor(private http: HttpClient) { }
 
-  getMissions(): Observable<IMission> {
+  getMissions(): Observable<Array<IMission>> {
     return Observable.create(observer => {
-      observer.next(missionsMock);
+      observer.next(missionsMock.missions);
       observer.complete();
     });
   }

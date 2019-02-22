@@ -8,6 +8,8 @@ import { MuUserModule } from '@mu/common';
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 import { ScoutService } from '../routes/home/home/service/scout.service';
 import { MatProgressSpinnerModule } from '@angular/material';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { LocalStorageService } from './LocalStorage/local-storage.service';
 // https://angular.io/styleguide#!#04-10
 @NgModule({
   imports: [
@@ -17,11 +19,14 @@ import { MatProgressSpinnerModule } from '@angular/material';
     TooltipModule.forRoot(),
     MatProgressSpinnerModule,
     MuUserModule,
-    SweetAlert2Module.forRoot({})
+    SweetAlert2Module.forRoot(),
+    NgxDatatableModule
+
   ],
   providers: [
     ColorsService,
-    ScoutService
+    ScoutService,
+    LocalStorageService
   ],
   declarations: [],
   exports: [
@@ -30,7 +35,8 @@ import { MatProgressSpinnerModule } from '@angular/material';
     ReactiveFormsModule,
     RouterModule,
     TooltipModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    NgxDatatableModule
   ]
 })
 
