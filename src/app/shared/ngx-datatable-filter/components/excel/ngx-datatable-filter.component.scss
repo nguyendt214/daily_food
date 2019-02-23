@@ -1,0 +1,77 @@
+@import 'src/app/shared/styles/app/variables.scss';
+
+/*Advance Table Filter CSS >>*/
+.adv-filter-container {
+  margin: 10px 15px !important;
+  font-weight: normal;
+
+  .form-group {
+    margin-bottom: 10px !important;
+
+    .list-group-container {
+      max-height: 150px;
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
+
+      .list-group {
+        .list-group-item {
+          border-radius: 0;
+          padding: 5px 10px;
+
+          a {
+            color: rgba(0, 0, 0, 0.87);
+            white-space: nowrap;
+            text-decoration: none;
+          }
+
+          &:hover,
+          &:focus {
+            text-decoration: none;
+            color: #262626;
+            background-color: #f5f5f5;
+          }
+        }
+      }
+    }
+
+    .btn-group-sm {
+
+      a,
+      a.active {
+
+        &:hover,
+        &:focus,
+        &:visited {
+          background-color: $mu_header_color;
+          color: $component-active-color;
+        }
+      }
+    }
+  }
+}
+
+.list-group-item .cursor-pointer>a {
+  left: 0px;
+  position: absolute;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.basic-link-dropdown {
+  color: #000;
+  border: 1px solid rgba(0, 0, 0, 0.54);
+  padding: 10px 5px 4px 5px;
+  border-radius: 4px;
+  margin-left: 5px;
+}
+
+.fa-filter {
+  font-size: 1.5em;
+}
+
+.btn-default.active {
+  background-color: $mu_header_color;
+  color: $component-active-color;
+}

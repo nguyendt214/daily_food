@@ -3,26 +3,53 @@
   <span class="text-center">Impossible de récupérer la liste des missions</span>
 </div>
 <div class="custom-datatable" *ngIf="!hasError" #tableWrapper>
+  <app-ngx-datatable-common
+  *ngIf="missions.length > 0"
+  [ngxDatas]="missions"
+  (filterCallback)="filterCallback($event)"></app-ngx-datatable-common>
   <ngx-datatable #table class='material' [columnMode]="'force'" [headerHeight]="'auto'" [footerHeight]="50" [rowHeight]="'auto'"
     [limit]="currentPageLimit" [rows]='missions' [rowClass]="getRowClass" [messages]="messages" [loadingIndicator]="loadingIndicator">
     <!-- Ambassadeur -->
-    <ngx-datatable-column name="Ambassadeur" prop="ambassador" editable="false" [sortable]="true" [resizeable]="false">
-
+    <ngx-datatable-column name="Ambassadeur" prop="ambassador" [sortable]="false" [resizeable]="false">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        <span class="header-title">Ambassadeur</span>
+        <app-ngx-datatable-filter [ngxDatas]="missions" [sortBy]="'ambassador'" *ngIf="missions.length > 0"></app-ngx-datatable-filter>
+      </ng-template>
     </ngx-datatable-column>
     <!-- Communes -->
-    <ngx-datatable-column name="Communes" prop="towns" editable="false" [sortable]="true" [resizeable]="false">
-        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-          <span class="show" [innerHTML]="value" [tooltip]="row.townsF" placement="right" container="body"></span>
-        </ng-template>
+    <ngx-datatable-column name="Communes" prop="towns" editable="false" [sortable]="false" [resizeable]="false">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        <span class="header-title">Communes</span>
+        <app-ngx-datatable-filter [ngxDatas]="missions" [sortBy]="'townsF'" *ngIf="missions.length > 0"></app-ngx-datatable-filter>
+      </ng-template>
+      <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+        <span class="show" [innerHTML]="value" [tooltip]="row.townsF" placement="right" container="body"></span>
+      </ng-template>
     </ngx-datatable-column>
     <!-- Status -->
-    <ngx-datatable-column name="Status" prop="status" editable="false" [sortable]="true" [resizeable]="false"
-    [maxWidth]="120" [minWidth]="120">
+    <ngx-datatable-column name="Status" prop="status" editable="false" [sortable]="false" [resizeable]="false"
+      [maxWidth]="120" [minWidth]="120">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        <span class="header-title">Status</span>
+        <app-ngx-datatable-filter [ngxDatas]="missions" [sortBy]="'status'" *ngIf="missions.length > 0"></app-ngx-datatable-filter>
+      </ng-template>
     </ngx-datatable-column>
     <!-- Du -->
-    <ngx-datatable-column name="Du" prop="startDateF" editable="false" [sortable]="true" [resizeable]="false" [maxWidth]="120" [minWidth]="120"></ngx-datatable-column>
+    <ngx-datatable-column name="Du" prop="startDateF" editable="false" [sortable]="true" [resizeable]="false"
+      [maxWidth]="120" [minWidth]="120">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        <span class="header-title">Du</span>
+        <app-ngx-datatable-date-filter [ngxDatas]="missions" [sortBy]="'startDate'" *ngIf="missions.length > 0"></app-ngx-datatable-date-filter>
+      </ng-template>
+    </ngx-datatable-column>
     <!-- Au -->
-    <ngx-datatable-column name="Au" prop="endDateF" editable="false" [sortable]="true" [resizeable]="false" [maxWidth]="120" [minWidth]="120"></ngx-datatable-column>
+    <ngx-datatable-column name="Au" prop="endDateF" editable="false" [sortable]="true" [resizeable]="false" [maxWidth]="120"
+      [minWidth]="120">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        <span class="header-title">Au</span>
+        <app-ngx-datatable-date-filter [ngxDatas]="missions" [sortBy]="'endDate'" *ngIf="missions.length > 0"></app-ngx-datatable-date-filter>
+      </ng-template>
+    </ngx-datatable-column>
     <!-- ACTIONS -->
     <ngx-datatable-column name="Actions" prop="action" editable="false" [sortable]="false" [resizeable]="false"
       [cellClass]="'action-icons smaller-padding'" [maxWidth]="85" [minWidth]="85">

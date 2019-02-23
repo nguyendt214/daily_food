@@ -1,0 +1,79 @@
+<span dropdown>
+  <a href dropdownToggle (click)="filterToggle()" class="basic-link-dropdown">
+    <i class="fa fa-filter"></i>
+  </a>
+  <ul *dropdownMenu class="dropdown-menu" role="menu" (click)="$event.stopPropagation()">
+    <li>
+      <th>
+
+        <div class="form-horizontal adv-filter-container">
+          <div class="form-group">
+            <div class="col-sm-12">
+              <div class="btn-group btn-group-justified btn-group-sm">
+                <a href="javascript:void(0);" class="btn btn-default sort-by" [ngClass]="{ 'active': active.asc }"
+                  (click)="addActive('asc');sort('asc'); ">
+                  <span class="fa fa-sort-alpha-asc"></span>
+                </a>
+                <a href="javascript:void(0);" class="btn btn-default sort-by" [ngClass]="{ 'active': active.desc }"
+                  (click)="addActive('desc');sort('desc');"><span class="fa fa-sort-alpha-desc"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <hr class="no-margin" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <div class="input-group input-group-sm"><span class="input-group-addon"><span class="fa fa-search"></span></span>
+                <input type="text" class="form-control" placeholder="Search in below list" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <hr class="no-margin" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <div class="list-group-container">
+                <div class="checkbox-list">
+                  <div>
+                    <label class="checkbox-container">
+                      <span *ngIf="checkedAll">Deselect all</span>
+                      <span *ngIf="!checkedAll">Select all</span>
+                      <input type="checkbox" [checked]="checkedAll" (change)="selectAllChange()">
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <hr class="no-margin" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <div class="list-group-container">
+                <div class="checkbox-list">
+                  <div *ngFor="let item of checklistOrigin">
+                    <label class="checkbox-container">{{ item }}
+                      <input type="checkbox" [(checklist)]="checklist" [checklistValue]="item" (checklistChange)="filterByList($event)">
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </th>
+    </li>
+  </ul>
+</span>

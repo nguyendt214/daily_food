@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { IMission } from './model/mission';
 import * as moment from 'moment';
+import * as _ from 'lodash';
 import { ICity } from './model/city';
 import { LocalStorageService } from '../../../shared/LocalStorage/local-storage.service';
 @Component({
@@ -43,7 +44,6 @@ export class HomeComponent implements OnInit {
     this.loadingIndicator = true;
     this.apiSub = this.scoutService.getMissions().subscribe(
       (ms: Array<IMission>) => {
-        console.log(ms);
         ms = this.prepareData(ms);
         this.missions = ms;
         // cache our list
@@ -68,9 +68,11 @@ export class HomeComponent implements OnInit {
       });
     }
   }
+
   prepareData(ms: Array<IMission>) {
     // Add new property `id` to each Mission, for display with SlickGrid
-    ms.forEach((m: IMission) => {
+    const removeIds = [];
+    ms.forEach((m: IMission, idx) => {
       m.id = m.idMission;
       m.ambassador = m.salesAgent.firstName + ' ' + m.salesAgent.lastName.toUpperCase();
       m.startDateF = moment(m.startDate).format('DD/MM/YYYY');
@@ -88,7 +90,16 @@ export class HomeComponent implements OnInit {
       }
       // Status
       m.status = m.fiberStatuses.join(', ');
+      // Check if endDate greater than Today
+      const now = moment().format('DD/MM/YYYY');
+      if (m.endDateF > now) {
+        removeIds.push(idx);
+      }
     });
+
+    if (removeIds.length) {
+      _.pullAt(ms, removeIds);
+    }
 
     return ms;
   }
@@ -135,8 +146,12 @@ export class HomeComponent implements OnInit {
    * Store curentPage to localStorage
    * @param event
    */
-  public updatePager(event: any) {
+  updatePager(event: any) {
     this.localStorageService.set('paginationMission', event.page);
+  }
+
+  filterCallback(ms: Array<IMission>) {
+    this.missions = _.clone(ms);
   }
 
   @HostListener('window:resize', ['$event'])
