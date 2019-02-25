@@ -41,7 +41,7 @@
       [maxWidth]="120" [minWidth]="120">
       <ng-template let-column="column" ngx-datatable-header-template>
         <span class="header-title">Du</span>
-        <app-ngx-datatable-date-filter [ngxDatas]="missionsOrigin" [sortBy]="'startDate'" *ngIf="missionsOrigin.length > 0"></app-ngx-datatable-date-filter>
+        <app-ngx-datatable-filter [ngxDatas]="missionsOrigin" [sortBy]="'startDate'" [searchByDate]="true" *ngIf="missionsOrigin.length > 0"></app-ngx-datatable-filter>
       </ng-template>
     </ngx-datatable-column>
     <!-- Au -->
@@ -49,7 +49,7 @@
       [minWidth]="120">
       <ng-template let-column="column" ngx-datatable-header-template>
         <span class="header-title">Au</span>
-        <app-ngx-datatable-date-filter [ngxDatas]="missionsOrigin" [sortBy]="'endDate'" *ngIf="missionsOrigin.length > 0"></app-ngx-datatable-date-filter>
+        <app-ngx-datatable-filter [ngxDatas]="missionsOrigin" [sortBy]="'endDate'" [searchByDate]="true" *ngIf="missionsOrigin.length > 0"></app-ngx-datatable-filter>
       </ng-template>
     </ngx-datatable-column>
     <!-- ACTIONS -->

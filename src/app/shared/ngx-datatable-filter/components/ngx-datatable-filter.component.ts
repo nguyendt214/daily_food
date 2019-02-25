@@ -1,8 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NgxDatatablesFilterService } from '../../service/ngx-datatable-filter.service';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { NgxDatatablesFilterService } from '../service/ngx-datatable-filter.service';
+import { INgxDatatableListFilter } from '../model/ngxDatatableFilter';
 import * as _ from 'lodash';
-import { IMission } from '../../../../routes/home/home/model/mission';
-import { INgxDatatableListFilter } from '../../model/ngxDatatableFilter';
 
 @Component({
   selector: 'app-ngx-datatable-filter',
@@ -15,6 +14,8 @@ export class NgxDatatableFilterComponent implements OnInit {
   @Input() public filterList: Array<any> = [];
   @Input() public sortBy: string;
   @Input() public searchContains: boolean;
+  @Input() public searchByDate = false;
+  @ViewChild('linkFilter') linkFilter: ElementRef;
   sortActive = false;
   isOpen = false;
   active = {
@@ -26,7 +27,7 @@ export class NgxDatatableFilterComponent implements OnInit {
   checklistForSearch = [];
   checkedAll = false;
   searchInList = '';
-
+  selectedDate: Date;
   constructor(
     private ngxFilter: NgxDatatablesFilterService
   ) { }
@@ -42,10 +43,14 @@ export class NgxDatatableFilterComponent implements OnInit {
     this.ngxFilter.sortOrder++;
     this.updateDataFilter({
       sortCol: this.sortBy,
-      sortType: this.ngxFilter.sortByAlphabet,
+      sortType: this.searchByDate ? this.ngxFilter.sortByDate : this.ngxFilter.sortByAlphabet,
       sortValue: sortValue,
       sortOrder: this.ngxFilter.sortOrder
     }, this.ngxFilter.sortByAlphabet);
+    if (this.searchByDate) {
+      const el: HTMLElement = this.linkFilter.nativeElement as HTMLElement;
+      el.click();
+    }
     this.ngxFilter.change(this.ngxFilter.sortByAlphabet);
   }
 
@@ -104,9 +109,9 @@ export class NgxDatatableFilterComponent implements OnInit {
    */
   updateDataFilter(data: any, sortType?: string) {
     // Just keep last sort by Alphabet
-    if (sortType === this.ngxFilter.sortByAlphabet) {
+    if (sortType === this.ngxFilter.sortByAlphabet || sortType === this.ngxFilter.sortByDate) {
       this.ngxFilter.filter.sortData = _.remove(this.ngxFilter.filter.sortData, (o: INgxDatatableListFilter) => {
-        return o.sortType !== this.ngxFilter.sortByAlphabet;
+        return o.sortType !== this.ngxFilter.sortByAlphabet || sortType === this.ngxFilter.sortByDate;
       });
     } else {
       // Find item. Update if exist
@@ -128,6 +133,9 @@ export class NgxDatatableFilterComponent implements OnInit {
       return;
     }
     this.checklistForSearch = [...this.checklistOrigin];
+  }
+  sortByDateRange() {
+
   }
   /**
    * Handle state of filter

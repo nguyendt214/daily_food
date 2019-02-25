@@ -12,6 +12,7 @@ export class NgxDatatablesFilterService {
   };
   sortByAlphabet = 'SORT';
   sortByDate = 'SORT_DATE';
+  sortByDateRange = 'SORT_DATE_RANGE';
   sortByList = 'SORT_BY_LIST';
   sortOrder = 0;
   finalData: Array<IMission> = [];

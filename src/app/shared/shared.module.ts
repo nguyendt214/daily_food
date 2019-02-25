@@ -13,10 +13,9 @@ import { LocalStorageService } from './LocalStorage/local-storage.service';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ChecklistModule } from 'angular-checklist';
 import { BsDatepickerModule, frLocale, defineLocale } from 'ngx-bootstrap';
-import { NgxDatatableFilterComponent } from './ngx-datatable-filter/components/excel/ngx-datatable-filter.component';
-import { NgxDatatableDateFilterComponent } from './ngx-datatable-filter/components/date/ngx-datatable-date-filter.component';
 import { NgxDatatableCommonFilterComponent } from './ngx-datatable-filter/components/common/ngx-datatable-common.component';
 import { NgxDatatablesFilterService } from './ngx-datatable-filter/service/ngx-datatable-filter.service';
+import { NgxDatatableFilterComponent } from './ngx-datatable-filter/components/ngx-datatable-filter.component';
 defineLocale('fr', frLocale);
 @NgModule({
   imports: [
@@ -40,7 +39,6 @@ defineLocale('fr', frLocale);
   ],
   declarations: [
     NgxDatatableFilterComponent,
-    NgxDatatableDateFilterComponent,
     NgxDatatableCommonFilterComponent
   ],
   exports: [
@@ -53,7 +51,6 @@ defineLocale('fr', frLocale);
     NgxDatatableModule,
     BsDropdownModule,
     NgxDatatableFilterComponent,
-    NgxDatatableDateFilterComponent,
     NgxDatatableCommonFilterComponent,
     ChecklistModule,
     BsDatepickerModule
