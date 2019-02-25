@@ -4,26 +4,28 @@
 </div>
 <div class="custom-datatable" *ngIf="!hasError" #tableWrapper>
   <app-ngx-datatable-common
-  *ngIf="missions.length > 0"
-  [ngxDatas]="missions"
+  *ngIf="missionsOrigin.length > 0"
+  [ngxDatas]="missionsOrigin"
   (filterCallback)="filterCallback($event)"></app-ngx-datatable-common>
+  <div class="total-right">{{ missions?.length }} mission(s) au total</div>
+  <div class="clearfix"></div>
   <ngx-datatable #table class='material' [columnMode]="'force'" [headerHeight]="'auto'" [footerHeight]="50" [rowHeight]="'auto'"
     [limit]="currentPageLimit" [rows]='missions' [rowClass]="getRowClass" [messages]="messages" [loadingIndicator]="loadingIndicator">
     <!-- Ambassadeur -->
     <ngx-datatable-column name="Ambassadeur" prop="ambassador" [sortable]="false" [resizeable]="false">
       <ng-template let-column="column" ngx-datatable-header-template>
         <span class="header-title">Ambassadeur</span>
-        <app-ngx-datatable-filter [ngxDatas]="missions" [sortBy]="'ambassador'" *ngIf="missions.length > 0"></app-ngx-datatable-filter>
+        <app-ngx-datatable-filter [ngxDatas]="missionsOrigin" [filterList]="filterList.ambassador" [sortBy]="'ambassador'" *ngIf="missionsOrigin.length > 0"></app-ngx-datatable-filter>
       </ng-template>
     </ngx-datatable-column>
     <!-- Communes -->
     <ngx-datatable-column name="Communes" prop="towns" editable="false" [sortable]="false" [resizeable]="false">
       <ng-template let-column="column" ngx-datatable-header-template>
         <span class="header-title">Communes</span>
-        <app-ngx-datatable-filter [ngxDatas]="missions" [sortBy]="'townsF'" *ngIf="missions.length > 0"></app-ngx-datatable-filter>
+        <app-ngx-datatable-filter [ngxDatas]="missionsOrigin" [filterList]="filterList.town" [searchContains]="true" [sortBy]="'townsF'" *ngIf="missionsOrigin.length > 0"></app-ngx-datatable-filter>
       </ng-template>
       <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-        <span class="show" [innerHTML]="value" [tooltip]="row.townsF" placement="right" container="body"></span>
+        <span class="show" [innerHTML]="value" [tooltip]="getTooltipText(row)" placement="right" container="body"></span>
       </ng-template>
     </ngx-datatable-column>
     <!-- Status -->
@@ -31,7 +33,7 @@
       [maxWidth]="120" [minWidth]="120">
       <ng-template let-column="column" ngx-datatable-header-template>
         <span class="header-title">Status</span>
-        <app-ngx-datatable-filter [ngxDatas]="missions" [sortBy]="'status'" *ngIf="missions.length > 0"></app-ngx-datatable-filter>
+        <app-ngx-datatable-filter [ngxDatas]="missionsOrigin" [filterList]="filterList.status" [searchContains]="true" [sortBy]="'status'" *ngIf="missionsOrigin.length > 0"></app-ngx-datatable-filter>
       </ng-template>
     </ngx-datatable-column>
     <!-- Du -->
@@ -39,7 +41,7 @@
       [maxWidth]="120" [minWidth]="120">
       <ng-template let-column="column" ngx-datatable-header-template>
         <span class="header-title">Du</span>
-        <app-ngx-datatable-date-filter [ngxDatas]="missions" [sortBy]="'startDate'" *ngIf="missions.length > 0"></app-ngx-datatable-date-filter>
+        <app-ngx-datatable-date-filter [ngxDatas]="missionsOrigin" [sortBy]="'startDate'" *ngIf="missionsOrigin.length > 0"></app-ngx-datatable-date-filter>
       </ng-template>
     </ngx-datatable-column>
     <!-- Au -->
@@ -47,7 +49,7 @@
       [minWidth]="120">
       <ng-template let-column="column" ngx-datatable-header-template>
         <span class="header-title">Au</span>
-        <app-ngx-datatable-date-filter [ngxDatas]="missions" [sortBy]="'endDate'" *ngIf="missions.length > 0"></app-ngx-datatable-date-filter>
+        <app-ngx-datatable-date-filter [ngxDatas]="missionsOrigin" [sortBy]="'endDate'" *ngIf="missionsOrigin.length > 0"></app-ngx-datatable-date-filter>
       </ng-template>
     </ngx-datatable-column>
     <!-- ACTIONS -->

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { INgxDatatableFilter } from '../model/ngxDatatableFilter';
+import { IMission } from '../../../routes/home/home/model/mission';
 
 @Injectable()
 export class NgxDatatablesFilterService {
@@ -12,6 +13,9 @@ export class NgxDatatablesFilterService {
   sortByAlphabet = 'SORT';
   sortByDate = 'SORT_DATE';
   sortByList = 'SORT_BY_LIST';
+  sortOrder = 0;
+  finalData: Array<IMission> = [];
+  filtering = false;
   ngxDataObj = new Subject<any>();
   ngxDataChange = this.ngxDataObj.asObservable();
 
@@ -22,7 +26,7 @@ export class NgxDatatablesFilterService {
       action: type,
       sortBy: this.filter.sortBy,
       sortValue: this.filter.sortValue,
-      data: this.filter.sortData
+      sortData: this.filter.sortData
     });
   }
 }

@@ -15,6 +15,7 @@ export class NgxDatatableDateFilterComponent implements OnInit {
 
   maxDate: Date = moment().toDate();
   selectedDate: Date;
+  isOpen = false;
   constructor(
     private ngxFilter: NgxDatatablesFilterService
   ) { }
@@ -52,5 +53,12 @@ export class NgxDatatableDateFilterComponent implements OnInit {
     this.ngxFilter.filter.sortBy = this.sortBy;
     // Return false to show the list filter
     return false;
+  }
+  /**
+   * Handle state of filter
+   * @param val
+   */
+  handler(val: boolean) {
+    this.isOpen = val;
   }
 }

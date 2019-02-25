@@ -2,14 +2,14 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgxDatatablesFilterService } from '../../service/ngx-datatable-filter.service';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import { INgxDatatableFilter } from '../../model/ngxDatatableFilter';
+import { INgxDatatableFilter, INgxDatatableListFilter } from '../../model/ngxDatatableFilter';
+import { IMission } from '../../../../routes/home/home/model/mission';
 
 @Component({
   selector: 'app-ngx-datatable-common',
   template: ``
 })
 export class NgxDatatableCommonFilterComponent implements OnInit {
-
   @Input() ngxDatas: Array<any> = [];
   @Output() filterCallback = new EventEmitter<Array<any>>();
   constructor(
@@ -18,19 +18,64 @@ export class NgxDatatableCommonFilterComponent implements OnInit {
 
   ngOnInit() {
     // Filter change
-    this.ngxFilter.ngxDataChange.subscribe((sortData: INgxDatatableFilter) => {
-      console.log(sortData);
-      if (sortData.action === this.ngxFilter.sortByAlphabet) {
-        this.sortByAlphabet(sortData);
-      }
-      this.filterCallback.emit(this.ngxDatas);
+    this.ngxFilter.ngxDataChange.subscribe((filter: INgxDatatableFilter) => {
+      console.log(filter);
+      this.ngxFilter.filtering = false;
+      // Apply filter in the Filter list
+      _.each(filter.sortData, (f: INgxDatatableListFilter) => {
+        if (f.sortType === this.ngxFilter.sortByList) {
+          this.sortByList(f);
+          this.ngxFilter.filtering = true;
+        }
+        // Sort by Date
+        if (f.sortType === this.ngxFilter.sortByDate) {
+          this.sortByDate(f);
+          this.ngxFilter.filtering = true;
+        }
+        // Sort by Alphabet
+        if (f.sortType === this.ngxFilter.sortByAlphabet) {
+          this.sortByAlphabet(f);
+          this.ngxFilter.filtering = true;
+        }
+      });
+      // Callback to update the Parent list
+      this.filterCallback.emit(this.ngxFilter.finalData);
     });
   }
   /**
    * Sort column follow ASC or DESC
    * @param event
    */
-  sortByAlphabet(sortData: INgxDatatableFilter) {
-    this.ngxDatas = _.orderBy(this.ngxDatas, sortData.sortBy, sortData.sortValue);
+  sortByAlphabet(f: INgxDatatableListFilter): any {
+    const dataCollection = this.ngxFilter.filtering ? this.ngxFilter.finalData : this.ngxDatas;
+    this.ngxFilter.finalData = _.orderBy(dataCollection, f.sortCol, f.sortValue);
+  }
+  /**
+   * Sort column follow the list data
+   * @param item INgxDatatableListFilter
+   */
+  sortByList(item: INgxDatatableListFilter): any {
+    const list = item.sortList || [];
+    const dataCollection = this.ngxFilter.filtering ? this.ngxFilter.finalData : this.ngxDatas;
+    this.ngxFilter.finalData = _.filter(dataCollection, (ms: IMission) => {
+      if (item.searchContains) {
+        let rowVal = ms[item.sortCol].split(',') || [];
+        rowVal = rowVal.map((str: string) => str.trim());
+        const intersections = _.intersection(list, rowVal);
+        ms['item.sortCol_filter'] = true;
+        return Boolean(intersections && intersections.length);
+      }
+
+      return list.indexOf(ms[item.sortCol]) > -1;
+    });
+  }
+  /**
+   * Sort column by date
+   */
+  sortByDate(item: INgxDatatableListFilter): any {
+    // this.ngxDatas = _.filter(this.ngxDatas, (ms: IMission) => {
+    //   return this.checklist.indexOf(ms.ambassador) > -1;
+
+    // });
   }
 }

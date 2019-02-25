@@ -19,7 +19,7 @@ import { LocalStorageService } from '../../../shared/LocalStorage/local-storage.
 export class HomeComponent implements OnInit {
   user: UserClaims;
   missions: Array<IMission> = [];
-  temp: Array<IMission> = [];
+  missionsOrigin: Array<IMission> = [];
   apiSub: Subscription;
   loadingIndicator = true;
   pageLimitOptions = [{ value: 5 }, { value: 10 }, { value: 25 }, { value: 100 }];
@@ -28,6 +28,11 @@ export class HomeComponent implements OnInit {
   messages = { emptyMessage: `<div class="text-center"><span>Aucune mission trouvée</span></div>` };
   currentComponentWidth: number;
   hasError = false;
+  filterList = {
+    ambassador: [],
+    town: [],
+    status: []
+  };
   @ViewChild(DatatableComponent) public table: DatatableComponent;
   @ViewChild('tableWrapper') tableWrapper: ElementRef;
   constructor(
@@ -47,7 +52,7 @@ export class HomeComponent implements OnInit {
         ms = this.prepareData(ms);
         this.missions = ms;
         // cache our list
-        this.temp = [...ms];
+        this.missionsOrigin = [...ms];
         this.filterFromLocalStorage();
         this.fixBugColumnResize();
         this.loadingIndicator = false;
@@ -70,48 +75,42 @@ export class HomeComponent implements OnInit {
   }
 
   prepareData(ms: Array<IMission>) {
-    // Add new property `id` to each Mission, for display with SlickGrid
-    const removeIds = [];
     ms.forEach((m: IMission, idx) => {
       m.id = m.idMission;
       m.ambassador = m.salesAgent.firstName + ' ' + m.salesAgent.lastName.toUpperCase();
       m.startDateF = moment(m.startDate).format('DD/MM/YYYY');
       m.endDateF = moment(m.endDate).format('DD/MM/YYYY');
+      // Status
+      m.status = m.fiberStatuses.join(', ');
+      // Init data for filter list by Status
+      _.each(m.fiberStatuses, s => {
+        this.filterList.status = _.union(this.filterList.status, [s]);
+      });
+      // Init data for filter list by Ambassador
+      this.filterList.ambassador = _.union(this.filterList.ambassador, [m.ambassador]);
       // Towns
       m.towns = '';
       m.townsF = '';
       if (m.cities) {
-        m.cities.forEach((city: ICity, idx) => {
-          m.townsF += (m.cities.length === idx + 1) ? city.label : city.label + ', ';
-          if (idx <= 1) {
-            m.towns += (idx === 1) ? ((m.cities.length > 2) ? city.label + ' ...' : city.label) : city.label + ', ';
+        m.cities.forEach((city: ICity, index) => {
+          m.townsF += (m.cities.length === index + 1) ? city.label : city.label + ', ';
+          if (index <= 1) {
+            m.towns += (index === 1) ? ((m.cities.length > 2) ? city.label + ' ...' : city.label) : city.label + ', ';
           }
+          // Init for filter list by City
+          this.filterList.town = _.union(this.filterList.town, [city.label]);
         });
       }
-      // Status
-      m.status = m.fiberStatuses.join(', ');
-      // Check if endDate greater than Today
-      const now = moment().format('DD/MM/YYYY');
-      if (m.endDateF > now) {
-        removeIds.push(idx);
-      }
     });
-
-    if (removeIds.length) {
-      _.pullAt(ms, removeIds);
-    }
+    // Sort filter list by Alphabet
+    this.filterList.ambassador.sort();
+    this.filterList.town.sort();
+    this.filterList.status.sort();
 
     return ms;
   }
 
   updateFilter(searching: boolean) {
-    const val = '';
-    // filter our data
-    const temp = this.temp.filter((d) => {
-      return !val;
-    });
-    // update the Missions
-    this.missions = temp;
     // Whenever the filter changes, always go back to the first page
     if (this.table) {
       const offset = searching ? 0 : this.curPage;
@@ -148,6 +147,17 @@ export class HomeComponent implements OnInit {
    */
   updatePager(event: any) {
     this.localStorageService.set('paginationMission', event.page);
+  }
+  /**
+   * Get tooltip message for City
+   * @param row IMission
+   * @return string
+   */
+  public getTooltipText(row: IMission): string {
+    if (row.towns.includes('...')) {
+      return row.townsF;
+    }
+    return '';
   }
 
   filterCallback(ms: Array<IMission>) {

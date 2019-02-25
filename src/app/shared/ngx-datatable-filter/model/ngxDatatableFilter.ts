@@ -4,3 +4,12 @@ export interface INgxDatatableFilter {
   sortValue?: string;
   sortData?: any;
 }
+
+export interface INgxDatatableListFilter {
+  sortCol?: string;
+  sortType?: string;
+  sortValue?: string;
+  sortList?: Array<any>;
+  sortOrder?: number;
+  searchContains?: boolean;
+}

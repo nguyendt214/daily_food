@@ -6,10 +6,10 @@
   font-weight: normal;
 
   .form-group {
-    margin-bottom: 10px !important;
+    margin-bottom: 0px !important;
 
     .list-group-container {
-      max-height: 150px;
+      max-height: 160px;
       overflow-x: hidden !important;
       overflow-y: auto !important;
 
@@ -32,10 +32,15 @@
           }
         }
       }
+      hr {
+        margin: {
+          top: 0;
+          bottom: 0;
+        }
+      }
     }
 
     .btn-group-sm {
-
       a,
       a.active {
 
@@ -74,4 +79,7 @@
 .btn-default.active {
   background-color: $mu_header_color;
   color: $component-active-color;
+}
+.is-open {
+  opacity: 0.5;
 }

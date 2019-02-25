@@ -1,4 +1,6 @@
-<span dropdown>
+<span dropdown
+(onShown)="handler(true)"
+(onHidden)="handler(false)">
   <a href dropdownToggle (click)="filterToggle()" class="basic-link-dropdown" #linkFilter>
     <i class="fa fa-filter"></i>
   </a>

@@ -1,5 +1,7 @@
-<span dropdown>
-  <a href dropdownToggle (click)="filterToggle()" class="basic-link-dropdown">
+<span dropdown
+(onShown)="handler(true)"
+(onHidden)="handler(false)">
+  <a href dropdownToggle (click)="filterToggle()" class="basic-link-dropdown" [ngClass]="{ 'is-open': isOpen }">
     <i class="fa fa-filter"></i>
   </a>
   <ul *dropdownMenu class="dropdown-menu" role="menu" (click)="$event.stopPropagation()">
@@ -28,7 +30,7 @@
           <div class="form-group">
             <div class="col-sm-12">
               <div class="input-group input-group-sm"><span class="input-group-addon"><span class="fa fa-search"></span></span>
-                <input type="text" class="form-control" placeholder="Search in below list" />
+                <input type="text" class="form-control" placeholder="Chercher dans la liste" [(ngModel)]="searchInList" (keyup)="filterCheckboxList()"/>
               </div>
             </div>
           </div>
@@ -43,8 +45,8 @@
                 <div class="checkbox-list">
                   <div>
                     <label class="checkbox-container">
-                      <span *ngIf="checkedAll">Deselect all</span>
-                      <span *ngIf="!checkedAll">Select all</span>
+                      <span *ngIf="checkedAll">Tout désélectionner</span>
+                      <span *ngIf="!checkedAll">Tout sélectionner</span>
                       <input type="checkbox" [checked]="checkedAll" (change)="selectAllChange()">
                       <span class="checkmark"></span>
                     </label>
@@ -62,9 +64,9 @@
             <div class="col-sm-12">
               <div class="list-group-container">
                 <div class="checkbox-list">
-                  <div *ngFor="let item of checklistOrigin">
+                  <div *ngFor="let item of checklistForSearch">
                     <label class="checkbox-container">{{ item }}
-                      <input type="checkbox" [(checklist)]="checklist" [checklistValue]="item" (checklistChange)="filterByList($event)">
+                      <input type="checkbox" [(checklist)]="checklist" [checklistValue]="item" (checklistChange)="filterByList()">
                       <span class="checkmark"></span>
                     </label>
                   </div>

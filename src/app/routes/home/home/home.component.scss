@@ -1,7 +1,7 @@
 @import 'src/app/shared/styles/app/variables.scss';
 $row-background-color : $mu_background_color;
 $backgroundRed:  #F15150;
-
+$text-normal-color: rgba(0, 0, 0, 0.87);
 :host /deep/ .custom-datatable {
   mark {
     background-color: yellow;
@@ -33,7 +33,7 @@ $backgroundRed:  #F15150;
   .total-right {
     float: right;
     margin-top: 25px;
-    color: $brand-inverse-dark;
+    color: $text-normal-color;
   }
 
   // Header color
@@ -58,6 +58,7 @@ $backgroundRed:  #F15150;
   }
 
   .ngx-datatable {
+    overflow: unset;
     &.material {
       box-shadow: none;
     }
