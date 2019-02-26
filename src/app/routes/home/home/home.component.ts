@@ -54,6 +54,7 @@ export class HomeComponent implements OnInit {
 
   clearFilter() {
     this.getListMission();
+    this.ngxFilter.filter.sortData = [];
   }
 
   getListMission() {
@@ -107,7 +108,8 @@ export class HomeComponent implements OnInit {
         m.cities.forEach((c: ICity, index) => {
           m.townsF += (m.cities.length === index + 1) ? c.city : c.city + ', ';
           if (index <= 1) {
-            m.towns += (index === 1) ? ((m.cities.length > 2) ? c.city + ' ...' : c.city) : c.city + ', ';
+            m.towns += (index === 1) ? ((m.cities.length > 2) ? c.city + ' ...' : c.city) :
+              ((m.cities.length === 1) ? c.city : c.city + ', ');
           }
           // Init for filter list by City
           this.filterList.townsF = _.union(this.filterList.townsF, [c.city]);
