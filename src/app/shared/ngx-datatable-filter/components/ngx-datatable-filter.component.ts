@@ -30,9 +30,12 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
   checkedAll = false;
   searchInList = '';
   selectedDate: Date;
+  filters: any;
   constructor(
     private ngxFilter: NgxDatatablesFilterService
-  ) { }
+  ) {
+    this.filters = this.ngxFilter.filter;
+  }
 
   ngOnInit() {
     this.checklist = [...this.filterList];
@@ -97,6 +100,7 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
       sortOrder: this.ngxFilter.sortOrder
     }, this.ngxFilter.sortByAlphabet);
     this.ngxFilter.change(this.ngxFilter.sortByAlphabet);
+    console.log(this.filters);
   }
   /**
    * prepare data for sort date by RANGE
