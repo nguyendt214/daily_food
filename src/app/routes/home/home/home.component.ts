@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import { ICity } from './model/city';
 import { LocalStorageService } from '../../../shared/LocalStorage/local-storage.service';
+import { NgxDatatablesFilterService } from '../../../shared/ngx-datatable-filter/service/ngx-datatable-filter.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -25,12 +26,12 @@ export class HomeComponent implements OnInit {
   pageLimitOptions = [{ value: 5 }, { value: 10 }, { value: 25 }, { value: 100 }];
   currentPageLimit = 5;
   curPage = 0;
-  messages = { emptyMessage: `<div class="text-center"><span>Aucune mission trouvée</span></div>` };
+  messages = { emptyMessage: `<div class='text-center'><span>Aucune mission trouvée</span></div>` };
   currentComponentWidth: number;
   hasError = false;
   filterList = {
     ambassador: [],
-    town: [],
+    townsF: [],
     status: []
   };
   @ViewChild(DatatableComponent) public table: DatatableComponent;
@@ -38,7 +39,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private localStorageService: LocalStorageService,
-    private scoutService: ScoutService
+    private scoutService: ScoutService,
+    private ngxFilter: NgxDatatablesFilterService
   ) {
     this.route.data.subscribe(data => {
       this.user = data.user;
@@ -46,7 +48,15 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getListMission();
     this.loadingIndicator = true;
+  }
+
+  clearFilter() {
+    this.getListMission();
+  }
+
+  getListMission() {
     this.apiSub = this.scoutService.getMissions().subscribe(
       (ms: Array<IMission>) => {
         ms = this.prepareData(ms);
@@ -54,6 +64,9 @@ export class HomeComponent implements OnInit {
         // cache our list
         this.missionsOrigin = [...ms];
         this.filterFromLocalStorage();
+        // Add cols want to update the LIST values
+        this.ngxFilter.filter.cols = ['ambassador', 'townsF', 'status'];
+        this.fixBugColumnResize();
         this.loadingIndicator = false;
       }, () => {
         this.hasError = true;
@@ -74,7 +87,7 @@ export class HomeComponent implements OnInit {
   }
 
   prepareData(ms: Array<IMission>) {
-    ms.forEach((m: IMission, idx) => {
+    ms.forEach((m: IMission) => {
       m.id = m.idMission;
       m.ambassador = m.salesAgent.firstName + ' ' + m.salesAgent.lastName.toUpperCase();
       m.startDateF = moment(m.startDate).format('DD/MM/YYYY');
@@ -91,19 +104,19 @@ export class HomeComponent implements OnInit {
       m.towns = '';
       m.townsF = '';
       if (m.cities) {
-        m.cities.forEach((city: ICity, index) => {
-          m.townsF += (m.cities.length === index + 1) ? city.label : city.label + ', ';
+        m.cities.forEach((c: ICity, index) => {
+          m.townsF += (m.cities.length === index + 1) ? c.city : c.city + ', ';
           if (index <= 1) {
-            m.towns += (index === 1) ? ((m.cities.length > 2) ? city.label + ' ...' : city.label) : city.label + ', ';
+            m.towns += (index === 1) ? ((m.cities.length > 2) ? c.city + ' ...' : c.city) : c.city + ', ';
           }
           // Init for filter list by City
-          this.filterList.town = _.union(this.filterList.town, [city.label]);
+          this.filterList.townsF = _.union(this.filterList.townsF, [c.city]);
         });
       }
     });
     // Sort filter list by Alphabet
     this.filterList.ambassador.sort();
-    this.filterList.town.sort();
+    this.filterList.townsF.sort();
     this.filterList.status.sort();
 
     return ms;
@@ -159,5 +172,51 @@ export class HomeComponent implements OnInit {
 
   filterCallback(ms: Array<IMission>) {
     this.missions = _.clone(ms);
+  }
+
+  listCallback(data: any) {
+    // Reset the list values first
+    _.each(data.f.cols, item => {
+      if (item !== data.f.sortBy) {
+        this.filterList[item] = [];
+      }
+    });
+    // Find the list need update the data
+    const listNeedUpdate = _.difference(data.f.cols, [data.f.sortBy]);
+    _.each(data.d, (ms: IMission) => {
+      _.each(listNeedUpdate, col => {
+        const rowVal = ms[col];
+        // Check if value is merge string
+        if (rowVal.includes(',')) {
+          let val = ms[col].split(',') || [];
+          val = val.map((str: string) => str.trim());
+          _.each(val, (str: string) => {
+            this.filterList[col] = _.union(this.filterList[col], [str]);
+          });
+        } else {
+          this.filterList[col] = _.union(this.filterList[col], [ms[col]]);
+        }
+      });
+    });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.fixBugColumnResize();
+  }
+  @HostListener('mouseenter', ['$event'])
+  onMouseenter() {
+    this.fixBugColumnResize();
+  }
+
+  fixBugColumnResize() {
+    setTimeout(() => {
+      if (this.table && this.table.recalculate && (this.tableWrapper.nativeElement.clientWidth !== this.currentComponentWidth)) {
+        this.currentComponentWidth = this.tableWrapper.nativeElement.clientWidth;
+        this.table.recalculate();
+        this.table.recalculateColumns();
+        window.dispatchEvent(new Event('resize'));
+      }
+    });
   }
 }

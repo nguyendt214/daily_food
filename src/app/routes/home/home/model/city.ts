@@ -1,4 +1,4 @@
 export interface ICity {
   postCode?: string;
-  label?: string;
+  city?: string;
 }
