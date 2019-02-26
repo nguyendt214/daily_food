@@ -1,8 +1,7 @@
 <span dropdown (onShown)="handler(true)" (onHidden)="handler(false)">
-  <a href dropdownToggle (click)="filterToggle()" class="basic-link-dropdown" [ngClass]="{ 'is-open': isOpen }" #linkFilter>
+  <a href dropdownToggle (click)="filterToggle()" class="basic-link-dropdown" [ngClass]="{ 'is-open': isOpen, 'filtered': filtered }" #linkFilter>
     <i class="fa fa-filter"></i>
   </a>
-  <span class="sort-btn sort-{{ filters.sortValue }} datatable-icon-{{ filters.sortValue }}"></span>
   <ul *dropdownMenu class="dropdown-menu" role="menu" (click)="$event.stopPropagation()" [ngClass]="{ 'date-filter': searchByDate }">
     <li>
       <th>

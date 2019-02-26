@@ -55,6 +55,7 @@ export class HomeComponent implements OnInit {
   clearFilter() {
     this.getListMission();
     this.ngxFilter.filter.sortData = [];
+    this.ngxFilter.refresh();
   }
 
   getListMission() {
