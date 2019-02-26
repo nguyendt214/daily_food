@@ -12,4 +12,8 @@ export interface INgxDatatableListFilter {
   sortList?: Array<any>;
   sortOrder?: number;
   searchContains?: boolean;
+  searchByDate?: {
+    min?: any,
+    max?: any
+  };
 }

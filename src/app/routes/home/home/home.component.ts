@@ -54,7 +54,6 @@ export class HomeComponent implements OnInit {
         // cache our list
         this.missionsOrigin = [...ms];
         this.filterFromLocalStorage();
-        this.fixBugColumnResize();
         this.loadingIndicator = false;
       }, () => {
         this.hasError = true;
@@ -117,7 +116,6 @@ export class HomeComponent implements OnInit {
       this.table.offset = offset - 1;
       this.localStorageService.set('paginationMission', searching ? 1 : this.curPage);
     }
-    this.fixBugColumnResize();
   }
   /**
    * Show per page change
@@ -127,7 +125,6 @@ export class HomeComponent implements OnInit {
     this.changePageLimit(limit);
     this.table.limit = this.currentPageLimit;
     this.localStorageService.set('currentPageLimitMission', limit);
-    this.fixBugColumnResize();
     setTimeout(() => {
       if (this.table.bodyComponent.temp.length <= 0) {
         this.table.offset = Math.floor((this.table.rowCount - 1) / this.table.limit);
@@ -162,25 +159,5 @@ export class HomeComponent implements OnInit {
 
   filterCallback(ms: Array<IMission>) {
     this.missions = _.clone(ms);
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize() {
-    this.fixBugColumnResize();
-  }
-  @HostListener('mouseenter', ['$event'])
-  onMouseenter() {
-    this.fixBugColumnResize();
-  }
-
-  fixBugColumnResize() {
-    setTimeout(() => {
-      if (this.table && this.table.recalculate && (this.tableWrapper.nativeElement.clientWidth !== this.currentComponentWidth)) {
-        this.currentComponentWidth = this.tableWrapper.nativeElement.clientWidth;
-        this.table.recalculate();
-        this.table.recalculateColumns();
-        window.dispatchEvent(new Event('resize'));
-      }
-    });
   }
 }

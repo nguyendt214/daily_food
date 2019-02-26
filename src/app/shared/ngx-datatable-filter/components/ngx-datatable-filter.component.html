@@ -10,11 +10,11 @@
             <div class="col-sm-12">
               <div class="btn-group btn-group-justified btn-group-sm">
                 <a href="javascript:void(0);" class="btn btn-default sort-by" [ngClass]="{ 'active': active.asc }"
-                  (click)="addActive('asc');sort('asc'); ">
+                  (click)="addActive('asc');sort('asc'); linkFilter.click();">
                   <span class="fa fa-sort-alpha-asc"></span>
                 </a>
                 <a href="javascript:void(0);" class="btn btn-default sort-by" [ngClass]="{ 'active': active.desc }"
-                  (click)="addActive('desc');sort('desc');"><span class="fa fa-sort-alpha-desc"></span>
+                  (click)="addActive('desc');sort('desc'); linkFilter.click();"><span class="fa fa-sort-alpha-desc"></span>
                 </a>
               </div>
             </div>
@@ -83,7 +83,7 @@
               <bs-datepicker-inline [(bsValue)]="selectedDate" [bsConfig]="{containerClass: 'theme-red', showWeekNumbers: false, locale: 'fr'}">
               </bs-datepicker-inline>
               <div class="text-center">
-                <button class="btn btn-danger btn-confirm" (click)="sortByDateRange(); linkFilter.click()">OK</button>
+                <button class="btn btn-danger btn-confirm" [disabled]="!selectedDate" (click)="sortByDateRange(); linkFilter.click();">OK</button>
               </div>
             </div>
           </div>

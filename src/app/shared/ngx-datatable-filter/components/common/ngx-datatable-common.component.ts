@@ -37,6 +37,11 @@ export class NgxDatatableCommonFilterComponent implements OnInit {
           this.sortByAlphabet(f);
           this.ngxFilter.filtering = true;
         }
+        // Sort by Date RANGE
+        if (f.sortType === this.ngxFilter.sortByDateRange) {
+          this.sortByDateRange(f);
+          this.ngxFilter.filtering = true;
+        }
       });
       // Callback to update the Parent list
       this.filterCallback.emit(this.ngxFilter.finalData);
@@ -51,7 +56,7 @@ export class NgxDatatableCommonFilterComponent implements OnInit {
     this.ngxFilter.finalData = _.orderBy(dataCollection, f.sortCol, f.sortValue);
   }
   /**
-   * Sort column follow the list data
+   * Filter follow the list data
    * @param item INgxDatatableListFilter
    */
   sortByList(item: INgxDatatableListFilter): any {
@@ -70,12 +75,22 @@ export class NgxDatatableCommonFilterComponent implements OnInit {
     });
   }
   /**
-   * Sort column by date
+   * Sort by date
    */
   sortByDate(f: INgxDatatableListFilter): any {
     const dataCollection = this.ngxFilter.filtering ? this.ngxFilter.finalData : this.ngxDatas;
     this.ngxFilter.finalData = _.orderBy(dataCollection, (o: IMission) => {
-      return moment(o[f.sortCol]).format('DD/MM/YYYY');
+      return moment(o[f.sortCol]).format(this.ngxFilter.dateF);
     }, [f.sortValue]);
+  }
+  /**
+   * Filter by date range
+   */
+  sortByDateRange(f: INgxDatatableListFilter): any {
+    const dataCollection = this.ngxFilter.filtering ? this.ngxFilter.finalData : this.ngxDatas;
+    this.ngxFilter.finalData = _.filter(dataCollection, (ms: IMission) => {
+      // startDate >= min + endDate <= max
+      return (moment(ms.startDate) >= moment(f.searchByDate.min)) && (moment(ms.endDate) <= moment(f.searchByDate.max));
+    });
   }
 }

@@ -15,6 +15,9 @@ export class NgxDatatablesFilterService {
   sortByDateRange = 'SORT_DATE_RANGE';
   sortByList = 'SORT_BY_LIST';
   sortOrder = 0;
+  minDate: Date;
+  maxDate: Date;
+  dateF = 'DD/MM/YYYY';
   finalData: Array<IMission> = [];
   filtering = false;
   ngxDataObj = new Subject<any>();
