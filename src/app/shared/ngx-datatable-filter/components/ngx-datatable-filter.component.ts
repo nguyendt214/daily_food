@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
 import { NgxDatatablesFilterService } from '../service/ngx-datatable-filter.service';
 import { INgxDatatableListFilter } from '../model/ngxDatatableFilter';
-import * as _ from 'lodash';
 import { IMission } from '../../../routes/home/home/model/mission';
-import moment = require('moment');
+import * as _ from 'lodash';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-ngx-datatable-filter',
