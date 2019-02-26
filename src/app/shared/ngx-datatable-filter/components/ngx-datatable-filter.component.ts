@@ -17,6 +17,7 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
   @Input() public sortBy: string;
   @Input() public searchContains: boolean;
   @Input() public searchByDate = false;
+  @Input() public filterRefresh: boolean;
   @ViewChild('linkFilter') linkFilter: ElementRef;
   sortActive = false;
   isOpen = false;
@@ -30,11 +31,16 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
   checkedAll = false;
   searchInList = '';
   selectedDate: Date;
-  filters: any;
+  filtered = false;
   constructor(
     private ngxFilter: NgxDatatablesFilterService
   ) {
-    this.filters = this.ngxFilter.filter;
+    this.filtered = false;
+    this.ngxFilter.ngxRefresh.subscribe(() => {
+      this.filtered = false;
+      this.active.asc = false;
+      this.active.desc = false;
+    });
   }
 
   ngOnInit() {
@@ -100,7 +106,7 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
       sortOrder: this.ngxFilter.sortOrder
     }, this.ngxFilter.sortByAlphabet);
     this.ngxFilter.change(this.ngxFilter.sortByAlphabet);
-    console.log(this.filters);
+    this.filtered = true;
   }
   /**
    * prepare data for sort date by RANGE
@@ -121,6 +127,7 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
         max: this.ngxFilter.maxDate,
       }
     }, this.ngxFilter.sortByDateRange);
+    this.filtered = true;
     this.ngxFilter.change(this.ngxFilter.sortByDateRange);
   }
   /**
@@ -149,6 +156,7 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
       searchContains: this.searchContains
     }, this.ngxFilter.sortByList);
     this.checkAllState();
+    this.filtered = true;
     this.ngxFilter.change(this.ngxFilter.sortByList);
   }
   /**
