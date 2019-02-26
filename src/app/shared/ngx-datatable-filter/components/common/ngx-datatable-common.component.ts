@@ -12,6 +12,7 @@ import { IMission } from '../../../../routes/home/home/model/mission';
 export class NgxDatatableCommonFilterComponent implements OnInit {
   @Input() ngxDatas: Array<any> = [];
   @Output() filterCallback = new EventEmitter<Array<any>>();
+  @Output() listCallback = new EventEmitter<any>();
   constructor(
     private ngxFilter: NgxDatatablesFilterService
   ) { }
@@ -19,7 +20,6 @@ export class NgxDatatableCommonFilterComponent implements OnInit {
   ngOnInit() {
     // Filter change
     this.ngxFilter.ngxDataChange.subscribe((filter: INgxDatatableFilter) => {
-      console.log(filter);
       this.ngxFilter.filtering = false;
       // Apply filter in the Filter list
       _.each(filter.sortData, (f: INgxDatatableListFilter) => {
@@ -45,6 +45,10 @@ export class NgxDatatableCommonFilterComponent implements OnInit {
       });
       // Callback to update the Parent list
       this.filterCallback.emit(this.ngxFilter.finalData);
+      if (filter.action === this.ngxFilter.sortByList) {
+        // Callback to update another LIST
+        this.listCallback.emit({ f: this.ngxFilter.filter, d: this.ngxFilter.finalData });
+      }
     });
   }
   /**

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
 import { NgxDatatablesFilterService } from '../service/ngx-datatable-filter.service';
 import { INgxDatatableListFilter } from '../model/ngxDatatableFilter';
 import * as _ from 'lodash';
@@ -10,7 +10,7 @@ import moment = require('moment');
   templateUrl: './ngx-datatable-filter.component.html',
   styleUrls: ['./ngx-datatable-filter.component.scss']
 })
-export class NgxDatatableFilterComponent implements OnInit {
+export class NgxDatatableFilterComponent implements OnInit, OnChanges {
 
   @Input() public ngxDatas: Array<any> = [];
   @Input() public filterList: Array<any> = [];
@@ -38,6 +38,20 @@ export class NgxDatatableFilterComponent implements OnInit {
     this.checklist = [...this.filterList];
     this.checklistOrigin = [...this.filterList];
     this.checklistForSearch = [...this.filterList];
+    this.initListVals(this.filterList);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const list: SimpleChange = changes.filterList;
+    if (list && !list.firstChange) {
+      this.initListVals(list.currentValue);
+    }
+  }
+
+  initListVals(l: Array<string>) {
+    this.checklist = [...l];
+    this.checklistOrigin = [...l];
+    this.checklistForSearch = [...l];
   }
   /**
    * Filter toggle

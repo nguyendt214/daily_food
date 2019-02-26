@@ -6,7 +6,9 @@
   <app-ngx-datatable-common
   *ngIf="missionsOrigin.length > 0"
   [ngxDatas]="missionsOrigin"
-  (filterCallback)="filterCallback($event)"></app-ngx-datatable-common>
+  (filterCallback)="filterCallback($event)"
+  (listCallback)="listCallback($event)"></app-ngx-datatable-common>
+  <div class="pull-left clear-filter" (click)="clearFilter()">Effacer tous les filtres appliqués</div>
   <div class="total-right">{{ missions?.length }} mission(s) au total</div>
   <div class="clearfix"></div>
   <ngx-datatable #table class='material' [columnMode]="'force'" [headerHeight]="'auto'" [footerHeight]="50" [rowHeight]="'auto'"
@@ -22,7 +24,7 @@
     <ngx-datatable-column name="Communes" prop="towns" editable="false" [sortable]="false" [resizeable]="false">
       <ng-template let-column="column" ngx-datatable-header-template>
         <span class="header-title">Communes</span>
-        <app-ngx-datatable-filter [ngxDatas]="missionsOrigin" [filterList]="filterList.town" [searchContains]="true" [sortBy]="'townsF'" *ngIf="missionsOrigin.length > 0"></app-ngx-datatable-filter>
+        <app-ngx-datatable-filter [ngxDatas]="missionsOrigin" [filterList]="filterList.townsF" [searchContains]="true" [sortBy]="'townsF'" *ngIf="missionsOrigin.length > 0"></app-ngx-datatable-filter>
       </ng-template>
       <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
         <span class="show" [innerHTML]="value" [tooltip]="getTooltipText(row)" placement="right" container="body"></span>

@@ -8,7 +8,8 @@ export class NgxDatatablesFilterService {
   filter = {
     sortBy: '',
     sortValue: '',
-    sortData: []
+    sortData: [],
+    cols: []
   };
   sortByAlphabet = 'SORT';
   sortByDate = 'SORT_DATE';
