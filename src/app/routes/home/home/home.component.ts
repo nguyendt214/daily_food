@@ -202,6 +202,10 @@ export class HomeComponent implements OnInit {
       });
     });
   }
+  resetCallback() {
+    this.updateFilter(true);
+    this.onLimitChange(10);
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize() {

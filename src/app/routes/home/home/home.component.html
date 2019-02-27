@@ -7,7 +7,8 @@
   *ngIf="missionsOrigin.length > 0"
   [ngxDatas]="missionsOrigin"
   (filterCallback)="filterCallback($event)"
-  (listCallback)="listCallback($event)"></app-ngx-datatable-common>
+  (listCallback)="listCallback($event)"
+  (resetCallback)="resetCallback()"></app-ngx-datatable-common>
   <div class="pull-left clear-filter" (click)="clearFilter()">Effacer tous les filtres appliqués</div>
   <div class="total-right">{{ missions?.length }} mission(s) au total</div>
   <div class="clearfix"></div>

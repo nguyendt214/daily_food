@@ -105,7 +105,6 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
       sortOrder: this.ngxFilter.sortOrder
     }, this.ngxFilter.sortByAlphabet);
     this.ngxFilter.change(this.ngxFilter.sortByAlphabet);
-    this.filtered = true;
   }
   /**
    * prepare data for sort date by RANGE

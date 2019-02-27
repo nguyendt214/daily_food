@@ -13,6 +13,7 @@ export class NgxDatatableCommonFilterComponent implements OnInit {
   @Input() ngxDatas: Array<any> = [];
   @Output() filterCallback = new EventEmitter<Array<any>>();
   @Output() listCallback = new EventEmitter<any>();
+  @Output() resetCallback = new EventEmitter<any>();
   constructor(
     private ngxFilter: NgxDatatablesFilterService
   ) { }
@@ -48,6 +49,10 @@ export class NgxDatatableCommonFilterComponent implements OnInit {
       if (filter.action === this.ngxFilter.sortByList) {
         // Callback to update another LIST
         this.listCallback.emit({ f: this.ngxFilter.filter, d: this.ngxFilter.finalData });
+      }
+      if (filter.action !== this.ngxFilter.sortByAlphabet) {
+        // Callback to help parent update properties
+        this.resetCallback.emit();
       }
     });
   }
