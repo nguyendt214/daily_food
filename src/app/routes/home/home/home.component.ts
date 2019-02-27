@@ -206,6 +206,9 @@ export class HomeComponent implements OnInit {
     this.updateFilter(true);
     this.onLimitChange(10);
   }
+  getDeleteState(ms: IMission): boolean {
+    return moment(ms.startDate).format(this.ngxFilter.dateFForSort) > moment().format(this.ngxFilter.dateFForSort);
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize() {

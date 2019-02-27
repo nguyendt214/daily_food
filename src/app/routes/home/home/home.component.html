@@ -59,12 +59,12 @@
     <ngx-datatable-column name="Actions" prop="action" editable="false" [sortable]="false" [resizeable]="false"
       [cellClass]="'action-icons smaller-padding'" [maxWidth]="85" [minWidth]="85">
       <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-        <!-- DELETE -->
+        <!-- EDIT -->
         <button class="btn btn-default btn-sm icon btn-mu">
           <i class="fas fa-pencil-alt"></i>
         </button>
-        <!-- ADD -->
-        <button class="btn btn-default btn-sm icon btn-mu btn-fa-trash-alt">
+        <!-- DELETE -->
+        <button class="btn btn-default btn-sm icon btn-mu btn-fa-trash-alt" [disabled]="getDeleteState(row)">
           <i class="fas fa-trash-alt"></i>
         </button>
       </ng-template>
