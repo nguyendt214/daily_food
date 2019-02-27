@@ -21,8 +21,10 @@ export class NgxDatatablesFilterService {
   dateFForSort = 'YYYYMMDDD';
   finalData: Array<IMission> = [];
   filtering = false;
+  // For main filter action
   ngxDataObj = new Subject<any>();
   ngxDataChange = this.ngxDataObj.asObservable();
+  // For refresh filter action
   ngxRefreshObj = new Subject<any>();
   ngxRefresh = this.ngxRefreshObj.asObservable();
 
