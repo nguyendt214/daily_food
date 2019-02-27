@@ -44,7 +44,7 @@
                 <div class="list-group-container">
                   <div class="checkbox-list">
                     <div>
-                      <label class="checkbox-container">
+                      <label class="checkbox-container select-all">
                         <span *ngIf="checkedAll">Tout désélectionner</span>
                         <span *ngIf="!checkedAll">Tout sélectionner</span>
                         <input type="checkbox" [checked]="checkedAll" (change)="selectAllChange()">
