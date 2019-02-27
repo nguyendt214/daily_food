@@ -61,8 +61,7 @@ export class NgxDatatableCommonFilterComponent implements OnInit {
    * @param event
    */
   sortByAlphabet(f: INgxDatatableListFilter): any {
-    const dataCollection = this.ngxFilter.filtering ? this.ngxFilter.finalData : this.ngxDatas;
-    this.ngxFilter.finalData = _.orderBy(dataCollection, f.sortCol, f.sortValue);
+    this.ngxFilter.finalData = _.orderBy(this.getDataCollection(), f.sortCol, f.sortValue);
   }
   /**
    * Filter follow the list data
@@ -70,8 +69,7 @@ export class NgxDatatableCommonFilterComponent implements OnInit {
    */
   sortByList(item: INgxDatatableListFilter): any {
     const list = item.sortList || [];
-    const dataCollection = this.ngxFilter.filtering ? this.ngxFilter.finalData : this.ngxDatas;
-    this.ngxFilter.finalData = _.filter(dataCollection, (ms: IMission) => {
+    this.ngxFilter.finalData = _.filter(this.getDataCollection(), (ms: IMission) => {
       if (item.searchContains) {
         let rowVal = ms[item.sortCol].split(',') || [];
         rowVal = rowVal.map((str: string) => str.trim());
@@ -87,8 +85,7 @@ export class NgxDatatableCommonFilterComponent implements OnInit {
    * Sort by date
    */
   sortByDate(f: INgxDatatableListFilter): any {
-    const dataCollection = this.ngxFilter.filtering ? this.ngxFilter.finalData : this.ngxDatas;
-    this.ngxFilter.finalData = _.orderBy(dataCollection, (o: IMission) => {
+    this.ngxFilter.finalData = _.orderBy(this.getDataCollection(), (o: IMission) => {
       return moment(o[f.sortCol]).format(this.ngxFilter.dateFForSort);
     }, [f.sortValue]);
   }
@@ -96,10 +93,13 @@ export class NgxDatatableCommonFilterComponent implements OnInit {
    * Filter by date range
    */
   sortByDateRange(f: INgxDatatableListFilter): any {
-    const dataCollection = this.ngxFilter.filtering ? this.ngxFilter.finalData : this.ngxDatas;
-    this.ngxFilter.finalData = _.filter(dataCollection, (ms: IMission) => {
+    this.ngxFilter.finalData = _.filter(this.getDataCollection(), (ms: IMission) => {
       // startDate >= min + endDate <= max
       return (moment(ms.startDate) >= moment(f.searchByDate.min)) && (moment(ms.endDate) <= moment(f.searchByDate.max));
     });
+  }
+
+  getDataCollection() {
+    return (this.ngxFilter.finalData && this.ngxFilter.filtering) ? this.ngxFilter.finalData : this.ngxDatas;
   }
 }

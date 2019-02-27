@@ -40,6 +40,8 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
       this.filtered = false;
       this.active.asc = false;
       this.active.desc = false;
+      this.ngxFilter.finalData = null;
+      this.updateDateData();
     });
   }
 
@@ -54,6 +56,7 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
     const list: SimpleChange = changes.filterList;
     if (list && !list.firstChange) {
       this.initListVals(list.currentValue);
+      this.updateDateData();
     }
   }
 
@@ -67,29 +70,35 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
    */
   filterToggle(): boolean {
     this.ngxFilter.filter.sortBy = this.sortBy;
+    this.updateDateData();
     this.prepareData();
     // Return false to show the list filter
     return false;
   }
 
   prepareData() {
-    // Prepare for filter by Date
-    if (!this.selectedDate && ['startDate', 'endDate'].indexOf(this.sortBy) > - 1) {
-      let m: IMission;
-      // EndDate
-      m = _.maxBy(this.ngxDatas, (ms: IMission) => {
-        return moment(ms.endDate).format(this.ngxFilter.dateFForSort);
-      });
-      this.ngxFilter.maxDate = moment(m.endDate).toDate();
-      // StartDate
-      m = _.minBy(this.ngxDatas, (ms: IMission) => {
-        return moment(ms.startDate).format(this.ngxFilter.dateFForSort);
-      });
-      this.ngxFilter.minDate = moment(m.startDate).toDate();
-      // Set selected date by default
-      this.selectedDate = (this.sortBy === 'endDate') ? this.ngxFilter.maxDate : this.ngxFilter.minDate;
-    }
     this.checkAllState();
+  }
+  updateDateData() {
+    // Prepare for filter by Date
+    let m: IMission;
+    const dataCollection = this.ngxFilter.finalData ? this.ngxFilter.finalData : this.ngxDatas;
+    // EndDate
+    m = _.maxBy(dataCollection, (ms: IMission) => {
+      return ms && moment(ms.endDate).format(this.ngxFilter.dateFForSort);
+    });
+    this.ngxFilter.maxDate = m ? moment(m.endDate).toDate() : new Date();
+    // StartDate
+    m = _.minBy(dataCollection, (ms: IMission) => {
+      return ms && moment(ms.startDate).format(this.ngxFilter.dateFForSort);
+    });
+    this.ngxFilter.minDate = m ? moment(m.startDate).toDate() : new Date();
+    if (this.sortBy === 'endDate') {
+      this.selectedDate = this.ngxFilter.maxDate;
+    }
+    if (this.sortBy === 'startDate') {
+      this.selectedDate = this.ngxFilter.minDate;
+    }
   }
   /**
    * prepare data for sort by Alphabet

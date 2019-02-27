@@ -19,7 +19,7 @@ export class NgxDatatablesFilterService {
   maxDate: Date;
   dateF = 'DD/MM/YYYY';
   dateFForSort = 'YYYYMMDDD';
-  finalData: Array<IMission> = [];
+  finalData: Array<IMission>;
   filtering = false;
   // For main filter action
   ngxDataObj = new Subject<any>();
