@@ -35,7 +35,6 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
   constructor(
     private ngxFilter: NgxDatatablesFilterService
   ) {
-    this.filtered = false;
     this.ngxFilter.ngxRefresh.subscribe(() => {
       this.filtered = false;
       this.active.asc = false;
@@ -46,9 +45,6 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.checklist = [...this.filterList];
-    this.checklistOrigin = [...this.filterList];
-    this.checklistForSearch = [...this.filterList];
     this.initListVals(this.filterList);
   }
 

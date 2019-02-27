@@ -46,7 +46,7 @@ export class NgxDatatableCommonFilterComponent implements OnInit {
       });
       // Callback to update the Parent list
       this.filterCallback.emit(this.ngxFilter.finalData);
-      if (filter.action === this.ngxFilter.sortByList) {
+      if ([this.ngxFilter.sortByList, this.ngxFilter.sortByDateRange].indexOf(filter.action) > -1) {
         // Callback to update another LIST
         this.listCallback.emit({ f: this.ngxFilter.filter, d: this.ngxFilter.finalData });
       }

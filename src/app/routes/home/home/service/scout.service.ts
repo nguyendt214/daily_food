@@ -4,7 +4,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { IMission } from '../model/mission';
 import { environment } from '../../../../../environments/environment';
 import { map, tap, catchError } from 'rxjs/operators';
-import { missionsMock } from '../../../../../../tests/mock/missions.mock';
+import 'rxjs/add/observable/of';
 
 const API_URL = environment.direct_scout_api;
 @Injectable({
@@ -17,10 +17,7 @@ export class ScoutService {
 
   getMissions(): Observable<Array<IMission>> {
     if (this.missionList) {
-      return Observable.create((observer: any) => {
-        observer.next(this.missionList);
-        observer.complete();
-      });
+      return Observable.of(this.missionList);
     }
     const url = API_URL + '/missions';
     return this.httpClient

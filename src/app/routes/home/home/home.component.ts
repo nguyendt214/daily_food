@@ -61,8 +61,7 @@ export class HomeComponent implements OnInit {
   getListMission() {
     this.apiSub = this.scoutService.getMissions().subscribe(
       (ms: Array<IMission>) => {
-        ms = this.prepareData(ms);
-        this.missions = ms;
+        this.missions = this.prepareData(ms);
         // cache our list
         this.missionsOrigin = [...ms];
         this.filterFromLocalStorage();
@@ -207,7 +206,7 @@ export class HomeComponent implements OnInit {
     this.onLimitChange(10);
   }
   getDeleteState(ms: IMission): boolean {
-    return moment(ms.startDate).format(this.ngxFilter.dateFForSort) < moment().format(this.ngxFilter.dateFForSort);
+    return moment(ms.startDate).format(this.ngxFilter.dateFForSort) <= moment().format(this.ngxFilter.dateFForSort);
   }
 
   @HostListener('window:resize', ['$event'])
