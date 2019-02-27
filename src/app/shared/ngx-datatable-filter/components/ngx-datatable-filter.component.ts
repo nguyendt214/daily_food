@@ -76,19 +76,18 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
     // Prepare for filter by Date
     if (!this.selectedDate && ['startDate', 'endDate'].indexOf(this.sortBy) > - 1) {
       let m: IMission;
-      if (this.sortBy === 'endDate') {
-        m = _.maxBy(this.ngxDatas, (ms: IMission) => {
-          return moment(ms.endDate);
-        });
-        this.selectedDate = moment(m.endDate).toDate();
-        this.ngxFilter.maxDate = this.selectedDate;
-      } else {
-        m = _.minBy(this.ngxDatas, (ms: IMission) => {
-          return moment(ms.startDate);
-        });
-        this.selectedDate = moment(m.startDate).toDate();
-        this.ngxFilter.minDate = this.selectedDate;
-      }
+      // EndDate
+      m = _.maxBy(this.ngxDatas, (ms: IMission) => {
+        return moment(ms.endDate).format(this.ngxFilter.dateFForSort);
+      });
+      this.ngxFilter.maxDate = moment(m.endDate).toDate();
+      // StartDate
+      m = _.minBy(this.ngxDatas, (ms: IMission) => {
+        return moment(ms.startDate).format(this.ngxFilter.dateFForSort);
+      });
+      this.ngxFilter.minDate = moment(m.startDate).toDate();
+      // Set selected date by default
+      this.selectedDate = (this.sortBy === 'endDate') ? this.ngxFilter.maxDate : this.ngxFilter.minDate;
     }
     this.checkAllState();
   }

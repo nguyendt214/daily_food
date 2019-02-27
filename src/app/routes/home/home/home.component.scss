@@ -40,9 +40,8 @@ $text-normal-color: rgba(0, 0, 0, 0.87);
     margin-top: 20px;
     cursor: pointer;
     color: $mu_header_color;
-    text-decoration: underline;
     &:hover {
-      text-decoration: none;
+      opacity: 0.8;
     }
   }
 

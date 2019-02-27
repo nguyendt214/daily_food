@@ -84,7 +84,7 @@ export class NgxDatatableCommonFilterComponent implements OnInit {
   sortByDate(f: INgxDatatableListFilter): any {
     const dataCollection = this.ngxFilter.filtering ? this.ngxFilter.finalData : this.ngxDatas;
     this.ngxFilter.finalData = _.orderBy(dataCollection, (o: IMission) => {
-      return moment(o[f.sortCol]).format(this.ngxFilter.dateF);
+      return moment(o[f.sortCol]).format(this.ngxFilter.dateFForSort);
     }, [f.sortValue]);
   }
   /**

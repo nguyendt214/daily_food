@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   apiSub: Subscription;
   loadingIndicator = true;
   pageLimitOptions = [{ value: 5 }, { value: 10 }, { value: 25 }, { value: 100 }];
-  currentPageLimit = 5;
+  currentPageLimit = 10;
   curPage = 0;
   messages = { emptyMessage: `<div class='text-center'><span>Aucune mission trouvée</span></div>` };
   currentComponentWidth: number;
@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit {
     if (this.localStorageService.isAvailable()) {
       this.curPage = this.localStorageService.get('paginationMission') ? this.localStorageService.get('paginationMission') : 0;
       this.currentPageLimit = this.localStorageService.get('currentPageLimitMission') ?
-        this.localStorageService.get('currentPageLimitMission') : 5;
+        this.localStorageService.get('currentPageLimitMission') : 10;
       setTimeout(() => {
         this.updateFilter(false);
       });
