@@ -38,10 +38,11 @@ $text-normal-color: rgba(0, 0, 0, 0.87);
   }
   .clear-filter {
     margin-top: 20px;
-    font-size: 12px;
     cursor: pointer;
+    color: $mu_header_color;
+    text-decoration: underline;
     &:hover {
-      text-decoration: underline;
+      text-decoration: none;
     }
   }
 
@@ -522,6 +523,11 @@ $text-normal-color: rgba(0, 0, 0, 0.87);
       -webkit-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
       transform: rotate(45deg);
+    }
+    label.select-all {
+      margin: {
+        bottom: 0px;
+      }
     }
   }
 }

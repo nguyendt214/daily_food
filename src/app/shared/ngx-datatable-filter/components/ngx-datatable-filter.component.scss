@@ -32,12 +32,6 @@
           }
         }
       }
-      hr {
-        margin: {
-          top: 0;
-          bottom: 0;
-        }
-      }
     }
 
     .btn-group-sm {
@@ -53,6 +47,13 @@
       }
     }
   }
+
+  hr {
+    margin: {
+      top: 10px;
+      bottom: 10px;
+    }
+  }
 }
 
 .list-group-item .cursor-pointer>a {
@@ -66,14 +67,14 @@
 
 .basic-link-dropdown {
   color: #000;
-  border: 1px solid rgba(0, 0, 0, 0.54);
+  // border: 1px solid rgba(0, 0, 0, 0.54);
   padding: 5px 3px 1px 3px;
   border-radius: 3px;
   margin-left: 3px;
 }
 
 .fa-filter {
-  font-size: 1.1em;
+  font-size: 1em;
 }
 .filtered .fa-filter {
   color: $backgroundRed;

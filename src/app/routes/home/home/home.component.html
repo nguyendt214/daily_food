@@ -34,7 +34,7 @@
     <ngx-datatable-column name="Status" prop="status" editable="false" [sortable]="false" [resizeable]="false"
       [maxWidth]="120" [minWidth]="120">
       <ng-template let-column="column" ngx-datatable-header-template>
-        <span class="header-title">Status</span>
+        <span class="header-title">Statut</span>
         <app-ngx-datatable-filter [ngxDatas]="missionsOrigin" [filterList]="filterList.status" [searchContains]="true" [sortBy]="'status'" *ngIf="missionsOrigin.length > 0"></app-ngx-datatable-filter>
       </ng-template>
     </ngx-datatable-column>
