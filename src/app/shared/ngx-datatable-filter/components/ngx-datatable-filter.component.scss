@@ -87,3 +87,19 @@
 .is-open {
   opacity: 0.5;
 }
+.mu-sort-icon {
+  line-height: 100%;
+  vertical-align: middle;
+  display: inline-block;
+  font-size: 18px;
+  margin: {
+    left: -4px;
+  };
+  color: $mu_header_color;
+}
+.mu-show {
+  display: inline-block;
+}
+.mu-hide {
+  display: none;
+}
