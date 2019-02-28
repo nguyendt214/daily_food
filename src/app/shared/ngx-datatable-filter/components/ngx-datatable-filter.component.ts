@@ -11,7 +11,6 @@ import * as moment from 'moment';
   styleUrls: ['./ngx-datatable-filter.component.scss']
 })
 export class NgxDatatableFilterComponent implements OnInit, OnChanges {
-
   @Input() public ngxDatas: Array<any> = [];
   @Input() public filterList: Array<any> = [];
   @Input() public sortBy: string;
@@ -19,11 +18,14 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
   @Input() public searchByDate = false;
   @Input() public filterRefresh: boolean;
   @ViewChild('linkFilter') linkFilter: ElementRef;
-  sortActive = false;
   isOpen = false;
   active = {
     asc: false,
     desc: false
+  };
+  oSort = {
+    icon: '',
+    value: ''
   };
   checklist = [];
   checklistOrigin = [];
@@ -32,6 +34,7 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
   searchInList = '';
   selectedDate: Date;
   filtered = false;
+
   constructor(
     private ngxFilter: NgxDatatablesFilterService
   ) {
@@ -40,6 +43,7 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
       this.active.asc = false;
       this.active.desc = false;
       this.ngxFilter.finalData = null;
+      this.oSort.icon = '';
       this.updateDateData();
     });
   }
@@ -64,7 +68,9 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
   /**
    * Filter toggle
    */
-  filterToggle(): boolean {
+  filterToggle(col: string): boolean {
+    this.ngxFilter.column.current = col;
+    this.ngxFilter.column.change = false;
     this.ngxFilter.filter.sortBy = this.sortBy;
     this.updateDateData();
     this.prepareData();
@@ -101,6 +107,7 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
    * @param sortValue
    */
   sort(sortValue: string) {
+    this.oSort.value = sortValue;
     this.ngxFilter.filter.sortValue = sortValue;
     this.ngxFilter.sortOrder++;
     this.updateDataFilter({
@@ -145,6 +152,8 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
     this.active.asc = false;
     this.active.desc = false;
     this.active[by] = true;
+    this.ngxFilter.column.change = true;
+    this.updateSortIcon();
   }
   /**
    * Filter base on select values in the LIST
@@ -224,5 +233,21 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
    */
   handler(val: boolean) {
     this.isOpen = val;
+  }
+
+  updateSortIcon() {
+    if (this.ngxFilter.column.change) {
+      // Remove for another columns
+      Array.from(document.getElementsByClassName('mu-sort-icon')).forEach((item) => {
+        item.classList.add('mu-hide');
+      });
+      const currentEle = document.getElementById('col-' + this.sortBy);
+      currentEle.classList.remove('mu-hide');
+      currentEle.classList.add('mu-show');
+      // Update icon sort
+      this.oSort.icon = (this.active.asc) ? 'up' : ((this.active.desc) ? 'down' : '');
+      this.oSort.value = (this.active.asc) ? 'asc' : ((this.active.desc) ? 'desc' : '');
+      this.ngxFilter.column.prev = this.ngxFilter.column.current;
+    }
   }
 }
