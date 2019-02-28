@@ -1,0 +1,95 @@
+<span dropdown (onShown)="handler(true)" (onHidden)="handler(false)">
+  <a href dropdownToggle (click)="filterToggle()" class="basic-link-dropdown" [ngClass]="{ 'is-open': isOpen, 'filtered': filtered }" #linkFilter>
+    <i class="fa fa-filter"></i>
+  </a>
+  <ul *dropdownMenu class="dropdown-menu" role="menu" (click)="$event.stopPropagation()" [ngClass]="{ 'date-filter': searchByDate }">
+    <li>
+      <th>
+        <div class="form-horizontal adv-filter-container">
+          <div class="form-group">
+            <div class="col-sm-12">
+              <div class="btn-group btn-group-justified btn-group-sm">
+                <a href="javascript:void(0);" class="btn btn-default sort-by" [ngClass]="{ 'active': active.asc }"
+                  (click)="addActive('asc');sort('asc'); linkFilter.click();">
+                  <span class="fa fa-sort-alpha-asc"></span>
+                </a>
+                <a href="javascript:void(0);" class="btn btn-default sort-by" [ngClass]="{ 'active': active.desc }"
+                  (click)="addActive('desc');sort('desc'); linkFilter.click();"><span class="fa fa-sort-alpha-desc"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <hr class="no-margin" />
+            </div>
+          </div>
+          <!-- NORMAL FILTER PART -->
+          <div class="common-search" *ngIf="!searchByDate">
+            <div class="form-group">
+              <div class="col-sm-12">
+                <div class="input-group input-group-sm"><span class="input-group-addon"><span class="fa fa-search"></span></span>
+                  <input type="text" class="form-control" placeholder="Chercher dans la liste" [(ngModel)]="searchInList"
+                    (keyup)="filterCheckboxList()" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <hr class="no-margin" />
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <div class="list-group-container">
+                  <div class="checkbox-list">
+                    <div>
+                      <label class="checkbox-container select-all">
+                        <span *ngIf="checkedAll">Tout désélectionner</span>
+                        <span *ngIf="!checkedAll">Tout sélectionner</span>
+                        <input type="checkbox" [checked]="checkedAll" (change)="selectAllChange()">
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <hr class="no-margin" />
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <div class="list-group-container">
+                  <div class="checkbox-list">
+                    <div *ngFor="let item of checklistForSearch">
+                      <label class="checkbox-container">{{ item }}
+                        <input type="checkbox" [(checklist)]="checklist" [checklistValue]="item" (checklistChange)="filterByList()">
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END NORMAL FILTER PART -->
+
+          <!-- DATE FILTER PART -->
+          <div class="form-group" *ngIf="searchByDate">
+            <div class="col-sm-12">
+              <bs-datepicker-inline [(bsValue)]="selectedDate" [bsConfig]="{containerClass: 'theme-red', showWeekNumbers: false, locale: 'fr'}">
+              </bs-datepicker-inline>
+              <div class="text-center">
+                <button class="btn btn-danger btn-confirm" [disabled]="!selectedDate" (click)="sortByDateRange(); linkFilter.click();">OK</button>
+              </div>
+            </div>
+          </div>
+          <!-- END DATE FILTER PART -->
+        </div>
+      </th>
+    </li>
+  </ul>
+</span>

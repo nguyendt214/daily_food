@@ -1,0 +1,532 @@
+@import 'src/app/shared/styles/app/variables.scss';
+$row-background-color : $mu_background_color;
+$backgroundRed:  #F15150;
+$text-normal-color: rgba(0, 0, 0, 0.87);
+:host /deep/ .custom-datatable {
+  mark {
+    background-color: yellow;
+  }
+
+  .fullscreen {
+    position: absolute !important;
+    height: auto !important;
+    top: 100px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .search-box {
+    padding: 8px;
+    margin: 15px auto;
+    width: 30%;
+  }
+
+  .mu-disabled {
+    i {
+      color: #aba7a7 !important;
+      cursor: default;
+    }
+  }
+
+  .total-right {
+    float: right;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    color: $text-normal-color;
+  }
+  .clear-filter {
+    margin-top: 20px;
+    cursor: pointer;
+    color: $mu_header_color;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  // Header color
+  .datatable-header-cell-wrapper {
+    font-size: 15px;
+    font-weight: 700;
+    color: $mu_header_color;
+  }
+
+  datatable-header-cell:last-of-type .datatable-header-cell-label {
+    color: #888 !important;
+  }
+
+  .datatable-header,
+  .datatable-footer {
+    background: $label-color;
+  }
+
+  .datatable-header,
+  .datatable-footer {
+    background: $label-color;
+  }
+
+  .ngx-datatable {
+    overflow: unset;
+    &.material {
+      box-shadow: none;
+    }
+
+    .datatable-body-cell-label {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      line-height: 1.5;
+      /* fallback */
+      max-height: 42px;
+      /* fallback */
+      -webkit-line-clamp: 2;
+      /* number of lines to show */
+      -webkit-box-orient: vertical;
+    }
+
+    .datatable-body-cell,
+    .datatable-header-cell {
+      display: flex;
+      align-items: center;
+    }
+
+    .datatable-header-cell {
+      padding: 8px;
+    }
+
+    .datatable-row-center {
+      width: 100% !important;
+    }
+
+    background: $gray-lighter;
+
+    &.striped {
+      .datatable-row-odd {
+        background: $gray-lighter;
+      }
+    }
+
+    &.single-selection,
+    &.multi-selection,
+    &.multi-click-selection {
+      .datatable-body-row {
+
+        &.active,
+        &.active .datatable-row-group {
+          background-color: $row-background-color;
+          color: $label-color;
+        }
+
+        &.active:hover,
+        &.active:hover .datatable-row-group {
+          background-color: $row-background-color;
+          color: $label-color;
+        }
+
+        &.active:focus,
+        &.active:focus .datatable-row-group {
+          background-color: $row-background-color;
+          color: $label-color;
+        }
+      }
+    }
+
+    &:not(.cell-selection) {
+      .datatable-body-row {
+
+        &:hover,
+        &:hover .datatable-row-group {
+          background-color: $gray-lighter;
+          transition-property: background;
+          transition-duration: 0s;
+          transition-timing-function: linear;
+          opacity: 0.95;
+        }
+
+        &:focus,
+        &:focus .datatable-row-group {
+          background-color: $gray-lighter;
+        }
+      }
+    }
+
+    &:not(.cell-selection) {
+      .datatable-body-row.active {
+
+        &:hover,
+        &:hover .datatable-row-group {
+          background-color: $row-background-color;
+        }
+
+        &:focus,
+        &:focus .datatable-row-group {
+          background-color: $row-background-color;
+        }
+      }
+    }
+
+    &.cell-selection {
+      .datatable-body-cell {
+
+        &:hover,
+        &:hover .datatable-row-group {
+          background-color: $row-background-color;
+          transition-property: background;
+          transition-duration: 0s;
+          transition-timing-function: linear;
+        }
+
+        &:focus,
+        &:focus .datatable-row-group {
+          background-color: $row-background-color;
+        }
+
+        &.active,
+        &.active .datatable-row-group {
+          background-color: $row-background-color;
+          color: $label-color;
+        }
+
+        &.active:hover,
+        &.active:hover .datatable-row-group {
+          background-color: $row-background-color;
+          color: $label-color;
+        }
+
+        &.active:focus,
+        &.active:focus .datatable-row-group {
+          background-color: $row-background-color;
+          color: $label-color;
+        }
+      }
+    }
+
+  }
+
+  .ngx-datatable .datatable-body .datatable-scroll {
+    width: 100% !important;
+  }
+
+  .ngx-datatable.material .datatable-body .progress-linear .container {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 5px;
+    -webkit-transform: translate(0, 0) scale(1, 1);
+    transform: translate(0, 0) scale(1, 1);
+    background-color: $gray-lighter;
+  }
+
+  .ngx-datatable.material .datatable-body .progress-linear .container .bar {
+    transition: all .2s linear;
+    -webkit-animation: query 0.8s infinite cubic-bezier(0.39, 0.575, 0.565, 1);
+    animation: query 0.8s infinite cubic-bezier(0.39, 0.575, 0.565, 1);
+    transition: -webkit-transform .2s linear;
+    transition: transform .2s linear;
+    background-color: $mu_background_color;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 5px;
+  }
+
+  datatable-scroller {
+    width: 100% !important;
+  }
+
+  datatable-row-wrapper:nth-of-type(odd) .datatable-body-row {
+    background-color: #fafbfc !important;
+  }
+
+  datatable-row-wrapper:nth-of-type(even) .datatable-body-row {
+    background-color: #ffffff !important;
+  }
+
+  .datatable-body-row {
+    border-bottom: 1px solid #eee !important;
+    width: 100% !important;
+
+    &:hover {
+      //color: $label-color !important;
+      background-color: $row-background-color !important;
+    }
+
+    &.active,
+    &.active:hover,
+    &.active:focus {
+
+      .fa {
+        color: #000;
+      }
+    }
+
+    .datatable-body-cell {
+      padding: 8px !important;
+    }
+
+    .smaller-padding {
+      padding: {
+        left: 5px !important;
+        right: 5px !important;
+      }
+    }
+  }
+
+  .datatable-footer-inner li.active a {
+    background-color: $mu_header_color !important;
+    color: $label-color;
+    font-weight: normal;
+  }
+
+  .datatable-pager {
+    text-align: left !important;
+
+    a:hover {
+      color: $label-color !important;
+    }
+
+    a {
+      height: 35px !important;
+      min-width: 35px !important;
+      line-height: 35px !important;
+      margin: 6px 1px !important;
+    }
+
+    .datatable-icon-right,
+    .datatable-icon-left,
+    .datatable-icon-prev,
+    .datatable-icon-skip {
+      height: 35px !important;
+      min-width: 35px !important;
+      line-height: 40px !important;
+    }
+  }
+
+  .empty-row {
+    height: 50px;
+    text-align: left;
+    padding: 15px 0;
+    border-top: 0;
+  }
+
+  .empty-row {
+    height: 50px;
+    text-align: left;
+    padding: 15px 0;
+    border-top: 0;
+  }
+
+  .page-limit {
+    text-align: right !important;
+  }
+
+  .switch.switch-small {
+    min-width: 40px;
+    height: 15px;
+    margin-top: 10px;
+    background-color: rgba(0, 0, 0, .38);
+  }
+
+  .switch small {
+    top: -4px;
+  }
+
+  .switch.checked {
+    background: rgba(33, 150, 243, .5);
+
+    small {
+      background-color: #2196f3;
+    }
+  }
+
+  .switch.disabled {
+    opacity: 0.4;
+  }
+
+  .btn-mu {
+    &:hover {
+      box-shadow: none;
+      transform: none;
+      opacity: 0.9;
+    }
+  }
+
+  .btn-fa-trash-alt {
+    background-color: $backgroundRed;
+
+    i {
+      color: #FFF;
+    }
+  }
+
+  button.icon {
+    margin-right: 2px;
+  }
+
+  .center-row {
+    text-align: center !important;
+  }
+
+  .center-row .datatable-body-cell-label {
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  .switch {
+    border: 1px solid #cecece;
+  }
+
+  .action-icons {
+    text-align: right !important;
+  }
+
+  .action-icons {
+    text-align: right !important;
+  }
+
+  .fa-2x {
+    font-size: 1.5em;
+  }
+
+  .header-title {
+    font-size: 15px;
+    color: $mu_header_color;
+    font-weight: 700;
+  }
+
+  .ngx-datatable.material .datatable-header {
+    overflow: initial !important;
+    transform: none !important;
+
+    * {
+      overflow: initial !important;
+      transform: none !important;
+    }
+
+    .list-area {
+      overflow-y: scroll !important;
+    }
+
+    ul.dropdown-menu {
+      left: 0;
+      top: 35px;
+      position: absolute;
+      background-color: #fff;
+      width: 230px;
+    }
+
+    ul.date-filter {
+      width: auto !important;
+      right: 0;
+      left: auto;
+      .bs-datepicker {
+        box-shadow: none;
+      }
+      .bs-datepicker-container {
+        padding: 0px;
+      }
+      .btn-confirm {
+        margin: {
+          top: 15px;
+        }
+      }
+      .btn-confirm,
+      .bs-datepicker-head,
+      .bs-datepicker-body table td span.selected {
+        background: $mu_header_color;
+      }
+      .btn-confirm:hover {
+        border-color: $mu_header_color;
+        font-weight: 700;
+      }
+    }
+  }
+
+  .dropdown-list {
+    position: relative !important;
+  }
+
+  .selected-list .c-angle-down,
+  .selected-list .c-angle-up,
+  .selected-list .countplaceholder {
+    top: 30%;
+  }
+
+  .selected-list .c-list .c-token .c-remove {
+    top: 3px;
+  }
+  .checkbox-list {
+    .checkbox-container {
+      position: relative;
+      padding: {
+        left: 25px;
+      }
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: normal;
+      color: rgba(0, 0, 0, 0.87);
+    }
+    /* Hide the browser's default checkbox */
+    .checkbox-container input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    /* Create a custom checkbox */
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 20px;
+      width: 20px;
+      background-color: #eee;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .checkbox-container:hover input~.checkmark {
+      background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .checkbox-container input:checked~.checkmark {
+      background-color: $mu_header_color;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .checkbox-container input:checked~.checkmark:after {
+      display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .checkbox-container .checkmark:after {
+      left: 8px;
+      top: 3px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+    label.select-all {
+      margin: {
+        bottom: 0px;
+      }
+    }
+  }
+}

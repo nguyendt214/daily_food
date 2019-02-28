@@ -29,9 +29,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     public settings: SettingsService
   ) { }
 
-    ngOnInit() {
-        $(document).on('click', '[href="#"]', e => e.preventDefault());
-    }
+    ngOnInit() {}
 
     ngAfterViewInit() {
       this.router.events.subscribe(event => {

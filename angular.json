@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "mu-angular-seed": {
+    "mu-scout": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -24,9 +24,7 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.js",
-              "node_modules/moment/min/moment-with-locales.min.js",
-              "node_modules/fullcalendar/dist/fullcalendar.js"
+              "node_modules/moment/min/moment-with-locales.min.js"
             ]
           },
           "configurations": {
@@ -86,18 +84,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "mu-angular-seed:build"
+            "browserTarget": "mu-scout:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "mu-angular-seed:build:production"
+              "browserTarget": "mu-scout:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "mu-angular-seed:build"
+            "browserTarget": "mu-scout:build"
           }
         },
         "test": {
@@ -133,7 +131,7 @@
         }
       }
     },
-    "mu-angular-seed-e2e": {
+    "mu-scout-e2e": {
       "root": "",
       "sourceRoot": "",
       "projectType": "application",
@@ -142,7 +140,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./e2e/protractor.conf.js",
-            "devServerTarget": "mu-angular-seed:serve"
+            "devServerTarget": "mu-scout:serve"
           }
         },
         "lint": {
@@ -159,7 +157,7 @@
       }
     }
   },
-  "defaultProject": "mu-angular-seed",
+  "defaultProject": "mu-scout",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "mu",
