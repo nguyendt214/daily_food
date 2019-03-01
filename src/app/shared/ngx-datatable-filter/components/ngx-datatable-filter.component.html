@@ -1,5 +1,5 @@
 <span dropdown (onShown)="handler(true)" (onHidden)="handler(false)">
-  <a href dropdownToggle (click)="filterToggle(sortBy)" class="basic-link-dropdown" [ngClass]="{ 'is-open': isOpen, 'filtered': filtered && !checkedAll }" #linkFilter>
+  <a href dropdownToggle (click)="filterToggle(sortBy)" class="basic-link-dropdown" [ngClass]="{ 'is-open': isOpen, 'filtered': filtered && (!checkedAll || sortBy === 'startDate' || sortBy === 'endDate') }" #linkFilter>
     <em class="fa fa-filter"></em>
   </a>
   <span class="mu-sort-icon sort-{{ oSort.value }} datatable-icon-{{ oSort.icon }}" id="col-{{ sortBy }}"></span>
