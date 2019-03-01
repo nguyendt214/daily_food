@@ -29,11 +29,7 @@ export class HomeComponent implements OnInit {
   messages = { emptyMessage: `<div class='text-center'><span>Aucune mission trouvée</span></div>` };
   currentComponentWidth: number;
   hasError = false;
-  filterList = {
-    ambassador: [],
-    townsF: [],
-    status: []
-  };
+  filterList = new Object();
   @ViewChild(DatatableComponent) public table: DatatableComponent;
   @ViewChild('tableWrapper') tableWrapper: ElementRef;
   constructor(
@@ -44,6 +40,16 @@ export class HomeComponent implements OnInit {
   ) {
     this.route.data.subscribe(data => {
       this.user = data.user;
+    });
+    // Add cols want to update the LIST values
+    this.ngxFilter.filter.cols = ['ambassador', 'townsF', 'status'];
+    // Prepare for checlist and filterlist
+    _.each(this.ngxFilter.filter.cols, (col: string) => {
+      Object.defineProperty(this.filterList, col, {
+        value: [],
+        writable: true,
+        enumerable: true
+      });
     });
   }
 
@@ -65,9 +71,7 @@ export class HomeComponent implements OnInit {
         // cache our list
         this.missionsOrigin = [...ms];
         this.filterFromLocalStorage();
-        // Add cols want to update the LIST values
-        this.ngxFilter.filter.cols = ['ambassador', 'townsF', 'status'];
-        this.fixBugColumnResize();
+        this.fixBugColumnResize(true);
         this.loadingIndicator = false;
       }, () => {
         this.hasError = true;
@@ -88,7 +92,7 @@ export class HomeComponent implements OnInit {
   }
 
   prepareData(ms: Array<IMission>) {
-    ms.forEach((m: IMission) => {
+    _.each(ms, (m: IMission) => {
       m.id = m.idMission;
       m.ambassador = m.salesAgent.firstName + ' ' + m.salesAgent.lastName.toUpperCase();
       m.startDateF = moment(m.startDate).format('DD/MM/YYYY');
@@ -97,29 +101,29 @@ export class HomeComponent implements OnInit {
       m.status = m.fiberStatuses.join(', ');
       // Init data for filter list by Status
       _.each(m.fiberStatuses, s => {
-        this.filterList.status = _.union(this.filterList.status, [s]);
+        this.filterList['status'] = _.union(this.filterList['status'], [s]);
       });
       // Init data for filter list by Ambassador
-      this.filterList.ambassador = _.union(this.filterList.ambassador, [m.ambassador]);
+      this.filterList['ambassador'] = _.union(this.filterList['ambassador'], [m.ambassador]);
       // Towns
       m.towns = '';
       m.townsF = '';
       if (m.cities) {
-        m.cities.forEach((c: ICity, index) => {
+        _.each(m.cities, (c: ICity, index) => {
           m.townsF += (m.cities.length === index + 1) ? c.city : c.city + ', ';
           if (index <= 1) {
             m.towns += (index === 1) ? ((m.cities.length > 2) ? c.city + ' ...' : c.city) :
               ((m.cities.length === 1) ? c.city : c.city + ', ');
           }
           // Init for filter list by City
-          this.filterList.townsF = _.union(this.filterList.townsF, [c.city]);
+          this.filterList['townsF'] = _.union(this.filterList['townsF'], [c.city]);
         });
       }
     });
     // Sort filter list by Alphabet
-    this.filterList.ambassador.sort();
-    this.filterList.townsF.sort();
-    this.filterList.status.sort();
+    _.each(this.ngxFilter.filter.cols, (col: string) => {
+      this.filterList[col].sort();
+    });
 
     return ms;
   }
@@ -218,7 +222,7 @@ export class HomeComponent implements OnInit {
     this.fixBugColumnResize();
   }
 
-  fixBugColumnResize() {
+  fixBugColumnResize(forceUpdate?: boolean) {
     setTimeout(() => {
       if (this.table && this.table.recalculate && (this.tableWrapper.nativeElement.clientWidth !== this.currentComponentWidth)) {
         this.currentComponentWidth = this.tableWrapper.nativeElement.clientWidth;
@@ -227,5 +231,8 @@ export class HomeComponent implements OnInit {
         window.dispatchEvent(new Event('resize'));
       }
     });
+    if (forceUpdate) {
+      window.dispatchEvent(new Event('resize'));
+    }
   }
 }

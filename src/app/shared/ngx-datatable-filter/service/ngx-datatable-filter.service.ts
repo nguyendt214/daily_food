@@ -19,6 +19,8 @@ export class NgxDatatablesFilterService {
   maxDate: Date;
   dateF = 'DD/MM/YYYY';
   dateFForSort = 'YYYYMMDDD';
+  autoSetStartDate = true;
+  autoSetEndDate = true;
   finalData: Array<IMission>;
   filtering = false;
   column = {

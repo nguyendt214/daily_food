@@ -61,9 +61,9 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
   }
 
   initListVals(l: Array<string>) {
-    this.checklist = [...l];
-    this.checklistOrigin = [...l];
-    this.checklistForSearch = [...l];
+    this.checklist = l ? [...l] : [];
+    this.checklistOrigin = l ? [...l] : [];
+    this.checklistForSearch = l ? [...l] : [];
   }
   /**
    * Filter toggle
@@ -85,20 +85,21 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
     // Prepare for filter by Date
     let m: IMission;
     const dataCollection = this.ngxFilter.finalData ? this.ngxFilter.finalData : this.ngxDatas;
-    // EndDate
-    m = _.maxBy(dataCollection, (ms: IMission) => {
-      return ms && moment(ms.endDate).format(this.ngxFilter.dateFForSort);
-    });
-    this.ngxFilter.maxDate = m ? moment(m.endDate).toDate() : new Date();
-    // StartDate
-    m = _.minBy(dataCollection, (ms: IMission) => {
-      return ms && moment(ms.startDate).format(this.ngxFilter.dateFForSort);
-    });
-    this.ngxFilter.minDate = m ? moment(m.startDate).toDate() : new Date();
-    if (this.sortBy === 'endDate') {
+
+    if (this.ngxFilter.autoSetEndDate && this.sortBy === 'endDate') {
+      // EndDate
+      m = _.maxBy(dataCollection, (ms: IMission) => {
+        return ms && moment(ms.endDate).format(this.ngxFilter.dateFForSort);
+      });
+      this.ngxFilter.maxDate = m ? moment(m.endDate).toDate() : new Date();
       this.selectedDate = this.ngxFilter.maxDate;
     }
-    if (this.sortBy === 'startDate') {
+    if (this.ngxFilter.autoSetStartDate && this.sortBy === 'startDate') {
+      // StartDate
+      m = _.minBy(dataCollection, (ms: IMission) => {
+        return ms && moment(ms.startDate).format(this.ngxFilter.dateFForSort);
+      });
+      this.ngxFilter.minDate = m ? moment(m.startDate).toDate() : new Date();
       this.selectedDate = this.ngxFilter.minDate;
     }
   }
@@ -124,8 +125,10 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
   sortByDateRange() {
     if (this.sortBy === 'startDate') {
       this.ngxFilter.minDate = this.selectedDate;
+      this.ngxFilter.autoSetStartDate = false;
     } else if (this.sortBy === 'endDate') {
       this.ngxFilter.maxDate = this.selectedDate;
+      this.ngxFilter.autoSetEndDate = false;
     }
     this.ngxFilter.sortOrder++;
     this.updateDataFilter({
