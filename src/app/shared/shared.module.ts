@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ColorsService } from './colors/colors.service';
 import { MuUserModule } from '@mu/common';
-import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 import { ScoutService } from '../routes/home/home/service/scout.service';
 import { MatProgressSpinnerModule, MatFormFieldModule, MatSelectModule, MatInputModule } from '@angular/material';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -27,7 +26,6 @@ defineLocale('fr', frLocale);
     TooltipModule.forRoot(),
     MatProgressSpinnerModule,
     MuUserModule,
-    SweetAlert2Module.forRoot(),
     NgxDatatableModule,
     BsDropdownModule.forRoot(),
     BsDatepickerModule.forRoot(),
