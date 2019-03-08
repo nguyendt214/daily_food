@@ -3,14 +3,14 @@ import { ICity } from './city';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 export interface IMission {
-  id?: string;
+  id?: number;
+  idMission?: number;
   ambassador?: string;
   status?: string;
   startDateF?: string;
   endDateF?: string;
   towns?: string;
   townsF?: string;
-  idMission?: any;
   salesAgent?: ISalesAgent;
   startDate?: string;
   endDate?: string;
