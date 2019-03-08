@@ -7,7 +7,7 @@ import { ColorsService } from './colors/colors.service';
 import { MuUserModule } from '@mu/common';
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 import { ScoutService } from '../routes/home/home/service/scout.service';
-import { MatProgressSpinnerModule } from '@angular/material';
+import { MatProgressSpinnerModule, MatFormFieldModule, MatSelectModule, MatInputModule } from '@angular/material';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { LocalStorageService } from './LocalStorage/local-storage.service';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -16,6 +16,7 @@ import { BsDatepickerModule, frLocale, defineLocale } from 'ngx-bootstrap';
 import { NgxDatatableCommonFilterComponent } from './ngx-datatable-filter/components/common/ngx-datatable-common.component';
 import { NgxDatatablesFilterService } from './ngx-datatable-filter/service/ngx-datatable-filter.service';
 import { NgxDatatableFilterComponent } from './ngx-datatable-filter/components/ngx-datatable-filter.component';
+import { StaticModule } from './statics/static.module';
 defineLocale('fr', frLocale);
 @NgModule({
   imports: [
@@ -29,7 +30,11 @@ defineLocale('fr', frLocale);
     NgxDatatableModule,
     BsDropdownModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    ChecklistModule
+    ChecklistModule,
+    StaticModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule
   ],
   providers: [
     ColorsService,
@@ -53,7 +58,11 @@ defineLocale('fr', frLocale);
     NgxDatatableFilterComponent,
     NgxDatatableCommonFilterComponent,
     ChecklistModule,
-    BsDatepickerModule
+    BsDatepickerModule,
+    StaticModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule
   ]
 })
 

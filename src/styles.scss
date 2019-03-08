@@ -20,3 +20,18 @@
 @import "../node_modules/@fortawesome/fontawesome-free/css/all.css";
 
 @import "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.scss";
+
+.bs-datepicker {
+  top: 5px;
+}
+.theme-green .bs-datepicker-head,
+.theme-green .bs-datepicker-body table td span.selected,
+.theme-green .bs-datepicker-body table td.selected span,
+.theme-green .bs-datepicker-body table td span[class*="select-"]:after,
+.theme-green .bs-datepicker-body table td[class*="select-"] span:after {
+  background: #64B5F6;
+}
+
+.theme-green .bs-datepicker-body table td.week span {
+  color: #64B5F6;
+}
