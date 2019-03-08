@@ -23,6 +23,9 @@
       }
     }
   }
+  .date-disabled .form-control[disabled] {
+    background: #FFF;
+  }
 
   .botton-action {
     padding: {
@@ -68,6 +71,14 @@
     padding-right: 15px;
   }
 
+  .custom-datatable .checkbox-list .checkmark {
+    background: #FFF;
+    border: 1px solid #eee;
+  }
+  .mat-form-field-appearance-legacy .mat-form-field-underline {
+    display: none;
+  }
+
   .clear-box {
     display: block;
     clear: both;
@@ -76,8 +87,7 @@
 
   .mu-crud {
     .mat-select {
-      border: 0px;
-      padding: 6px 0px;
+      padding: 6px;
     }
 
     .mat-form-field-type-mat-select {
@@ -123,7 +133,7 @@
 
     .mat-form-field-wrapper {
       padding: {
-        bottom: 15px !important;
+        bottom: 0px !important;
       }
     }
 
