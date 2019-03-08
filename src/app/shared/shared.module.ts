@@ -16,6 +16,7 @@ import { BsDatepickerModule, frLocale, defineLocale } from 'ngx-bootstrap';
 import { NgxDatatableCommonFilterComponent } from './ngx-datatable-filter/components/common/ngx-datatable-common.component';
 import { NgxDatatablesFilterService } from './ngx-datatable-filter/service/ngx-datatable-filter.service';
 import { NgxDatatableFilterComponent } from './ngx-datatable-filter/components/ngx-datatable-filter.component';
+import { StarComponent } from './ngx-datatable-filter/components/star/star.component';
 defineLocale('fr', frLocale);
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ defineLocale('fr', frLocale);
   ],
   declarations: [
     NgxDatatableFilterComponent,
-    NgxDatatableCommonFilterComponent
+    NgxDatatableCommonFilterComponent,
+    StarComponent
   ],
   exports: [
     CommonModule,

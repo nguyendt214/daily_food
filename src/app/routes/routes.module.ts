@@ -3,11 +3,13 @@ import { RouterModule } from '@angular/router';
 
 import { routes } from './routes';
 import { HomeModule } from './home/home.module';
+import { ReportModule } from './report/report.module';
 
 @NgModule({
   imports: [
     RouterModule.forRoot(routes),
-    HomeModule
+    HomeModule,
+    ReportModule
   ],
   declarations: [],
   exports: [

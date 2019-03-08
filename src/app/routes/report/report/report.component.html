@@ -1,0 +1,176 @@
+<div class="content-heading">Afficher la rapport</div>
+<div class="col-sm-12" *ngIf="hasError">
+  <span class="text-center">Impossible de récupérer la liste des missions</span>
+</div>
+<!-- Mission Content -->
+<div class="panel panel-default">
+  <div class="panel-heading">Eléments du filtre</div>
+  <div class="panel-body">
+    <form class="form-horizontal" novalidate="">
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Ambassadeur</label>
+        <div class="col-sm-10 label-value">
+          {{ saleAgent.ambassador }}
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Synchronisation</label>
+        <div class="col-sm-10 label-value">
+          {{ saleAgent.lastSyncDate | date: 'dd/MM/yyyy - HH\'h\'mm'}}
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Mission(s)</label>
+        <div class="col-sm-10">
+          <div class="custom-datatable" *ngIf="!hasError" [hidden]="loadingIndicator">
+
+            <ngx-datatable class='material' [columnMode]="'force'" [headerHeight]="'auto'" [footerHeight]="false" [rowHeight]="'auto'"
+              [rows]='missions' [messages]="messages" [loadingIndicator]="loadingIndicator">
+              <!-- Communes -->
+              <ngx-datatable-column name="Communes" prop="towns" editable="false" [sortable]="false" [resizeable]="false">
+                <ng-template ngx-datatable-cell-template let-value="value" let-mission="row">
+                  <span class="show" [innerHTML]="value" [tooltip]="mission.getTooltipText()" placement="right" container="body"></span>
+                </ng-template>
+              </ngx-datatable-column>
+              <!-- Status -->
+              <ngx-datatable-column name="Status" prop="status" editable="false" [sortable]="false" [resizeable]="false"
+                [maxWidth]="120" [minWidth]="120">
+              </ngx-datatable-column>
+              <!-- Du -->
+              <ngx-datatable-column name="Du" prop="startDateF" editable="false" [sortable]="true" [resizeable]="false"
+                [maxWidth]="120" [minWidth]="120">
+              </ngx-datatable-column>
+              <!-- Au -->
+              <ngx-datatable-column name="Au" prop="endDateF" editable="false" [sortable]="true" [resizeable]="false" [maxWidth]="120"
+                [minWidth]="120">
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Logements" prop="totalHousingNumber" editable="false" [sortable]="false" [resizeable]="false" [maxWidth]="120" [minWidth]="120">
+              </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- End Mission Content -->
+
+<!-- Summary of the report -->
+<!-- <div class="panel panel-default">
+  <div class="panel-heading">Synthèse du rapport</div>
+  <div class="panel-body">
+    <form class="form-horizontal" novalidate="">
+      <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+              <label class="col-sm-6 control-label">Nombre de logements</label>
+              <div class="col-sm-6 label-value">
+                {{ totalHousingNumber }}
+              </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label class="col-sm-6 control-label">Nombre de rencontres</label>
+            <div class="col-sm-6 label-value">
+              {{ totalMetting }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div> -->
+<!-- End Summary of the report -->
+<!-- Meeting Content -->
+<div class="panel panel-default">
+  <div class="panel-heading">Détail des rencontres</div>
+  <div class="panel-body">
+    <div class="custom-datatable" *ngIf="!hasError" #tableWrapper [hidden]="loadingIndicator">
+
+      <app-ngx-datatable-common
+      *ngIf="meetingsOrigin.length > 0"
+      [ngxDatas]="meetingsOrigin"
+      (filterCallback)="filterCallback($event)"
+      (listCallback)="listCallback($event)"
+      (resetCallback)="resetCallback()"></app-ngx-datatable-common>
+
+      <div class="clearfix"></div>
+      <ngx-datatable #table class='material' [columnMode]="'force'" [headerHeight]="'auto'" [footerHeight]="50" [rowHeight]="'auto'"
+        [limit]="currentPageLimit" [rows]='meetings' [messages]="messages" [loadingIndicator]="loadingIndicator">
+        <!-- BuildingID -->
+        <ngx-datatable-column name="BuildingID" prop="idBuilding" [sortable]="false" [resizeable]="false">
+          <ng-template let-column="column" ngx-datatable-header-template>
+            <span class="header-title">BuildingID</span>
+            <app-ngx-datatable-filter [ngxDatas]="meetingsOrigin" [filterList]="filterList.idBuilding" [sortBy]="'idBuilding'" *ngIf="meetingsOrigin.length > 0"></app-ngx-datatable-filter>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <!-- Commune -->
+        <ngx-datatable-column name="Commune" prop="city" [sortable]="false" [resizeable]="false">
+          <ng-template let-column="column" ngx-datatable-header-template>
+            <span class="header-title">Commune</span>
+            <app-ngx-datatable-filter [ngxDatas]="meetingsOrigin" [filterList]="filterList.city" [sortBy]="'city'" *ngIf="meetingsOrigin.length > 0"></app-ngx-datatable-filter>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <!-- Date de rencontre -->
+        <ngx-datatable-column name="Date de rencontre" prop="date" editable="false" [sortable]="true" [resizeable]="false" [maxWidth]="120"
+        [minWidth]="120">
+          <ng-template let-column="column" ngx-datatable-header-template>
+            <span class="header-title">Date de rencontre</span>
+            <app-ngx-datatable-filter [ngxDatas]="meetingsOrigin" [sortBy]="'date'" [searchByDate]="true" *ngIf="meetingsOrigin.length > 0"></app-ngx-datatable-filter>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <!-- Type -->
+        <ngx-datatable-column name="Type" prop="type" [sortable]="false" [resizeable]="false">
+          <ng-template let-column="column" ngx-datatable-header-template>
+            <span class="header-title">Type</span>
+            <app-ngx-datatable-filter [ngxDatas]="meetingsOrigin" [filterList]="filterList.type" [sortBy]="'type'" *ngIf="meetingsOrigin.length > 0"></app-ngx-datatable-filter>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <!-- Qualification -->
+        <ngx-datatable-column name="Qualification" prop="qualification" [sortable]="false" [resizeable]="false">
+          <ng-template let-column="column" ngx-datatable-header-template>
+            <span class="header-title">Qualification</span>
+            <app-ngx-datatable-filter [ngxDatas]="meetingsOrigin" [filterList]="filterList.qualification" [sortBy]="'qualification'" [labelType]="'star'" *ngIf="meetingsOrigin.length > 0"></app-ngx-datatable-filter>
+          </ng-template>
+          <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+            <app-mu-star></app-mu-star>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <!-- ACTIONS -->
+        <ngx-datatable-column name="Actions" prop="action" editable="false" [sortable]="false" [resizeable]="false"
+        [cellClass]="'action-icons smaller-padding'" [maxWidth]="85" [minWidth]="85">
+          <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+            <!-- EDIT -->
+            <button class="btn btn-default btn-sm icon btn-mu">
+              <em class="fas fa-search-plus"></em>
+            </button>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-footer>
+          <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="currentPageLimit"
+            let-selectedCount="selectedCount" let-curPage="curPage" let-offset="offset" let-isVisible="isVisible">
+            <datatable-pager [pagerLeftArrowIcon]="'datatable-icon-left'" [pagerRightArrowIcon]="'datatable-icon-right'"
+              [pagerPreviousIcon]="'datatable-icon-prev'" [pagerNextIcon]="'datatable-icon-skip'" [page]="curPage" [size]="currentPageLimit"
+              [count]="rowCount" [hidden]="meetings?.length === 0" (change)="table.onFooterPage($event);updatePager($event)">
+            </datatable-pager>
+            <div class="datatable-pager page-limit" [hidden]="meetings?.length === 0">
+              <ul id="per-page" class="pager">
+                <li *ngFor="let option of pageLimitOptions" (click)="onLimitChange(option.value)" class="pages" [ngClass]="{ 'active': currentPageLimit === option.value }">
+                  <a href="javascript:void(0);">{{ option.value }}</a>
+                </li>
+              </ul>
+            </div>
+          </ng-template>
+        </ngx-datatable-footer>
+      </ngx-datatable>
+    </div>
+  </div>
+</div>
+<!-- End Meeting Content -->
