@@ -62,7 +62,8 @@ defineLocale('fr', frLocale);
     StaticModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    StarComponent
   ]
 })
 

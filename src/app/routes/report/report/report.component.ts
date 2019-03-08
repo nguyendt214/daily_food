@@ -87,7 +87,7 @@ export class ReportComponent implements OnInit {
   }
 
   prepareMission(missions: Array<IMission>): Array<Mission>  {
-    _.each(missions, (mission: IMission, i) => {
+    missions.forEach((mission: IMission, i) => {
       mission = Object.assign( new Mission(), mission);
       missions[i] = mission;
       this.totalHousingNumber += mission.totalHousingNumber;
@@ -110,7 +110,7 @@ export class ReportComponent implements OnInit {
   }
 
   prepareMettings(meetings: Array<IMeeting>): Array<IMeeting>  {
-    _.each(meetings, (meeting: IMeeting, i) => {
+    meetings.forEach((meeting: IMeeting, i) => {
       const meetingObj = Object.assign( new Meeting(), meeting) as Meeting;
 
       this.filterList['idBuilding'] = _.union(this.filterList['idBuilding'], [meetingObj.idBuilding]);
@@ -145,8 +145,6 @@ export class ReportComponent implements OnInit {
       this.localStorageService.set('paginationMeeting', searching ? 1 : this.curPage);
     }
   }
-
-
 
 
   /**
@@ -210,9 +208,6 @@ export class ReportComponent implements OnInit {
   resetCallback() {
     this.updateFilter(true);
     this.onLimitChange(10);
-  }
-  getDeleteState(meeting: Meeting): boolean {
-    return moment(meeting.date).format(this.ngxFilter.dateFForSort) <= moment().format(this.ngxFilter.dateFForSort);
   }
 
   @HostListener('window:resize', ['$event'])
