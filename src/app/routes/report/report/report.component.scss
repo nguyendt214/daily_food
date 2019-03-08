@@ -1,0 +1,35 @@
+@import '../../home/home/home.component.scss';
+:host /deep/ {
+  .label-value{
+    padding-top: 7px;
+    font-weight: bold;
+  }
+  .form-group .custom-datatable .ngx-datatable .datatable-header-cell{
+    padding: 5px;
+  }
+  .form-group .custom-datatable .ngx-datatable{
+    background: #FFF;
+  }
+  .form-group .ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-cell{
+    color: $text-color;
+  }
+  .panel.panel-default{
+    border-top-width: 3px;
+  }
+  .panel {
+    margin-bottom: 21px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  }
+  .panel-default {
+    border-color: #cfdbe2;
+  }
+  .form-group .custom-datatable datatable-header-cell:last-of-type .datatable-header-cell-label{
+    color: #64B5F6 !important;
+  }
+  .panel-body{
+    padding-top: 0px;
+  }
+}

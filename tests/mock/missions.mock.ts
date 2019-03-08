@@ -14,35 +14,35 @@ export const missionsMock = {
       'cities': [
         {
           'postCode': '91300',
-          'label': 'Rouez'
+          'city': 'Rouez'
         },
         {
           'postCode': '75001',
-          'label': 'Paris'
+          'city': 'Paris'
         },
         {
           'postCode': '75001',
-          'label': 'Halluin'
+          'city': 'Halluin'
         },
         {
           'postCode': '75001',
-          'label': 'Autreville'
+          'city': 'Autreville'
         },
         {
           'postCode': '75001',
-          'label': 'Aprieu'
+          'city': 'Aprieu'
         },
         {
           'postCode': '75001',
-          'label': 'Lutange'
+          'city': 'Lutange'
         },
         {
           'postCode': '75001',
-          'label': 'Aurice'
+          'city': 'Aurice'
         },
         {
           'postCode': '75001',
-          'label': 'Pisany'
+          'city': 'Pisany'
         }
       ],
       'fiberStatuses': [
@@ -64,11 +64,11 @@ export const missionsMock = {
       'cities': [
         {
           'postCode': '91300',
-          'label': 'Aassy'
+          'city': 'Aassy'
         },
         {
           'postCode': '75001',
-          'label': 'Paris'
+          'city': 'Paris'
         }
       ],
       'fiberStatuses': [
@@ -91,31 +91,31 @@ export const missionsMock = {
       'cities': [
         {
           'postCode': '91300',
-          'label': 'Massy'
+          'city': 'Massy'
         },
         {
           'postCode': '75001',
-          'label': 'Paris'
+          'city': 'Paris'
         },
         {
           'postCode': '75001',
-          'label': 'Autreville'
+          'city': 'Autreville'
         },
         {
           'postCode': '75001',
-          'label': 'Aprieu'
+          'city': 'Aprieu'
         },
         {
           'postCode': '75001',
-          'label': 'Lutange'
+          'city': 'Lutange'
         },
         {
           'postCode': '75001',
-          'label': 'Aurice'
+          'city': 'Aurice'
         },
         {
           'postCode': '75001',
-          'label': 'Pisany'
+          'city': 'Pisany'
         }
       ],
       'fiberStatuses': [
@@ -138,11 +138,11 @@ export const missionsMock = {
       'cities': [
         {
           'postCode': '91300',
-          'label': 'Massy'
+          'city': 'Massy'
         },
         {
           'postCode': '75001',
-          'label': 'Paris'
+          'city': 'Paris'
         }
       ],
       'fiberStatuses': [
@@ -164,11 +164,11 @@ export const missionsMock = {
       'cities': [
         {
           'postCode': '91300',
-          'label': 'Massy'
+          'city': 'Massy'
         },
         {
           'postCode': '75001',
-          'label': 'Paris'
+          'city': 'Paris'
         }
       ],
       'fiberStatuses': [
@@ -191,11 +191,11 @@ export const missionsMock = {
       'cities': [
         {
           'postCode': '91300',
-          'label': 'Massy'
+          'city': 'Massy'
         },
         {
           'postCode': '75001',
-          'label': 'Paris'
+          'city': 'Paris'
         }
       ],
       'fiberStatuses': [
@@ -217,11 +217,11 @@ export const missionsMock = {
       'cities': [
         {
           'postCode': '91300',
-          'label': 'Massy'
+          'city': 'Massy'
         },
         {
           'postCode': '75001',
-          'label': 'Paris'
+          'city': 'Paris'
         }
       ],
       'fiberStatuses': [
@@ -243,11 +243,11 @@ export const missionsMock = {
       'cities': [
         {
           'postCode': '91300',
-          'label': 'Massy'
+          'city': 'Massy'
         },
         {
           'postCode': '75001',
-          'label': 'Paris'
+          'city': 'Paris'
         }
       ],
       'fiberStatuses': [
@@ -269,11 +269,11 @@ export const missionsMock = {
       'cities': [
         {
           'postCode': '91300',
-          'label': 'Massy'
+          'city': 'Massy'
         },
         {
           'postCode': '75001',
-          'label': 'Paris'
+          'city': 'Paris'
         }
       ],
       'fiberStatuses': [
@@ -295,11 +295,11 @@ export const missionsMock = {
       'cities': [
         {
           'postCode': '91300',
-          'label': 'Massy'
+          'city': 'Massy'
         },
         {
           'postCode': '75001',
-          'label': 'Paris'
+          'city': 'Paris'
         }
       ],
       'fiberStatuses': [
@@ -321,11 +321,11 @@ export const missionsMock = {
       'cities': [
         {
           'postCode': '91300',
-          'label': 'Massy'
+          'city': 'Massy'
         },
         {
           'postCode': '75001',
-          'label': 'Paris'
+          'city': 'Paris'
         }
       ],
       'fiberStatuses': [
@@ -347,11 +347,11 @@ export const missionsMock = {
       'cities': [
         {
           'postCode': '91300',
-          'label': 'Massy'
+          'city': 'Massy'
         },
         {
           'postCode': '75001',
-          'label': 'Paris'
+          'city': 'Paris'
         }
       ],
       'fiberStatuses': [
@@ -373,11 +373,11 @@ export const missionsMock = {
       'cities': [
         {
           'postCode': '91300',
-          'label': 'Massy'
+          'city': 'Massy'
         },
         {
           'postCode': '75001',
-          'label': 'Paris'
+          'city': 'Paris'
         }
       ],
       'fiberStatuses': [
@@ -399,11 +399,11 @@ export const missionsMock = {
       'cities': [
         {
           'postCode': '91300',
-          'label': 'Massy'
+          'city': 'Massy'
         },
         {
           'postCode': '75001',
-          'label': 'Paris'
+          'city': 'Paris'
         }
       ],
       'fiberStatuses': [
@@ -425,11 +425,11 @@ export const missionsMock = {
       'cities': [
         {
           'postCode': '91300',
-          'label': 'Massy'
+          'city': 'Massy'
         },
         {
           'postCode': '75001',
-          'label': 'Paris'
+          'city': 'Paris'
         }
       ],
       'fiberStatuses': [

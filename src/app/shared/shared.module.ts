@@ -16,6 +16,7 @@ import { NgxDatatableCommonFilterComponent } from './ngx-datatable-filter/compon
 import { NgxDatatablesFilterService } from './ngx-datatable-filter/service/ngx-datatable-filter.service';
 import { NgxDatatableFilterComponent } from './ngx-datatable-filter/components/ngx-datatable-filter.component';
 import { StaticModule } from './statics/static.module';
+import { StarComponent } from './ngx-datatable-filter/components/star/star.component';
 defineLocale('fr', frLocale);
 @NgModule({
   imports: [
@@ -42,7 +43,8 @@ defineLocale('fr', frLocale);
   ],
   declarations: [
     NgxDatatableFilterComponent,
-    NgxDatatableCommonFilterComponent
+    NgxDatatableCommonFilterComponent,
+    StarComponent
   ],
   exports: [
     CommonModule,
