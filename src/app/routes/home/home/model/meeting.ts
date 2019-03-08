@@ -1,6 +1,7 @@
 import { IEncounter } from './encounter';
 import { count } from 'rxjs/operators';
 import * as moment from 'moment';
+import { QUALIFICATION } from './qualification';
 export interface IMeeting {
   idMeeting: number;
   idBuilding?: string;
@@ -83,22 +84,22 @@ export class Meeting implements IMeeting {
 
   get qualification(): string {
     if (this.customer === false && this.status === 1 && this.interest === 3 ) {
-      return 'Chaud';
+      return QUALIFICATION[0];
     }
     if (this.customer === false && this.status === 1 && this.interest === 2 ) {
-      return 'Tiède';
+      return QUALIFICATION[1];
     }
     if (this.customer === false && this.status === 1 && this.interest === 1 ) {
-      return 'Froid';
+      return QUALIFICATION[2];
     }
     if (this.customer === false && this.status === 2 && this.interest === 0 ) {
-      return 'Absent';
+      return QUALIFICATION[3];
     }
     if (this.customer === true && this.status === 0 && this.interest === 3 ) {
-      return 'Client';
+      return QUALIFICATION[4];
     }
     if (this.customer === false && this.status === 3 && this.interest === 3 ) {
-      return 'Signé';
+      return QUALIFICATION[5];
     }
     return '';
   }

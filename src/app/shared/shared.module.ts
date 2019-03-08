@@ -55,7 +55,8 @@ defineLocale('fr', frLocale);
     NgxDatatableFilterComponent,
     NgxDatatableCommonFilterComponent,
     ChecklistModule,
-    BsDatepickerModule
+    BsDatepickerModule,
+    StarComponent
   ]
 })
 
