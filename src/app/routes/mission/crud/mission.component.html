@@ -24,7 +24,7 @@
         <div class="col-xs-3 text-right line-height-30">
           <label>Période Du</label>
         </div>
-        <div class="col-xs-4">
+        <div class="col-xs-4" [ngClass]="{ 'date-disabled': !this.form.startDate.disabled }">
           <input type="text" class="form-control" [minDate]="form.startDate.min" #dpStartDate="bsDatepicker" bsDatepicker
             [(bsValue)]="form.startDate.value" value="{{ form.startDate.value | date:'dd/MM/yyyy' }}"
             [disabled]="true" (bsValueChange)="startDateChange($event)"
@@ -34,7 +34,7 @@
         <div class="col-xs-1 text-right line-height-30">
           <label>Au</label>
         </div>
-        <div class="col-xs-4">
+        <div class="col-xs-4 date-disabled">
           <input type="text" class="form-control" [minDate]="form.endDate.min" #dpEndDate="bsDatepicker" bsDatepicker
             [(bsValue)]="form.endDate.value" value="{{ form.endDate.value | date:'dd/MM/yyyy' }}"
             [disabled]="true" (bsValueChange)="endDateChange($event)"
