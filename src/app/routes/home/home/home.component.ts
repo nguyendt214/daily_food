@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { UserClaims } from '@okta/okta-angular';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ScoutService } from './service/scout.service';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { Subscription } from 'rxjs';
@@ -33,12 +33,13 @@ export class HomeComponent implements OnInit {
   @ViewChild(DatatableComponent) public table: DatatableComponent;
   @ViewChild('tableWrapper') tableWrapper: ElementRef;
   constructor(
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
     private localStorageService: LocalStorageService,
     private scoutService: ScoutService,
     private ngxFilter: NgxDatatablesFilterService
   ) {
-    this.route.data.subscribe(data => {
+    this.activatedRoute.data.subscribe(data => {
       this.user = data.user;
     });
     // Add cols want to update the LIST values
@@ -54,8 +55,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getListMission();
     this.loadingIndicator = true;
+    this.getListMission();
   }
 
   clearFilter() {
@@ -211,6 +212,11 @@ export class HomeComponent implements OnInit {
   }
   getDeleteState(ms: IMission): boolean {
     return moment(ms.startDate).format(this.ngxFilter.dateFForSort) <= moment().format(this.ngxFilter.dateFForSort);
+  }
+
+  editMission(ms: IMission) {
+    this.scoutService.currentMission = ms;
+    this.router.navigate(['/mission/edit/' + ms.idMission]);
   }
 
   @HostListener('window:resize', ['$event'])
