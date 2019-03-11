@@ -19,8 +19,7 @@ export class MUInterceptorService implements HttpInterceptor {
     return next.handle(req).pipe(
       tap(
         () => { },
-        () =>
-          this.spinnerService.hide(),
+        () => this.spinnerService.hide(),
         () => this.spinnerService.hide()
       )
     );
