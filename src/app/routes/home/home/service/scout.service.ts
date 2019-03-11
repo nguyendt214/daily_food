@@ -6,7 +6,6 @@ import 'rxjs/add/observable/of';
 import { environment } from '../../../../../environments/environment';
 import { IUser } from '../model/user';
 import { IMission } from '../model/mission';
-import * as _ from 'lodash';
 
 const API_URL = environment.direct_scout_api;
 @Injectable({
@@ -39,7 +38,7 @@ export class ScoutService {
   }
 
   getCurrentMission(id: number) {
-    return this.currentMission ? this.currentMission : _.find(this.missionList, (ms: IMission) => {
+    return this.currentMission ? this.currentMission : this.missionList.find((ms: IMission) => {
       return ms.idMission === id;
     });
   }
