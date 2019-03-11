@@ -11,7 +11,6 @@ import { ICity } from '../../home/home/model/city';
 import { IUser } from '../../home/home/model/user';
 import { ScoutService } from '../../home/home/service/scout.service';
 import { StaticService } from '../../../shared/statics/services/static.service';
-import * as _ from 'lodash';
 import * as moment from 'moment';
 @Component({
   selector: 'app-mu-mission',
@@ -49,7 +48,7 @@ export class MissionComponent implements OnInit {
       this.missionId = +params['id'];
       this.editMode = this.currentAction === 'EDIT';
       this.pageTitle = this.editMode ? 'Editer une mission' : 'Ajouter une mission';
-      if (!_.includes(this.actions, this.currentAction)) {
+      if (!this.actions.includes(this.currentAction)) {
         // Redirect to page list of mission
         this.router.navigate(['']);
         return;
@@ -98,9 +97,9 @@ export class MissionComponent implements OnInit {
           return;
         }
         // Init for User select box
-        this.form.userId = _.first(this.users).id;
+        this.form.userId = this.users ? this.users[0].id : 0;
         // Init for Status
-        this.form.status.push(_.first(this.fiberStatus).key);
+        this.form.status.push(this.fiberStatus ? this.fiberStatus[0].key : '');
         // Init Date
         this.updateEndDatePicker(true);
         this.pageLoaded = true;
@@ -120,9 +119,9 @@ export class MissionComponent implements OnInit {
     this.form.endDate.value = moment(this.mission.endDate).toDate();
     this.updateEndDatePicker(false);
     // Status
-    this.form.status = _.clone(this.mission.fiberStatuses);
+    this.form.status = this.mission.fiberStatuses.slice(0);
     // Cities
-    _.each(this.mission.cities, (c: ICity) => {
+    this.mission.cities.forEach((c: ICity) => {
       c.cityDisplay = c.city + ' (' + (c.cityCode ? c.cityCode : c.postCode) + ')';
       c.state = 0;
       this.form.citiesSelected.push(c);
@@ -161,9 +160,10 @@ export class MissionComponent implements OnInit {
    */
   onSelectCity(event: MatAutocompleteSelectedEvent) {
     const city = event.option.value;
-    const idx = _.findIndex(this.form.citiesSelected, (o: ICity) => {
-      return (o.cityCode === city.cityCode || o.postCode === city.postCode);
+    const idx = this.form.citiesSelected.findIndex((o: ICity) => {
+      return o.cityCode ? (o.cityCode === city.cityCode) : (o.postCode === city.postCode);
     });
+
     if (idx > -1) {
       this.muSwalService.error('Cette ville est déjà sélectionnée');
       return;
@@ -180,14 +180,14 @@ export class MissionComponent implements OnInit {
   }
   // When remove city
   removeCity(value: ICity): void {
-    this.form.citiesSelected = _.remove(this.form.citiesSelected, (o: ICity) => {
-      return o.cityCode !== value.cityCode;
+    this.form.citiesSelected = this.form.citiesSelected.filter((o: ICity) => {
+      return o.cityCode ? (o.cityCode !== value.cityCode) : (o.postCode !== value.postCode);
     });
   }
   // Return disable of status checkbox state
   disabledStatus(item: IKeyValue): boolean {
     if (this.editMode && !this.editable) {
-      return _.includes(this.mission.fiberStatuses, item.key);
+      return this.mission.fiberStatuses.includes(item.key);
     }
     return this.form.status.length === 1 && this.form.status.includes(item.key);
   }
@@ -205,7 +205,7 @@ export class MissionComponent implements OnInit {
    */
   onSubmit() {
     const cities: Array<ICity> = [];
-    _.each(this.form.citiesSelected, (c: ICity) => {
+    this.form.citiesSelected.forEach((c: ICity) => {
       cities.push({
         cityCode: c.cityCode,
         postCode: c.postCode,
