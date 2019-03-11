@@ -37,7 +37,7 @@
         <div class="col-xs-4 date-disabled">
           <input type="text" class="form-control" [minDate]="form.endDate.min" #dpEndDate="bsDatepicker" bsDatepicker
             [(bsValue)]="form.endDate.value" value="{{ form.endDate.value | date:'dd/MM/yyyy' }}"
-            [disabled]="true" (bsValueChange)="endDateChange($event)"
+            [disabled]="true"
             [bsConfig]="{ showWeekNumbers: false, locale: 'fr', dateInputFormat: 'DD/MM/YYYY' }">
           <span class="icon" (click)="dpEndDate.show()"><em class="fas fa-calendar-alt"></em></span>
         </div>
