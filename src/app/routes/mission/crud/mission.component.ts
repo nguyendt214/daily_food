@@ -123,7 +123,7 @@ export class MissionComponent implements OnInit {
     this.form.status = _.clone(this.mission.fiberStatuses);
     // Cities
     _.each(this.mission.cities, (c: ICity) => {
-      c.cityDisplay = c.city + ' (' + c.cityCode + ')';
+      c.cityDisplay = c.city + ' (' + (c.cityCode ? c.cityCode : c.postCode) + ')';
       c.state = 0;
       this.form.citiesSelected.push(c);
     });
@@ -162,16 +162,17 @@ export class MissionComponent implements OnInit {
   onSelectCity(event: MatAutocompleteSelectedEvent) {
     const city = event.option.value;
     const idx = _.findIndex(this.form.citiesSelected, (o: ICity) => {
-      return o.cityCode === city.cityCode;
+      return (o.cityCode === city.cityCode || o.postCode === city.postCode);
     });
     if (idx > -1) {
       this.muSwalService.error('Cette ville est déjà sélectionnée');
       return;
     }
     this.form.citiesSelected.push({
-      cityCode: city.cityCode,
+      cityCode: !city.aliasAfnorLabel ? city.cityCode : '',
+      postCode: city.aliasAfnorLabel ? city.postCode : '',
       city: city.aliasAfnorLabel ? city.aliasAfnorLabel : city.afnorLabel,
-      cityDisplay: city.aliasAfnorLabel ? city.aliasAfnorLabel : city.afnorLabel + ' (' + city.cityCode + ')',
+      cityDisplay: city.aliasAfnorLabel ? city.aliasAfnorLabel + ' (' + city.postCode + ')' : city.afnorLabel + ' (' + city.cityCode + ')',
       state: 1
     });
     this.cityAutocompleInput = document.getElementsByClassName('mat-form-field-autofill-control').item(0);
@@ -207,6 +208,7 @@ export class MissionComponent implements OnInit {
     _.each(this.form.citiesSelected, (c: ICity) => {
       cities.push({
         cityCode: c.cityCode,
+        postCode: c.postCode,
         city: c.city
       });
     });
