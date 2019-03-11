@@ -1,5 +1,5 @@
 export interface ISalesAgent {
-  id?: string | number;
+  id?: number;
   firstName?: string;
   lastName?: string;
   username?: string;
