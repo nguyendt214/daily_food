@@ -36,12 +36,10 @@ export class StaticService {
       const url = API_URL + '/_statics';
       this.httpClient
         .get<IStatic>(url, { observe: 'response' })
-        .pipe(
-          map((res) => {
-            this.setCurrentDate(res.headers.get('date'));
-            return res.body;
-          })
-        )
+        .map((res) => {
+          this.setCurrentDate(res.headers.get('date'));
+          return res.body;
+        })
         .toPromise()
         .then(
           (o: IStatic) => {
