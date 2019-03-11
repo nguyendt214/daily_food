@@ -1,5 +1,5 @@
 export const salePerson = {
-  'id': '1',
+  'id': 1,
   'firstName': 'Trieu',
   'lastName': 'HIEU',
   'userName': 'hieu',
