@@ -10,11 +10,11 @@
           <div class="form-group">
             <div class="col-sm-12">
               <div class="btn-group btn-group-justified btn-group-sm">
-                <a href="javascript:void(0);" class="btn btn-default sort-by" [ngClass]="{ 'active': active.asc }"
+                <a class="btn btn-default sort-by" [ngClass]="{ 'active': active.asc }"
                   (click)="addActive('asc');sort('asc'); linkFilter.click();">
                   <span class="fa fa-sort-alpha-asc"></span>
                 </a>
-                <a href="javascript:void(0);" class="btn btn-default sort-by" [ngClass]="{ 'active': active.desc }"
+                <a class="btn btn-default sort-by" [ngClass]="{ 'active': active.desc }"
                   (click)="addActive('desc');sort('desc'); linkFilter.click();"><span class="fa fa-sort-alpha-desc"></span>
                 </a>
               </div>
