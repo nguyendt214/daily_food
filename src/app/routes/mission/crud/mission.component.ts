@@ -143,13 +143,6 @@ export class MissionComponent implements OnInit {
     const needUpdateEndDateValue = moment(this.form.startDate.value) > moment(this.form.endDate.value);
     this.updateEndDatePicker(needUpdateEndDateValue);
   }
-
-  /**
-   * Choose end date from datepicker
-   */
-  endDateChange() {
-    // Calculate the housing numbers ( cities and total )
-  }
   /**
    * Select city from autocomplete input
    * @param event
