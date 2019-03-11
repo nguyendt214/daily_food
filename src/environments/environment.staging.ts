@@ -8,5 +8,7 @@ export const environment = {
   sso_redirect_uri: 'http://mu.local.nordnet.fr:4200/implicit/callback',
   mu_api: 'https://apim-kong-staging.dev.nordnet.fr:8443/mu-server-api/api',
   mu_api_key: 'f3bd8c7f-8713-4742-aec3-79ef4af9051a',
-  direct_scout_api: 'https://scout.nordnet.test/api'
+  direct_scout_api: 'https://scout.nordnet.test/api',
+  kong_url: 'https://apim.kong.dev.nordnet.fr:8443/adp-api/',
+  adp_api: 'graphql'
 };

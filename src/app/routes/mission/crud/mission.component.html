@@ -1,0 +1,91 @@
+<div class="col-sm-12" *ngIf="hasError">
+  <span class="text-center">Information indisponible</span>
+</div>
+<div class="custom-datatable mu-crud" *ngIf="pageLoaded && !hasError">
+  <div class="content-heading">{{ pageTitle }}</div>
+  <div class="panel panel-default panel-mu">
+    <div class="panel-body">
+      <!-- SALER -->
+      <div class="form-group">
+        <div class="col-xs-3 text-right line-height-30">
+          <label>Ambassadeur</label>
+        </div>
+        <div class="col-xs-9 line-height-30">
+          <mat-form-field>
+            <mat-select class="form-control" [(ngModel)]="form.userId" [disabled]="!editable">
+              <mat-option *ngFor="let user of users" [value]="user?.id">{{ user?.firstName }} {{ user?.lastName }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="clear-box"></div>
+      <!-- DATE -->
+      <div class="form-group">
+        <div class="col-xs-3 text-right line-height-30">
+          <label>Période Du</label>
+        </div>
+        <div class="col-xs-4" [ngClass]="{ 'date-disabled': !this.form.startDate.disabled }">
+          <input type="text" class="form-control" [minDate]="form.startDate.min" #dpStartDate="bsDatepicker" bsDatepicker
+            [(bsValue)]="form.startDate.value" value="{{ form.startDate.value | date:'dd/MM/yyyy' }}"
+            [disabled]="true" (bsValueChange)="startDateChange($event)"
+            [bsConfig]="{ showWeekNumbers: false, locale: 'fr', dateInputFormat: 'DD/MM/YYYY' }">
+          <span class="icon" *ngIf="!this.form.startDate.disabled" (click)="dpStartDate.show()"><em class="fas fa-calendar-alt"></em></span>
+        </div>
+        <div class="col-xs-1 text-right line-height-30">
+          <label>Au</label>
+        </div>
+        <div class="col-xs-4 date-disabled">
+          <input type="text" class="form-control" [minDate]="form.endDate.min" #dpEndDate="bsDatepicker" bsDatepicker
+            [(bsValue)]="form.endDate.value" value="{{ form.endDate.value | date:'dd/MM/yyyy' }}"
+            [disabled]="true"
+            [bsConfig]="{ showWeekNumbers: false, locale: 'fr', dateInputFormat: 'DD/MM/YYYY' }">
+          <span class="icon" (click)="dpEndDate.show()"><em class="fas fa-calendar-alt"></em></span>
+        </div>
+      </div>
+      <div class="clear-box"></div>
+      <!-- STATUS -->
+      <div class="form-group">
+        <div class="col-xs-3 text-right line-height-30">
+          <label>Status de déploiement</label>
+        </div>
+        <div class="col-xs-9">
+          <div class="list-group-container">
+            <div class="checkbox-list">
+              <div *ngFor="let item of fiberStatus" class="list" [ngClass]="{ 'disabled': disabledStatus(item) }">
+                <label class="checkbox-container">{{ item.value }}
+                  <input type="checkbox" [(checklist)]="form.status" [checklistValue]="item.key" [disabled]="disabledStatus(item)">
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clear-box"></div>
+      <!-- CITY -->
+      <div class="form-group">
+        <div class="col-xs-3 text-right">
+          <label>Communes</label>
+        </div>
+        <div class="col-xs-9">
+          <div class="mu-multi-select">
+            <div class="select-list">
+              <span *ngFor="let option of form?.citiesSelected" [ngClass]="{ 'can-not-edit': editMode && option.state === 0 }"
+                class="chips-list">
+                <span>{{ option.cityDisplay }}</span>
+                <a class="circle" (click)="removeCity(option)" *ngIf="!editMode || option.state > 0"><em class="fa fa-times"
+                    aria-hidden="true"></em></a>
+              </span>
+            </div>
+            <mu-adp-input-city (error)="onError()" (city)="onSelectCity($event)" [label]="'Saisir une commune'"></mu-adp-input-city>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ACTION -->
+    <div class="row text-center botton-action">
+      <button type="button" (click)="gotoList(false)" class="mb-1 btn btn-default btn-mu">Annuler</button>
+      <button type="button" (click)="onSubmit()" [disabled]='form?.citiesSelected?.length === 0' class="mb-1 btn btn-secondary btn-mu">Vérifier</button>
+    </div>
+  </div>
+</div>

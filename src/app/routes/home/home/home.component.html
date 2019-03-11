@@ -60,7 +60,7 @@
       [cellClass]="'action-icons smaller-padding'" [maxWidth]="85" [minWidth]="85">
       <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
         <!-- EDIT -->
-        <button class="btn btn-default btn-sm icon btn-mu">
+        <button class="btn btn-default btn-sm icon btn-mu" (click)="editMission(row)">
           <em class="fas fa-pencil-alt"></em>
         </button>
         <!-- DELETE -->

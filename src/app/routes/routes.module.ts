@@ -3,11 +3,13 @@ import { RouterModule } from '@angular/router';
 
 import { routes } from './routes';
 import { HomeModule } from './home/home.module';
+import { MissionModule } from './mission/mission.module';
 
 @NgModule({
   imports: [
     RouterModule.forRoot(routes),
-    HomeModule
+    HomeModule,
+    MissionModule
   ],
   declarations: [],
   exports: [
@@ -15,5 +17,4 @@ import { HomeModule } from './home/home.module';
   ]
 })
 
-export class RoutesModule {
-}
+export class RoutesModule { }
