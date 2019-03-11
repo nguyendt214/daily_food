@@ -34,6 +34,7 @@ export class Mission implements IMission {
   private _status = '';
   private _towns = '';
   private _townsF = '';
+  private _totalHousingNumber = 0;
 
   set id(id) {
     this._id = id;
@@ -67,6 +68,12 @@ export class Mission implements IMission {
   }
   get townsF() {
     return this.cities.map(o => o.city).join(', ');
+  }
+  set totalHousingNumber(totalHousingNumber: number) {
+    this._totalHousingNumber = totalHousingNumber ? totalHousingNumber : 0;
+  }
+  get totalHousingNumber() {
+    return this._totalHousingNumber;
   }
 
   /**
