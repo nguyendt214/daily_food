@@ -161,7 +161,7 @@ export class MissionComponent implements OnInit {
       cityCode: !city.aliasAfnorLabel ? city.cityCode : '',
       postCode: city.aliasAfnorLabel ? city.postCode : '',
       city: city.aliasAfnorLabel ? city.aliasAfnorLabel : city.afnorLabel,
-      cityDisplay: city.aliasAfnorLabel ? city.aliasAfnorLabel + ' (' + city.postCode + ')' : city.afnorLabel + ' (' + city.cityCode + ')',
+      cityDisplay: city.aliasAfnorLabel ? city.aliasAfnorLabel + ' (' + city.postCode + ')' : city.afnorLabel + ' (' + city.postCode + ')',
       state: 1
     });
     this.cityAutocompleInput = document.getElementsByClassName('mat-form-field-autofill-control').item(0);
