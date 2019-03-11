@@ -86,10 +86,6 @@ export class MissionComponent implements OnInit {
     this.apiSub = this.scoutService.getUsers()
       .subscribe(users => {
         this.users = users;
-        if (_.isEmpty(this.users)) {
-          this.hasError = true;
-          return;
-        }
         // Prepare form data when Editing
         if (this.mission) {
           this.prepareEditingData();
