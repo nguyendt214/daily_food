@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 import { SpinnerService } from '../spinner/spinner.service';
 
 @Injectable({
@@ -17,9 +17,7 @@ export class MUInterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     this.spinnerService.show();
     return next.handle(req).pipe(
-      tap(
-        () => { },
-        () => this.spinnerService.hide(),
+      finalize (
         () => this.spinnerService.hide()
       )
     );
