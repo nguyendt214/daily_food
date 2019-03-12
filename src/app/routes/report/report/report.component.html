@@ -4,7 +4,14 @@
 </div>
 <!-- Mission Content -->
 <div class="panel panel-default">
-  <div class="panel-heading">Eléments du filtre</div>
+  <div class="panel-heading">
+    Eléments du filtre
+    <!-- Modifier -->
+    <button class="pull-right btn btn-default btn-lg modifier">
+      <a routerLink="/report" routerLinkActive="active">Modifier</a>
+    </button>
+  </div>
+  <div class="clearfix"></div>
   <div class="panel-body">
     <form class="form-horizontal" novalidate="">
       <div class="form-group">
@@ -22,10 +29,10 @@
       <div class="form-group">
         <label class="col-sm-2 control-label">Mission(s)</label>
         <div class="col-sm-10">
-          <div class="custom-datatable" *ngIf="!hasError" [hidden]="loadingIndicator">
+          <div class="custom-datatable mision-table" *ngIf="!hasError" [hidden]="loadingIndicator">
 
             <ngx-datatable class='material' [columnMode]="'force'" [headerHeight]="'auto'" [footerHeight]="false" [rowHeight]="'auto'"
-              [rows]='missions' [messages]="messages" [loadingIndicator]="loadingIndicator">
+              [rows]='missions' [messages]="messages" [loadingIndicator]="loadingIndicator" [sorts]="[{prop: 'endDateF', dir: 'desc'}]" >
               <!-- Communes -->
               <ngx-datatable-column name="Communes" prop="towns" editable="false" [sortable]="false" [resizeable]="false">
                 <ng-template ngx-datatable-cell-template let-value="value" let-mission="row">
@@ -56,7 +63,7 @@
 <!-- End Mission Content -->
 
 <!-- Summary of the report -->
-<!-- <div class="panel panel-default">
+<div class="panel panel-default">
   <div class="panel-heading">Synthèse du rapport</div>
   <div class="panel-body">
     <form class="form-horizontal" novalidate="">
@@ -73,18 +80,21 @@
           <div class="form-group">
             <label class="col-sm-6 control-label">Nombre de rencontres</label>
             <div class="col-sm-6 label-value">
-              {{ totalMetting }}
+              {{ meetings.length || 0 }}
             </div>
           </div>
         </div>
       </div>
     </form>
   </div>
-</div> -->
+</div>
 <!-- End Summary of the report -->
 <!-- Meeting Content -->
 <div class="panel panel-default">
-  <div class="panel-heading">Détail des rencontres</div>
+  <div class="panel-heading">
+    <span>Détail des rencontres</span>
+    <a class="pull-right clear-filter" (click)="clearFilter()">Effacer tous les filtres appliqués</a>
+  </div>
   <div class="panel-body">
     <div class="form-group">
       <div class="custom-datatable meeting-table" *ngIf="!hasError" #tableWrapper [hidden]="loadingIndicator">
@@ -104,6 +114,12 @@
             <ng-template let-column="column" ngx-datatable-header-template>
               <span class="header-title">BuildingID</span>
               <app-ngx-datatable-filter [ngxDatas]="meetingsOrigin" [filterList]="filterList.idBuilding" [sortBy]="'idBuilding'" *ngIf="meetingsOrigin.length > 0"></app-ngx-datatable-filter>
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                <div class="datatable-body-cell-label">
+                  <span *ngIf="row.idBuilding === 'Non répertorié'" title=""></span>
+                  <span *ngIf="row.idBuilding !== 'Non répertorié'" title="{{ row.idBuilding }}">{{ row.idBuilding }}</span>
+                </div>
             </ng-template>
           </ngx-datatable-column>
 
@@ -136,7 +152,7 @@
           <ngx-datatable-column name="Qualification" prop="qualification" [sortable]="false" [resizeable]="false">
             <ng-template let-column="column" ngx-datatable-header-template>
               <span class="header-title">Qualification</span>
-              <app-ngx-datatable-filter [ngxDatas]="meetingsOrigin" [filterList]="filterList.qualification" [sortBy]="'qualification'" [labelType]="'star'" *ngIf="meetingsOrigin.length > 0"></app-ngx-datatable-filter>
+              <app-ngx-datatable-filter [ngxDatas]="meetingsOrigin" [filterList]="filterList.qualification" [sortBy]="'qualification'" *ngIf="meetingsOrigin.length > 0"></app-ngx-datatable-filter>
             </ng-template>
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
               <app-mu-star [value]="row.qualification" [type]="'star'"></app-mu-star>
@@ -148,7 +164,7 @@
           [cellClass]="'action-icons smaller-padding'" [maxWidth]="85" [minWidth]="85">
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
               <!-- EDIT -->
-              <button class="btn btn-default btn-sm icon btn-mu">
+              <button class="btn btn-default btn-sm icon btn-mu" (click)="viewDetail(row)">
                 <em class="fas fa-search-plus"></em>
               </button>
             </ng-template>
@@ -172,6 +188,12 @@
           </ngx-datatable-footer>
         </ngx-datatable>
       </div>
+
+      <div class="divider"></div>
+      <!-- Export -->
+      <button class="btn btn-default btn-lg">
+        Exporter <em class="fas fa-download"></em>
+      </button>
     </div>
   </div>
 </div>

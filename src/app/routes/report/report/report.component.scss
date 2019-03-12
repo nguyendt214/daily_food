@@ -12,8 +12,10 @@
           padding: 5px;
         }
       }
-      datatable-header-cell:last-of-type .datatable-header-cell-label{
-        color: #64B5F6 !important;
+      &.mision-table{
+        datatable-header-cell:last-of-type .datatable-header-cell-label{
+          color: #64B5F6 !important;
+        }
       }
     }
     .ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-cell{
@@ -38,5 +40,16 @@
     .panel-body{
       padding-top: 0px;
     }
+  }
+  .btn-default.modifier{
+    a{
+      color: #000
+    }
+  }
+  .divider {
+    height: 3px;
+    margin: 20px 0px;
+    overflow: hidden;
+    background-color: #e5e5e5;
   }
 }

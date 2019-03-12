@@ -7,7 +7,6 @@ import { Subscription } from 'rxjs';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { LocalStorageService } from '../../shared/LocalStorage/local-storage.service';
 import { ScoutService } from '../home/home/service/scout.service';
-import { ISalesAgent } from '../home/home/model/salesAgent';
 import { Mission, IMission } from '../home/home/model/mission';
 @Component({
   selector: 'app-report',
@@ -20,7 +19,7 @@ export class MainReportComponent implements OnInit {
   loadingIndicator: boolean;
   user: UserClaims;
 
-  saleAgent: ISalesAgent;
+  saleAgent: IUser;
   missions: Array<Mission> = [];
   messages = { emptyMessage: `<div class='text-center'><span>Aucune mission n'est disponible pour cet ambassadeur</span></div>` };
 
@@ -51,6 +50,7 @@ export class MainReportComponent implements OnInit {
   ngOnInit() {
     this.loadingIndicator = true;
     this.prepareData();
+    this.missionSelected = this.scoutService.selectedMissions;
   }
 
   prepareData() {

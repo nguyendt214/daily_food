@@ -1,18 +1,15 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { UserClaims } from '@okta/okta-angular';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { Subscription, forkJoin } from 'rxjs';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
-import * as moment from 'moment';
-import * as _ from 'lodash';
 import { LocalStorageService } from '../../../shared/LocalStorage/local-storage.service';
 import { NgxDatatablesFilterService } from '../../../shared/ngx-datatable-filter/service/ngx-datatable-filter.service';
 import { ScoutService } from '../../home/home/service/scout.service';
-import { ISalesAgent } from '../../home/home/model/salesAgent';
 import { IMeeting, Meeting } from '../../home/home/model/meeting';
-import { IEncounter } from '../../home/home/model/encounter';
-import { Mission, IMission } from '../../home/home/model/mission';
+import { Mission } from '../../home/home/model/mission';
+import { IUser } from '../../home/home/model/user';
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
@@ -24,16 +21,15 @@ export class ReportComponent implements OnInit {
   loadingIndicator = true;
   user: UserClaims;
 
-  saleAgent: ISalesAgent;
+  saleAgent: IUser;
   missions: Array<Mission> = [];
   messages = { emptyMessage: `<div class='text-center'><span>Aucune meeting trouvée</span></div>` };
 
   totalHousingNumber = 0;
-  totalMetting = 0;
 
   listMissionIds = [];
-  meetings: Array<IMeeting>;
-  meetingsOrigin: Array<IMeeting>;
+  meetings: Array<IMeeting> = [];
+  meetingsOrigin: Array<IMeeting> = [];
 
   pageLimitOptions = [{ value: 5 }, { value: 10 }, { value: 25 }, { value: 100 }];
   currentPageLimit = 10;
@@ -48,15 +44,16 @@ export class ReportComponent implements OnInit {
     private route: ActivatedRoute,
     private localStorageService: LocalStorageService,
     private scoutService: ScoutService,
-    private ngxFilter: NgxDatatablesFilterService
+    private ngxFilter: NgxDatatablesFilterService,
+    private router: Router
   ) {
     this.route.data.subscribe(data => {
       this.user = data.user;
     });
     // Add cols want to update the LIST values
-    this.ngxFilter.filter.cols = ['idBuilding', 'city', 'type', 'interest'];
+    this.ngxFilter.filter.cols = ['idBuilding', 'city', 'type', 'interest', 'qualification'];
     // Prepare for checlist and filterlist
-    _.each(this.ngxFilter.filter.cols, (col: string) => {
+    this.ngxFilter.filter.cols.forEach((col: string) => {
       Object.defineProperty(this.filterList, col, {
         value: [],
         writable: true,
@@ -74,7 +71,7 @@ export class ReportComponent implements OnInit {
     const userObservable = this.scoutService.getSelectedUser();
 
     forkJoin([userObservable, missionsObservable]).subscribe(results => {
-      this.saleAgent = this.prepareSalePerson(results[0] as ISalesAgent);
+      this.saleAgent = this.prepareSalePerson(results[0] as IUser);
       this.missions = this.prepareMission(results[1] as Mission[]);
       this.getMeetingByMissisonIDs();
     }, () => {
@@ -82,12 +79,12 @@ export class ReportComponent implements OnInit {
     });
   }
 
-  prepareSalePerson(salesAgent: ISalesAgent) {
+  prepareSalePerson(salesAgent: IUser) {
     return Object.assign(salesAgent, {'ambassador': salesAgent.firstName + ' ' + salesAgent.lastName.toUpperCase()});
   }
 
-  prepareMission(missions: Array<IMission>): Array<Mission>  {
-    missions.forEach((mission: IMission, i) => {
+  prepareMission(missions: Array<Mission>): Array<Mission>  {
+    missions.forEach((mission: Mission, i) => {
       mission = Object.assign( new Mission(), mission);
       missions[i] = mission;
       this.totalHousingNumber += mission.totalHousingNumber;
@@ -112,15 +109,15 @@ export class ReportComponent implements OnInit {
   prepareMettings(meetings: Array<IMeeting>): Array<IMeeting>  {
     meetings.forEach((meeting: IMeeting, i) => {
       const meetingObj = Object.assign( new Meeting(), meeting) as Meeting;
+      meetingObj.idBuilding = meetingObj.idBuilding ? meetingObj.idBuilding : 'Non répertorié';
 
-      this.filterList['idBuilding'] = _.union(this.filterList['idBuilding'], [meetingObj.idBuilding]);
-      this.filterList['city'] = _.union(this.filterList['city'], [meetingObj.city]);
-      this.filterList['type'] = _.union(this.filterList['type'], [meetingObj.type]);
-      this.filterList['interest'] = _.union(this.filterList['interest'], [meetingObj.interest]);
-      this.filterList['qualification'] = _.union(this.filterList['qualification'], [meetingObj.qualification]);
+      this.filterList['idBuilding']     = Array.from(new Set([...this.filterList['idBuilding'], ...[meetingObj.idBuilding]]));
+      this.filterList['city']           = Array.from(new Set([...this.filterList['city'], ...[meetingObj.city]]));
+      this.filterList['type']           = Array.from(new Set([...this.filterList['type'], ...[meetingObj.type]]));
+      this.filterList['interest']       = Array.from(new Set([...this.filterList['interest'], ...[meetingObj.interest]]));
+      this.filterList['qualification']  = Array.from(new Set([...this.filterList['qualification'], ...[meetingObj.qualification]]));
 
       meetings[i] = meetingObj;
-      this.totalMetting += 1;
     });
     return meetings as Array<Meeting>;
   }
@@ -176,35 +173,47 @@ export class ReportComponent implements OnInit {
     this.localStorageService.set('paginationMeeting', event.page);
   }
 
-  filterCallback(meeting: Array<Meeting>) {
-    this.meetings = _.clone(meeting);
+  filterCallback(meetings: Array<Meeting>) {
+    this.meetings = [...meetings];
   }
 
   listCallback(data: any) {
     // Reset the list values first
-    _.each(data.f.cols, item => {
+    data.f.cols.forEach(item => {
       if (item !== data.f.sortBy) {
         this.filterList[item] = [];
       }
     });
     // Find the list need update the data
-    const listNeedUpdate = _.difference(data.f.cols, [data.f.sortBy]);
-    _.each(data.d, (meeting: Meeting) => {
-      _.each(listNeedUpdate, col => {
+    const listNeedUpdate = data.f.cols.filter(x => ![data.f.sortBy].includes(x));
+    data.d.forEach((meeting: Meeting) => {
+      listNeedUpdate.forEach(col => {
         const rowVal = meeting[col];
         // Check if value is merge string
         if (typeof rowVal === 'string' && rowVal.includes(',')) {
           let val = meeting[col].split(',') || [];
           val = val.map((str: string) => str.trim());
-          _.each(val, (str: string) => {
-            this.filterList[col] = _.union(this.filterList[col], [str]);
+          val.forEach((str: string) => {
+            this.filterList[col] = Array.from(new Set([...this.filterList[col], ...[str]]));
           });
         } else {
-          this.filterList[col] = _.union(this.filterList[col], [meeting[col]]);
+          this.filterList[col] = Array.from(new Set([...this.filterList[col], ...[meeting[col]]]));
         }
       });
     });
   }
+
+  viewDetail(meeting: Meeting) {
+    this.scoutService.setSelectedMeeting(meeting);
+    this.router.navigate(['report/detail']);
+  }
+
+  clearFilter() {
+    this.getDatas();
+    this.ngxFilter.filter.sortData = [];
+    this.ngxFilter.refresh();
+  }
+
   resetCallback() {
     this.updateFilter(true);
     this.onLimitChange(10);

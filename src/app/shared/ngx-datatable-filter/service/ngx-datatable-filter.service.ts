@@ -12,8 +12,8 @@ export class NgxDatatablesFilterService {
   };
   sortByAlphabet = 'SORT';
   sortByDate = 'SORT_DATE';
-  sortByDateRange = 'SORT_DATE_RANGE';
-  sortByList = 'SORT_BY_LIST';
+  filterByDateRange = 'FILTER_DATE_RANGE';
+  filterByList = 'FILTER_BY_LIST';
   sortOrder = 0;
   minDate: Date;
   maxDate: Date;

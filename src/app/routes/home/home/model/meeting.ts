@@ -50,6 +50,8 @@ export class Meeting implements IMeeting {
   private _interest: number;
   private _status: number;
   private _qualification: string;
+  private _startDate: string;
+  private _endDate: string;
 
   // take the last encounter with list encounters sorted by date DESC
   get lastEncounter(): IEncounter {
@@ -61,6 +63,14 @@ export class Meeting implements IMeeting {
       return moment(this.lastEncounter.date).format('DD/MM/YYYY');
     }
     return '';
+  }
+
+  get startDate(): string {
+    return moment(this.lastEncounter.date).format('YYYY-MM-DD');
+  }
+
+  get endDate(): string {
+    return moment(this.lastEncounter.date).format('YYYY-MM-DD');
   }
 
   get type(): string {

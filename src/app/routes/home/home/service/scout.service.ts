@@ -5,12 +5,9 @@ import { map, tap, catchError } from 'rxjs/operators';
 import 'rxjs/add/observable/of';
 import { MeetingByMissisonID } from '../../../../../../tests/mock/MeetingByMissisonID.mock';
 import { IMeeting } from '../model/meeting';
-import { salePerson } from '../../../../../../tests/mock/salePerson.mock';
-import { missionsReport } from '../../../../../../tests/mock/missionsReport.mock';
-import { ISalesAgent } from '../model/salesAgent';
 import { environment } from '../../../../../environments/environment';
 import { IUser } from '../model/user';
-import { IMission } from '../model/mission';
+import { IMission, Mission } from '../model/mission';
 
 const API_URL = environment.direct_scout_api;
 @Injectable({
@@ -18,10 +15,11 @@ const API_URL = environment.direct_scout_api;
 })
 export class ScoutService {
   missionList: Array<IMission>;
-  selectedUser: ISalesAgent;
-  selectedMissions: Array<IMission>;
+  selectedUser: IUser;
+  selectedMissions: Array<Mission> = [];
   userList: Array<IUser>;
   currentMission: IMission;
+  selectedMeeting: IMeeting;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -44,18 +42,18 @@ export class ScoutService {
       );
   }
 
-  getSelectedUser(): Observable<ISalesAgent> {
+  getSelectedUser(): Observable<IUser> {
     if (this.selectedUser) {
       return Observable.of(this.selectedUser);
     }
-    return Observable.of(salePerson);
+    return Observable.of(null);
   }
 
-  getSelectedMissions(): Observable<Array<IMission>> {
+  getSelectedMissions(): Observable<Array<Mission>> {
     if (this.selectedMissions) {
       return Observable.of(this.selectedMissions);
     }
-    return Observable.of(missionsReport['missions']);
+    return null;
   }
 
   getMeetingByMissisonIDs(ids: Array<number> ): Observable<Array<IMeeting>> {
@@ -106,6 +104,17 @@ export class ScoutService {
         ),
         map(() => this.userList)
       );
+  }
+
+  setSelectedMeeting(meeting: IMeeting): void {
+    this.selectedMeeting = meeting;
+  }
+
+  getSelectedMeeting(): Observable<IUser> {
+    if (this.selectedMeeting) {
+      return Observable.of(this.selectedMeeting);
+    }
+    return null;
   }
 
   private handleError(error: HttpErrorResponse) {
