@@ -161,6 +161,7 @@ export class MissionComponent implements OnInit {
       cityCode: !city.aliasAfnorLabel ? city.cityCode : '',
       postCode: city.aliasAfnorLabel ? city.postCode : '',
       city: city.aliasAfnorLabel ? city.aliasAfnorLabel : city.afnorLabel,
+      addressIdentifier: city.addressIdentifier,
       cityDisplay: city.aliasAfnorLabel ? city.aliasAfnorLabel + ' (' + city.postCode + ')' : city.afnorLabel + ' (' + city.postCode + ')',
       state: 1
     });
@@ -198,6 +199,7 @@ export class MissionComponent implements OnInit {
       cities.push({
         cityCode: c.cityCode,
         postCode: c.postCode,
+        addressIdentifier: c.addressIdentifier,
         city: c.city
       });
     });
