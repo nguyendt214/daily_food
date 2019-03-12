@@ -15,8 +15,8 @@ import { BsDatepickerModule, frLocale, defineLocale } from 'ngx-bootstrap';
 import { NgxDatatableCommonFilterComponent } from './ngx-datatable-filter/components/common/ngx-datatable-common.component';
 import { NgxDatatablesFilterService } from './ngx-datatable-filter/service/ngx-datatable-filter.service';
 import { NgxDatatableFilterComponent } from './ngx-datatable-filter/components/ngx-datatable-filter.component';
-import { StaticModule } from './statics/static.module';
 import { StarComponent } from './ngx-datatable-filter/components/star/star.component';
+import { StaticModule } from './statics/static.module';
 defineLocale('fr', frLocale);
 @NgModule({
   imports: [
@@ -59,11 +59,11 @@ defineLocale('fr', frLocale);
     NgxDatatableCommonFilterComponent,
     ChecklistModule,
     BsDatepickerModule,
+    StarComponent,
     StaticModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatInputModule,
-    StarComponent
+    MatInputModule
   ]
 })
 

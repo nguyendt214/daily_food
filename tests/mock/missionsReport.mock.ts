@@ -10,7 +10,7 @@ export const missionsReport = {
         'position': 'Conseiller'
       },
       'startDate': '2019-01-16',
-      'endDate': '2019-03-16',
+      'endDate': '2019-02-16',
       'cities': [
         {
           'postCode': '91300',

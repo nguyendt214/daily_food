@@ -123,26 +123,31 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
   /**
    * prepare data for sort date by RANGE
    */
-  sortByDateRange() {
+  sortByDate() {
     if (this.sortBy === 'startDate') {
       this.ngxFilter.minDate = this.selectedDate;
       this.ngxFilter.autoSetStartDate = false;
     } else if (this.sortBy === 'endDate') {
       this.ngxFilter.maxDate = this.selectedDate;
       this.ngxFilter.autoSetEndDate = false;
+    } else if (this.sortBy === 'date') {
+      this.ngxFilter.minDate =  this.selectedDate;
+      this.ngxFilter.autoSetStartDate = false;
+      this.ngxFilter.maxDate = this.selectedDate;
+      this.ngxFilter.autoSetEndDate = false;
     }
     this.ngxFilter.sortOrder++;
     this.updateDataFilter({
       sortCol: this.sortBy,
-      sortType: this.ngxFilter.sortByDateRange,
+      sortType: this.ngxFilter.filterByDateRange,
       sortOrder: this.ngxFilter.sortOrder,
       searchByDate: {
         min: this.ngxFilter.minDate,
         max: this.ngxFilter.maxDate,
       }
-    }, this.ngxFilter.sortByDateRange);
+    }, this.ngxFilter.filterByDateRange);
     this.filtered = true;
-    this.ngxFilter.change(this.ngxFilter.sortByDateRange);
+    this.ngxFilter.change(this.ngxFilter.filterByDateRange);
   }
   /**
    * For sort by ASC or DESC
@@ -166,14 +171,14 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
     this.ngxFilter.sortOrder++;
     this.updateDataFilter({
       sortCol: this.sortBy,
-      sortType: this.ngxFilter.sortByList,
+      sortType: this.ngxFilter.filterByList,
       sortList: this.checklist,
       sortOrder: this.ngxFilter.sortOrder,
       searchContains: this.searchContains
-    }, this.ngxFilter.sortByList);
+    }, this.ngxFilter.filterByList);
     this.checkAllState();
     this.filtered = true;
-    this.ngxFilter.change(this.ngxFilter.sortByList);
+    this.ngxFilter.change(this.ngxFilter.filterByList);
   }
   /**
    * Select value in the LIST
@@ -222,7 +227,7 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
     } else {
       // Find item. Update if exist
       const idx = _.findIndex(this.ngxFilter.filter.sortData, (o: INgxDatatableListFilter) => {
-        return (o.sortCol === this.sortBy && o.sortType === sortType) || (o.sortType === this.ngxFilter.sortByDateRange);
+        return (o.sortCol === this.sortBy && o.sortType === sortType) || (o.sortType === this.ngxFilter.filterByDateRange);
       });
       if (idx > -1) {
         this.ngxFilter.filter.sortData.splice(idx, 1, data);

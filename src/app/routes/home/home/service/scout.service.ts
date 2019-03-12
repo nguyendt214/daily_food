@@ -3,14 +3,11 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 import 'rxjs/add/observable/of';
-import { environment } from '../../../../../environments/environment';
-import { IUser } from '../model/user';
-import { IMission } from '../model/mission';
 import { MeetingByMissisonID } from '../../../../../../tests/mock/MeetingByMissisonID.mock';
 import { IMeeting } from '../model/meeting';
-import { salePerson } from '../../../../../../tests/mock/salePerson.mock';
-import { missionsReport } from '../../../../../../tests/mock/missionsReport.mock';
-import { ISalesAgent } from '../model/salesAgent';
+import { environment } from '../../../../../environments/environment';
+import { IUser } from '../model/user';
+import { IMission, Mission } from '../model/mission';
 
 const API_URL = environment.direct_scout_api;
 @Injectable({
@@ -18,10 +15,11 @@ const API_URL = environment.direct_scout_api;
 })
 export class ScoutService {
   missionList: Array<IMission>;
+  selectedUser: IUser;
+  selectedMissions: Array<Mission> = [];
   userList: Array<IUser>;
   currentMission: IMission;
-  selectedUser: ISalesAgent;
-  selectedMissions: Array<IMission>;
+  selectedMeeting: IMeeting;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -44,6 +42,23 @@ export class ScoutService {
       );
   }
 
+  getSelectedUser(): Observable<IUser> {
+    if (this.selectedUser) {
+      return Observable.of(this.selectedUser);
+    }
+    return Observable.of(null);
+  }
+
+  getSelectedMissions(): Observable<Array<Mission>> {
+    if (this.selectedMissions) {
+      return Observable.of(this.selectedMissions);
+    }
+    return null;
+  }
+
+  getMeetingByMissisonIDs(ids: Array<number> ): Observable<Array<IMeeting>> {
+    return Observable.of(MeetingByMissisonID['meetings']);
+  }
   getCurrentMission(id: number) {
     return this.currentMission ? this.currentMission : this.missionList.find((ms: IMission) => {
       return ms.idMission === id;
@@ -90,22 +105,16 @@ export class ScoutService {
         map(() => this.userList)
       );
   }
-  getSelectedUser(): Observable<ISalesAgent> {
-    if (this.selectedUser) {
-      return Observable.of(this.selectedUser);
-    }
-    return Observable.of(salePerson);
+
+  setSelectedMeeting(meeting: IMeeting): void {
+    this.selectedMeeting = meeting;
   }
 
-  getSelectedMissions(): Observable<Array<IMission>> {
-    if (this.selectedMissions) {
-      return Observable.of(this.selectedMissions);
+  getSelectedMeeting(): Observable<IUser> {
+    if (this.selectedMeeting) {
+      return Observable.of(this.selectedMeeting);
     }
-    return Observable.of(missionsReport['missions']);
-  }
-
-  getMeetingByMissisonIDs(ids: Array<number>): Observable<Array<IMeeting>> {
-    return Observable.of(MeetingByMissisonID['meetings']);
+    return null;
   }
 
   private handleError(error: HttpErrorResponse) {

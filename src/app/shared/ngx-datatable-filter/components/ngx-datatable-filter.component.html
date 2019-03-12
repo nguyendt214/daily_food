@@ -84,7 +84,7 @@
               <bs-datepicker-inline [(bsValue)]="selectedDate" [bsConfig]="{containerClass: 'theme-red', showWeekNumbers: false, locale: 'fr'}">
               </bs-datepicker-inline>
               <div class="text-center">
-                <button class="btn btn-danger btn-confirm" [disabled]="!selectedDate" (click)="sortByDateRange(); linkFilter.click();">OK</button>
+                <button class="btn btn-danger btn-confirm" [disabled]="!selectedDate" (click)="sortByDate(); linkFilter.click();">OK</button>
               </div>
             </div>
           </div>

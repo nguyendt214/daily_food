@@ -1,7 +1,6 @@
-import { ISalesAgent } from './salesAgent';
 import { ICity } from './city';
 import * as moment from 'moment';
-import * as _ from 'lodash';
+import { IUser } from './user';
 export interface IMission {
   id?: number;
   idMission?: number;
@@ -11,7 +10,7 @@ export interface IMission {
   endDateF?: string;
   towns?: string;
   townsF?: string;
-  salesAgent?: ISalesAgent;
+  salesAgent?: IUser;
   startDate?: string;
   endDate?: string;
   cities?: Array<ICity>;
@@ -21,7 +20,7 @@ export interface IMission {
 
 export class Mission implements IMission {
   idMission;
-  salesAgent: ISalesAgent;
+  salesAgent: IUser;
   startDate;
   endDate;
   cities: Array<ICity>;
@@ -57,7 +56,7 @@ export class Mission implements IMission {
   get towns() {
     this._towns = '';
     if (this.cities) {
-      _.each(this.cities, (c: ICity, index) => {
+      this.cities.forEach((c: ICity, index) => {
         if (index <= 1) {
           this._towns += (index === 1) ? ((this.cities.length > 2) ? c.city + ' ...' : c.city) :
             ((this.cities.length === 1) ? c.city : c.city + ', ');
