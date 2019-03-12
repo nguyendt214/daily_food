@@ -53,7 +53,7 @@ export class ScoutService {
     if (this.selectedMissions) {
       return Observable.of(this.selectedMissions);
     }
-    return null;
+    return Observable.of(null);
   }
 
   getMeetingByMissisonIDs(ids: Array<number> ): Observable<Array<IMeeting>> {
@@ -114,7 +114,7 @@ export class ScoutService {
     if (this.selectedMeeting) {
       return Observable.of(this.selectedMeeting);
     }
-    return null;
+    return Observable.of(null);
   }
 
   private handleError(error: HttpErrorResponse) {
