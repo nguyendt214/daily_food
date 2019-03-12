@@ -1,0 +1,60 @@
+@import 'src/app/routes/mission/crud/mission.component.scss';
+
+:host /deep/ {
+  .mission-list {
+    padding: {
+      top: 50px;
+    }
+
+    .title {
+      line-height: 38px;
+    }
+  }
+
+  .custom-datatable datatable-header-cell:last-of-type .datatable-header-cell-label {
+    color: #64B5F6 !important;
+  }
+
+  .center-row {
+    text-align: center !important;
+  }
+
+  .center-row .datatable-body-cell-label {
+    width: 100% !important;
+    text-align: center !important;
+    display: block !important;
+  }
+
+  .custom-datatable {
+    .datatable-checkbox input[type="checkbox"]::before {
+      width: 17px;
+      height: 17px;
+      border-color: #dde6e9;
+    }
+
+    .datatable-checkbox input[type="checkbox"]:checked::before {
+      width: 12px;
+      height: 6px;
+      top: 4px;
+      left: 3px;
+      border-color: #FFF;
+    }
+
+    .datatable-checkbox input[type="checkbox"]::after {
+      width: 17px;
+      height: 17px;
+      background-image: initial;
+      background-color: #FFF;
+    }
+
+    .datatable-checkbox input[type="checkbox"]:checked::after {
+      background-color: #64B5F6;
+    }
+
+    .botton-action {
+      padding: {
+        top: 0px;
+      }
+    }
+  }
+}

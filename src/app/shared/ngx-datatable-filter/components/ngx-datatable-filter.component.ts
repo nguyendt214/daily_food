@@ -17,6 +17,7 @@ export class NgxDatatableFilterComponent implements OnInit, OnChanges {
   @Input() public searchContains: boolean;
   @Input() public searchByDate = false;
   @Input() public filterRefresh: boolean;
+  @Input() public labelType;
   @ViewChild('linkFilter') linkFilter: ElementRef;
   isOpen = false;
   active = {

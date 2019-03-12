@@ -1,4 +1,4 @@
-import { IMission } from "./mission";
+import { IMission } from './mission';
 
 export interface IUser {
   id?: number;
@@ -7,4 +7,6 @@ export interface IUser {
   userName?: string;
   position?: string;
   missions?: Array<IMission>;
+  ambassador?: string;
+  lastSyncDate?: string;
 }

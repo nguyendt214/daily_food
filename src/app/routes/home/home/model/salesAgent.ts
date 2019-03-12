@@ -4,4 +4,6 @@ export interface ISalesAgent {
   lastName?: string;
   username?: string;
   position?: string;
+  ambassador?: string;
+  lastSyncDate?: string;
 }
