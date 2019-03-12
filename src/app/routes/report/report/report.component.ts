@@ -71,6 +71,10 @@ export class ReportComponent implements OnInit {
     const userObservable = this.scoutService.getSelectedUser();
 
     forkJoin([userObservable, missionsObservable]).subscribe(results => {
+      if (!results[0] || results[1].length <= 0) {
+        this.hasError = true;
+        return this.router.navigate(['report']);
+      }
       this.saleAgent = this.prepareSalePerson(results[0] as IUser);
       this.missions = this.prepareMission(results[1] as Mission[]);
       this.getMeetingByMissisonIDs();

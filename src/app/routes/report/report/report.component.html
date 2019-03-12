@@ -3,7 +3,7 @@
   <span class="text-center">Impossible de récupérer la liste des missions</span>
 </div>
 <!-- Mission Content -->
-<div class="panel panel-default">
+<div class="panel panel-default" *ngIf="!hasError">
   <div class="panel-heading">
     Eléments du filtre
     <!-- Modifier -->
