@@ -11,7 +11,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { LocalStorageService } from './LocalStorage/local-storage.service';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ChecklistModule } from 'angular-checklist';
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule, ModalModule } from 'ngx-bootstrap';
 import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 @NgModule({
@@ -30,7 +30,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatSelectModule,
     MatInputModule,
     MatListModule,
-    MatIconModule
+    MatIconModule,
+    ModalModule.forRoot()
   ],
   providers: [
     ColorsService,
@@ -54,7 +55,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatSelectModule,
     MatInputModule,
     MatListModule,
-    MatIconModule
+    MatIconModule,
+    ModalModule
   ]
 })
 

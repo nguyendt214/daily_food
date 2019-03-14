@@ -1,0 +1,60 @@
+<button type="button" class="btn btn-danger hoan-thanh" (click)="hoanThanhThucDon()" *ngIf="thucDon?.length > 0">HOÀN THÀNH</button>
+<div class="ccmart">
+  <div class="col-lg-12 product-list top-list navbar-fixed-top">
+    <div class="col-xs-2"></div>
+    <div class="col-xs-4 text-bold">TÊN</div>
+    <div class="col-xs-1 text-bold text-center">ĐV</div>
+    <div class="col-xs-2 text-bold">GIÁ</div>
+    <div class="col-xs-2 text-bold">SL</div>
+    <div class="col-xs-1"> </div>
+    <div class="clearfix search-part">
+      <input type="text" class="form-control" placeholder="Tìm kiếm ..." (keyup)='updateFilter()' [(ngModel)]="searchBox">
+    </div>
+  </div>
+  <div class="list-under"></div>
+  <div class="col-lg-12 product-list" *ngFor="let product of products">
+    <div class="col-xs-2">
+      <img [src]="getProductImage(product)" alt="{{product.NAME}}">
+    </div>
+    <div class="col-xs-4">
+      <h5 mat-line>{{product.NAME}} ({{ product.SKU }})</h5>
+    </div>
+    <div class="col-xs-1 text-center">
+      <h5 mat-line>{{product.TYPE}}</h5>
+    </div>
+    <div class="col-xs-2">
+      <div class="input-group">
+        <input type="number" class="form-control price" placeholder="{{product.PRICE_ORIGIN | number }} VNĐ" [(ngModel)]="product.GIA_THEO_NGAY">
+      </div>
+    </div>
+    <div class="col-xs-2">
+      <div class="input-group">
+        <input type="number" class="form-control" placeholder="0" [(ngModel)]="product.SL_THEO_NGAY">
+      </div>
+    </div>
+    <div class="col-xs-1">
+      <button type="button" class="btn btn-primary btn-sm" (click)="addThucDon(product)" [disabled]="(!product.SL_THEO_NGAY || product.SL_THEO_NGAY === 0) || (product.PRICE_ORIGIN === 0 && !product.GIA_THEO_NGAY)">THÊM</button>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+<div #confirmModal="bs-modal" bsModal class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Bạn có chắc chắn là muốn hoàn thành thực đơn?</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p *ngFor="let pro of thucDon; let idx = index;">
+          {{ idx + 1 }}. {{ pro.NAME }} - Gia ban: {{ pro.GIA_THEO_NGAY }} - SL: {{ pro.SL_THEO_NGAY }} ({{ pro.TYPE }})
+        </p>
+        <button type="button" class="btn btn-secondary" (click)="hideConfirmPopup()">Không, Tôi cần sửa lại</button>
+        <button type="button" class="btn btn-primary pull-right" (click)="taoThucDon()">Có, Tôi chắc chắn</button>
+      </div>
+    </div>
+  </div>
+</div>
