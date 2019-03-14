@@ -1,3 +1,4 @@
+import { CcmartService } from './../routes/home/home/service/ccmart.service';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -5,19 +6,14 @@ import { RouterModule } from '@angular/router';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ColorsService } from './colors/colors.service';
 import { MuUserModule } from '@mu/common';
-import { ScoutService } from '../routes/home/home/service/scout.service';
 import { MatProgressSpinnerModule, MatFormFieldModule, MatSelectModule, MatInputModule } from '@angular/material';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { LocalStorageService } from './LocalStorage/local-storage.service';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ChecklistModule } from 'angular-checklist';
-import { BsDatepickerModule, frLocale, defineLocale } from 'ngx-bootstrap';
-import { NgxDatatableCommonFilterComponent } from './ngx-datatable-filter/components/common/ngx-datatable-common.component';
-import { NgxDatatablesFilterService } from './ngx-datatable-filter/service/ngx-datatable-filter.service';
-import { NgxDatatableFilterComponent } from './ngx-datatable-filter/components/ngx-datatable-filter.component';
-import { StarComponent } from './ngx-datatable-filter/components/star/star.component';
-import { StaticModule } from './statics/static.module';
-defineLocale('fr', frLocale);
+import { BsDatepickerModule } from 'ngx-bootstrap';
+import {MatListModule} from '@angular/material/list';
+import {MatIconModule} from '@angular/material/icon';
 @NgModule({
   imports: [
     CommonModule,
@@ -30,21 +26,18 @@ defineLocale('fr', frLocale);
     BsDropdownModule.forRoot(),
     BsDatepickerModule.forRoot(),
     ChecklistModule,
-    StaticModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatListModule,
+    MatIconModule
   ],
   providers: [
     ColorsService,
-    ScoutService,
-    LocalStorageService,
-    NgxDatatablesFilterService
+    CcmartService,
+    LocalStorageService
   ],
   declarations: [
-    NgxDatatableFilterComponent,
-    NgxDatatableCommonFilterComponent,
-    StarComponent
   ],
   exports: [
     CommonModule,
@@ -55,15 +48,13 @@ defineLocale('fr', frLocale);
     MatProgressSpinnerModule,
     NgxDatatableModule,
     BsDropdownModule,
-    NgxDatatableFilterComponent,
-    NgxDatatableCommonFilterComponent,
     ChecklistModule,
     BsDatepickerModule,
-    StarComponent,
-    StaticModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatListModule,
+    MatIconModule
   ]
 })
 
