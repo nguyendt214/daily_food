@@ -534,7 +534,7 @@ $state-success-text:             $brand-success;
 $state-success-bg:               #dff0d8;
 $state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%);
 
-$state-info-text:                $brand-info; 
+$state-info-text:                $brand-info;
 $state-info-bg:                  #d9edf7;
 $state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%);
 
@@ -901,4 +901,7 @@ $dl-horizontal-offset:        $component-offset-horizontal;
 //** Horizontal line color.
 $hr-border:                   $gray-lighter;
 
-
+$mu_background_color: #FAFBFC;
+$mu_header_color: #64B5F6;
+$grey : rgba(128, 128, 128, 1);
+$backgroundRed:  #F15150;

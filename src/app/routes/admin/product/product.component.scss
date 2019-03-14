@@ -1,0 +1,14 @@
+@import 'src/app/routes/home/home/home.component.scss';
+
+.search-part {
+  height: 45px;
+}
+input.price {
+  min-width: 120px;
+}
+.hoan-thanh {
+  position: fixed;
+  z-index: 1035;
+  top: 20px;
+  right: 10px;
+}

@@ -1,0 +1,37 @@
+@import 'src/app/shared/styles/app/variables.scss';
+$row-background-color : $mu_background_color;
+$backgroundRed:  #F15150;
+$text-normal-color: rgba(0, 0, 0, 0.87);
+:host /deep/ {
+  .ccmart {
+    .top-list {
+      background: #FFF;
+    }
+    .product-list {
+      img {
+        width: 50px;
+        height: 50px;
+      }
+      padding: {
+        top: 15px;
+        bottom: 10px;
+        left: 5px;
+        right: 5px;
+      }
+      border-bottom: 1px dashed darkgray;
+      [class*='col-xs-'] {
+        padding: {
+          left: 5px;
+          right: 5px;
+        }
+      }
+    }
+    .list-under {
+      height: 50px;
+    }
+    .input-group input {
+      width: 50px;
+      padding: 0 5px;
+    }
+  }
+}

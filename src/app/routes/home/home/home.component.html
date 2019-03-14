@@ -1,24 +1,35 @@
-<h1 class="title-page">
-  Tools title here
-  <small>Tools subtitle here (optional)</small>
-</h1>
-<article>
-
-  <div class="panel panel-default">
-    <div class="panel-heading">Content title here</div>
-    <div class="panel-body">
-      <span [hidden]="!user">Hi {{user?.email}} :)</span>
-      <span [hidden]="user">Hi unknown :(</span>
-    </div>
+<div class="ccmart">
+  <div class="col-lg-12 product-list top-list navbar-fixed-top">
+    <div class="col-xs-2"></div>
+    <div class="col-xs-4 text-bold">TÊN</div>
+    <div class="col-xs-1 text-bold text-center">CÒN</div>
+    <div class="col-xs-1 text-bold text-center">ĐV</div>
+    <div class="col-xs-2 text-bold">SL</div>
+    <div class="col-xs-1"></div>
+    <div class="clearfix"></div>
   </div>
-
-  <div class="panel panel-default">
-    <div  class="panel-body">
-      <h4  class="page-header mt0">Compte rendu d'importation</h4>
-      <div >
-        <p >Veuillez importer un fichier ou afficher le compte rendu d'un import depuis l'historique en cliquant sur le bouton "Afficher le compte rendu".</p>
+  <div class="list-under"></div>
+  <div class="col-lg-12 product-list" *ngFor="let product of products">
+    <div class="col-xs-2">
+      <img [src]="getProductImage(product)" alt="{{product.NAME}}">
+    </div>
+    <div class="col-xs-4">
+      <h5 mat-line>{{product.NAME}}</h5>
+    </div>
+    <div class="col-xs-1 text-center">
+      <h5 mat-line>{{product.SL}}</h5>
+    </div>
+    <div class="col-xs-1 text-center">
+      <h5 mat-line>{{product.TYPE}}</h5>
+    </div>
+    <div class="col-xs-2">
+      <div class="input-group">
+        <input type="number" class="form-control" placeholder="0" aria-describedby="basic-addon1">
       </div>
     </div>
+    <div class="col-xs-1">
+      <button type="button" class="btn btn-primary btn-sm">MUA</button>
+    </div>
+    <div class="clearfix"></div>
   </div>
-
-</article>
+</div>
