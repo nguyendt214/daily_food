@@ -3,6 +3,19 @@ $row-background-color : $mu_background_color;
 $backgroundRed:  #F15150;
 $text-normal-color: rgba(0, 0, 0, 0.87);
 :host /deep/ {
+
+  .search-part {
+    height: 45px;
+  }
+  input.price {
+    min-width: 120px;
+  }
+  .hoan-thanh {
+    position: fixed;
+    z-index: 1035;
+    top: 20px;
+    right: 6px;
+  }
   .ccmart {
     .top-list {
       background: #FFF;
@@ -26,12 +39,25 @@ $text-normal-color: rgba(0, 0, 0, 0.87);
         }
       }
     }
+    .btn-primary {
+      background: $backgroundRed;
+      border-color: $backgroundRed;
+      transform: none;
+    }
     .list-under {
       height: 50px;
     }
     .input-group input {
       width: 50px;
       padding: 0 5px;
+    }
+    .button-bought {
+      opacity: 0.85;
+      -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=85)";
+      filter: alpha(opacity=85);
+      -moz-opacity:0.85;
+      -khtml-opacity: 0.85;
+      background: #3F51B5;
     }
   }
 }

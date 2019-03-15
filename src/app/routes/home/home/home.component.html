@@ -1,35 +1,75 @@
-<div class="ccmart">
-  <div class="col-lg-12 product-list top-list navbar-fixed-top">
-    <div class="col-xs-2"></div>
-    <div class="col-xs-4 text-bold">TÊN</div>
-    <div class="col-xs-1 text-bold text-center">CÒN</div>
-    <div class="col-xs-1 text-bold text-center">ĐV</div>
-    <div class="col-xs-2 text-bold">SL</div>
-    <div class="col-xs-1"></div>
-    <div class="clearfix"></div>
+<div *ngIf="!thucDon?.length && pageLoad">
+  <div class="panel panel-default text-center">
+    <div class="panel-body">Chưa có thực đơn cho ngày hôm nay</div>
   </div>
-  <div class="list-under"></div>
-  <div class="col-lg-12 product-list" *ngFor="let product of products">
-    <div class="col-xs-2">
-      <img [src]="getProductImage(product)" alt="{{product.NAME}}">
+</div>
+<div *ngIf="thucDon?.length > 0 && pageLoad">
+  <div class="ccmart">
+    <div class="col-lg-12 product-list top-list navbar-fixed-top">
+      <div class="col-xs-2"></div>
+      <div class="col-xs-4 text-bold">TÊN</div>
+      <div class="col-xs-1 text-bold text-center">CÒN</div>
+      <div class="col-xs-1 text-bold text-center">ĐV</div>
+      <div class="col-xs-2 text-bold">SL</div>
+      <div class="col-xs-1"></div>
+      <div class="clearfix"></div>
     </div>
-    <div class="col-xs-4">
-      <h5 mat-line>{{product.NAME}}</h5>
+    <div class="list-under"></div>
+    <div class="col-lg-12 product-list" *ngFor="let product of thucDon">
+      <div class="col-xs-2">
+        <img [src]="getProductImage(product)" alt="{{product.NAME}}">
+      </div>
+      <div class="col-xs-4">
+        <h5 mat-line>{{product.NAME}}</h5>
+      </div>
+      <div class="col-xs-1 text-center">
+        <h5 mat-line>{{product.SL_THEO_NGAY}}</h5>
+      </div>
+      <div class="col-xs-1 text-center">
+        <h5 mat-line>{{product.TYPE}}</h5>
+      </div>
+      <div class="col-xs-2">
+        <div class="input-group">
+          <input type="number" class="form-control" placeholder="0" aria-describedby="basic-addon1" [(ngModel)]="product.SL_SOLD">
+        </div>
+      </div>
+      <div class="col-xs-1">
+        <button type="button" class="btn btn-primary btn-sm" (click)="muaSanPham(product);"
+          [disabled]="(!product.SL_SOLD || product.SL_SOLD === 0)">{{ getButtonState(product) }}
+        </button>
+      </div>
+      <div class="clearfix"></div>
     </div>
-    <div class="col-xs-1 text-center">
-      <h5 mat-line>{{product.SL}}</h5>
-    </div>
-    <div class="col-xs-1 text-center">
-      <h5 mat-line>{{product.TYPE}}</h5>
-    </div>
-    <div class="col-xs-2">
-      <div class="input-group">
-        <input type="number" class="form-control" placeholder="0" aria-describedby="basic-addon1">
+  </div>
+  <!-- SP VUA MUA -->
+  <div #addToCartModal="bs-modal" bsModal class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body text-center text-bold">
+          {{ addToCartMessage | uppercase }}
+        </div>
       </div>
     </div>
-    <div class="col-xs-1">
-      <button type="button" class="btn btn-primary btn-sm">MUA</button>
+  </div>
+</div>
+<!-- XEM GIO HANG -->
+<button type="button" class="btn btn-danger hoan-thanh" (click)="xemGioHang()" *ngIf="gioHang?.length > 0">XEM GIỎ HÀNG</button>
+<div #giohangModal="bs-modal" bsModal class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Giỏ hàng của Quí Khách hiện có</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="giohangModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p *ngFor="let pro of gioHang; let idx = index;">
+          {{ idx + 1 }}. {{ pro.NAME }} - Gia ban: {{ pro.GIA_THEO_NGAY }} - SL: {{ pro.SL_SOLD }} ({{ pro.TYPE }}) - TỔNG TIỀN: <strong>500 000</strong>
+        </p>
+        <button type="button" class="btn btn-secondary" (click)="giohangModal.hide()">Cám ơn, Tiếp tục mua hàng</button>
+        <button type="button" class="btn btn-primary pull-right" (click)="chotDonHang()">Cám ơn, Tôi muốn chốt đơn hàng!</button>
+      </div>
     </div>
-    <div class="clearfix"></div>
   </div>
 </div>

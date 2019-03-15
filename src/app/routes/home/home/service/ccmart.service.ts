@@ -29,9 +29,17 @@ export class CcmartService {
         )
       );
   }
+
+  getThucDonHomNay(): Observable<Array<any>> {
+    const url = API_URL + 'getThucDonHomNay';
+    return this.httpClient
+      .get<Array<any>>(url);
+  }
+
   getProducts(): Observable<Array<IProduct>> {
     return Observable.of(productData);
   }
+
   taoThucDon(thucDon: any) {
     const url = API_URL + 'taoThucDon';
     const request = this.httpClient.post(url, thucDon);
